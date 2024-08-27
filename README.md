@@ -30,7 +30,7 @@ After attending this course, participants will be able to
 
 | Course Date | Course Title | Location |Citation DOI |
 |-------------|--------------|----------|-------------|
-| 9–14 March 2024 | [Antimicrobial Resistance in Bacterial Pathogens - Africa](https://github.com/WCSCourses/AMR-Africa-24) | National Institute for Communicable Diseases (NICD) - South Africa |Citation DOI |
+| 9–14 March 2024 | [Antimicrobial Resistance in Bacterial Pathogens - Africa](https://github.com/WCSCourses/AMR-Africa-24) | National Institute for Communicable Diseases (NICD) - South Africa | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13380684.svg)](https://doi.org/10.5281/zenodo.13380684) |
 | 2–7 February 2025 | [Antimicrobial Resistance in Bacterial Pathogens - Asia](https://github.com/WCSCourses/AMR-Africa-24) | - |Citation DOI |
 
 
