@@ -59,7 +59,7 @@ After attending this course, participants will be able to:
 - [Aaron Dean](https://uk.linkedin.com/in/aaron-dean-5b5a21163), Laboratory Technical Officer
 - [Christopher Adamson](https://www.wellcomeconnectingscience.org/person/adamson-chris/), Laboratory Operations Officer
 - [Martin Asltett](https://coursesandconferences.wellcomeconnectingscience.org/about-us/the-team/), Informatics Manager
-- [Vaishnavi Vikas Gangadhar](https://www.wellcomeconnectingscience.org/person/gangadhar
+- [Vaishnavi Vikas Gangadhar](https://www.wellcomeconnectingscience.org/person/gangadhar-vaishnavi/), Informatics Technical Officer
 
 ******
 
