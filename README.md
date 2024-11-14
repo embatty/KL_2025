@@ -6,7 +6,7 @@
 
 [Wellcome Connecting Science Course Run Website](https://coursesandconferences.wellcomeconnectingscience.org/event/antimicrobial-resistance-in-bacterial-pathogens-asia-20250202/) <br /> 
 [Course Time Table](#) <br /> 
-[Course Informatics Guide](#)
+[Course Informatics Guide](https://github.com/WCSCourses/AMR_2025/blob/main/AMR_Course_InformaticsGuide_2025.md)
 
 Learn antimicrobial susceptibility testing techniques and how whole-genome sequencing and bioinformatics can be used to understand AMR 
 
