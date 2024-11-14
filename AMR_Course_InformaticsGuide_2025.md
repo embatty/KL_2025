@@ -1,31 +1,32 @@
-# <img src="https://coursesandconferences.wellcomeconnectingscience.org/wp-content/themes/wcc_courses_and_conferences/dist/assets/svg/logo.svg" width="300" height="50"> Add Course Title Informatics Guide
+# <img src="https://coursesandconferences.wellcomeconnectingscience.org/wp-content/themes/wcc_courses_and_conferences/dist/assets/svg/logo.svg" width="300" height="50"> 
+# Antimicrobial Resistance in Bacterial Pathogens - Asia Informatics Guide 2025
 
-**Softwares used during the course**      
+**Software used during the course**      
 
 | Software | Version (if not latest) | Module |Notes |
 |-------------|--------------|----------|-------------|
 | [Software Name](Software link) | Version Details | Module Name| Space for notes |
 
 ## Informatics Set-Up
-We are currently using Oracle VM Virtual Box (https://www.virtualbox.org/) to deliver Informatics, you can find Virtual Box Guides below:
-[Virtual Machine SetUp Guide for Intel-Mac and Windows](https://github.com/WCSCourses/index/blob/main/VM%20Guide.pdf). <br />
+For installation and setup, please refer to the following guides:
 
-The Host OS Requirements for Virtual Box <br />
+- **[Oracle VM VirtualBox Installation Guide](https://github.com/WCSCourses/index/blob/main/VM_Guide.md)** – Detailed instructions for installing and configuring VirtualBox on different operating systems. *(Note: Separate installations are needed for Intel-based and ARM-based Macs, and the VDI files will differ.)*
+
+The Host Operating System Requirements are: <br />
 - RAM requirement: 8GB (preferably 12GB) <br />
 - Processor requirement: 4 processors (preferably 8) <br />
 - Hard disk space: 200GB <br />
 - Admin rights to the computer <br />
 
-Note: Please be aware that Virtual Box is currently incompatible with M1/M2/M3 chips on MacBook.
-It is exclusively designed for use on Intel-based MacBooks. The current version in use is Virtual Box 7.0.
-
 ## Citing and Re-using Course Material
 
 The course data are free to reuse and adapt with appropriate attribution. All course data in these repositories are licensed under the <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>. <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /> 
 
+Each course landing page is assigned a DOI via Zenodo, providing a stable and citable reference. These DOIs can be found on the respective course landing pages and can be included in CVs or research publications, offering a professional record of the course contributions.
+
 ## Interested in attending a course?
 
-Take a look what courses are coming up at [Wellcome Connecting Science Courses & Conference Website](https://coursesandconferences.wellcomeconnectingscience.org/our-events/).
+Take a look at what courses are coming up at [Wellcome Connecting Science Courses & Conference Website](https://coursesandconferences.wellcomeconnectingscience.org/our-events/).
 
 ---
 
