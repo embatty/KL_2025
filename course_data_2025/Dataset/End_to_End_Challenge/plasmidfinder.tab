@@ -1,0 +1,11 @@
+#FILE	SEQUENCE	START	END	STRAND	GENE	COVERAGE	COVERAGE_MAP	GAPS	%COVERAGE	%IDENTITY	DATABASE	ACCESSION	PRODUCT	RESISTANCE
+cpe107.kpn.hybrid.fasta	2	45	461	+	IncA/C2_1	1-417/417	===============	0/0	100	100	plasmidfinder	JN157804	IncA/C2_1__JN157804	
+cpe107.kpn.hybrid.fasta	3	45961	46537	+	IncFII(pKPX1)	1-577/577	===============	0/0	100	100	plasmidfinder	AP012055	IncFII(pKPX1)__AP012055	
+cpe108.kpn.hybrid.fasta	2	45	461	+	IncA/C2_1	1-417/417	===============	0/0	100	100	plasmidfinder	JN157804	IncA/C2_1__JN157804	
+cpe108.kpn.hybrid.fasta	3	45961	46537	+	IncFII(pKPX1)	1-577/577	===============	0/0	100	100	plasmidfinder	AP012055	IncFII(pKPX1)__AP012055	
+cpe109.ehor.hybrid.fasta	2	211	840	+	IncHI2A_1	1-630/630	===============	0/0	100	100	plasmidfinder	BX664015	IncHI2A_1__BX664015	
+cpe109.ehor.hybrid.fasta	2	332025	332351	-	IncHI2_1	1-327/327	===============	0/0	100	100	plasmidfinder	BX664015	IncHI2_1__BX664015	
+cpe109.ehor.hybrid.fasta	2	332969	333563	-	RepA_1_pKPC-CAV1321	2-596/596	========/======	02-Feb	99.66	80.37	plasmidfinder	CP011611	RepA_1_pKPC-CAV1321_CP011611	
+cpe110.ehor.hybrid.fasta	2	211	840	+	IncHI2A_1	1-630/630	===============	0/0	100	100	plasmidfinder	BX664015	IncHI2A_1__BX664015	
+cpe110.ehor.hybrid.fasta	2	332421	332747	-	IncHI2_1	1-327/327	===============	0/0	100	100	plasmidfinder	BX664015	IncHI2_1__BX664015	
+cpe110.ehor.hybrid.fasta	2	333365	333959	-	RepA_1_pKPC-CAV1321	2-596/596	========/======	02-Feb	99.66	80.37	plasmidfinder	CP011611	RepA_1_pKPC-CAV1321_CP011611	
