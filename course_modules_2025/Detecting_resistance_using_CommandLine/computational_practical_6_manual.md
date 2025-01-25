@@ -300,8 +300,8 @@ Click on the ‘Single Genome FASTAs’ option and select the genome assembly fi
 
 The new page (**Figure 5**) will show the status of the different genome analyses being conducted by Pathogenwatch on the background. Click on “**View Genomes**” once all analyses have finalised as pointed by the arrow. In the next window, click on “**View report**”.
 
-<!---![](images/Picture_5.png)--->
-<a href="url"><img src="https://github.com/WCSCourses/AMR_2025/blob/main/course_modules_2025/Detecting_resistance_using_CommandLine/images/Picture_5.png" align="left" ></a>
+<!---<a href="url"><img src="https://github.com/WCSCourses/AMR_2025/blob/main/course_modules_2025/Detecting_resistance_using_CommandLine/images/Picture_5.png" align="left" ></a>--->
+![](images/Picture_5.png)
 **Figure 5.** Pathogenwatch page on analysis status.
 
 The Pathogenwatch genome report (**Figure 6**) contains information on multi-locus sequence typing (MLST) at the top (TYPING) followed by antimicrobial resistance (AMR), and quality control (QC) stats. Spend some time familiarising yourself with the sections and content of the report and ask your instructor for clarifications if needed.
