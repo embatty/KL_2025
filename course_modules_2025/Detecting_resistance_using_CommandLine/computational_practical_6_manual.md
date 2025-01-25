@@ -71,4 +71,65 @@ cp ~/AMR_2025/course_data_2025/cp6/complete_assemblies/cpe069_Eco-NDM1.fasta ~/c
 
 Also, identify and copy the genome assembly of **your assigned CPE strain**.
 
+Finally, launch the course Docker image with cp6 directory monuted to it:
+
+```bash
+docker run -p 5900:5900 -it --mount type=bind,source=$HOME/course/cp6/,target=/home/data amr:Dockerfile
+```
+
+## 4. WGS-based prediction of AMR using AMRFinderPlus <a name="amrfinder"></a>
+
+### Introduction to AMRFinderPlus
+
+To enable accurate assessment of AMR gene content, as part of a multi-agency collaboration, the National Center for Biotechnology Information (NCBI) in the US developed a comprehensive AMR gene database, the Bacterial Antimicrobial Resistance Reference Gene Database, and AMRFinder, an AMR gene detection tool.9 Recently, NCBI released a new version of AMRFinder, known as AMRFinderPlus that, among several new functionalities, has been expanded to detect point mutations in both protein and nucleotide sequences, and taxon-specific analyses that include, or exclude, certain genes and point mutations for specific taxa. (AMRFinderPlus)[https://github.com/ncbi/amr] is available on as a command-line tool only. In this section we will run AMRFinderPlus on the same strain genomes analysed with ResFinder and CARD RGI in previous sections.
+
+### AMRFinderPlus commands
+
+The only required arguments to run AMRFinderPlus are either ```-p <protein_fasta>``` for proteins or ```-n <nucleotide_fasta>``` for nucleotides. Use ```--help``` to see the complete set of options and flags.
+
+```bash
+amrfinder --help
+```
+
+Use ‘amrfinder -u’ to download and prepare database for AMRFinderPlus:
+
+```bash
+amrfinder -u
+```
+
+First, a local database of the latest the latest AMR database must be download.
+
+```bash
+mkdir amrfinder_db
+amrfinder_update -d ./amrfinder_db
+```
+
+After making sure the latest AMR database is downloaded, you can run amrfinder on genome assemblies, as showed in the command line below:
+
+```bash
+amrfinder -n cpe004_Kpn-ST78-NDM1.fasta -O Klebsiella_pneumoniae -o cpe004_Kpn-ST78-NDM_amrfinder.txt
+```
+
+The command above will run amrfinder on the *Klebsiella pneumoniae* strain cpe004 we created an assembly for in previous practicals.
+
+It should take a couple of minutes for this command to finish.
+
+From the command above, note the following chosen options:
+- AMRFinder only supports the processing of input nucleotide sequences in FASTA format (with the ```-n/--nucleotide``` option), and not the analysis of raw reads in fastq format. This means that raw reads must be de novo assembled first.
+- The option ```-o/--output``` allows you to choose the name of the output file.
+- One of the strengths of AMRFinfer is the option ```-O/--organism``` which can be used to get organism-specific results. For those organisms which have been curated, using ```--organism``` will get optimized organism-specific results, and it is therefore recommended. AMRFinderPlus uses the ```--organism``` for screening for point mutations and to filter out genes that are nearly universal in a group and uninformative.
+
+Use ```amrfinder -l``` to list the organism options supported by AMRFinder:
+
+```bash
+amrfinder -l
+```
+
+You will find taxa like ‘Klebsiella_pneumoniae’, ‘Staphylococcus_aureus’ or ‘Salmonella’ included among the list of supported organisms.
+
+Now adapt and run the amrfinder command above on your assigned outbreak strain. First, identify and copy the hybrid assembly of your assigned strain into your working directory. Second, make sure to choose the right organism with the parameter ```-O```. 
+
+
+
+
 
