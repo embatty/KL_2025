@@ -285,32 +285,32 @@ Open the (website)[https://pathogen.watch/] on a new Firefox tab. Click on the �
 
 You will need to sign in using one of the available options (**Figure 2**) before you can upload any genomes.
 
-![](images/Picture 2.png)  
+![](images/Picture_2.png)  
 **Figure 2.** Pathogenwatch log in options.
 
 Once logged in, a new window with genome upload options will appear as shown in **Figure 3**.
 
-![](images/Picture 3.png)  
+![](images/Picture_3.png)  
 **Figure 3.** Pathogenwatch genome upload options.
 
 Click on the ‘Single Genome FASTAs’ option and select the genome assembly file of the **_Klebsiella pneumoniae_ strain cpe004**. Next, a new window with upload information will appear (**Figure 4**). Click on the ‘Add files’ button to open the file browser and select the file ```cpe004_Kpn-ST78-NDM1.fasta```. The file will be uploaded and the analysis will begin automatically.
 
-![](images/Picture 4.png)  
+![](images/Picture_4.png)  
 **Figure 4.** Pathogenwatch genome upload information.
 
 The new page (**Figure 5**) will show the status of the different genome analyses being conducted by Pathogenwatch on the background. Click on “**View Genomes**” once all analyses have finalised as pointed by the arrow. In the next window, click on “**View report**”.
 
-![](images/Picture 5.png)  
+![](images/Picture_5.png)  
 **Figure 5.** Pathogenwatch page on analysis status.
 
 The Pathogenwatch genome report (**Figure 6**) contains information on multi-locus sequence typing (MLST) at the top (TYPING) followed by antimicrobial resistance (AMR), and quality control (QC) stats. Spend some time familiarising yourself with the sections and content of the report and ask your instructor for clarifications if needed.
 
-![](images/Picture 6.png)  
+![](images/Picture_6.png)  
 **Figure 6.** Pathogenwatch genome report for _Klebsiella pneumoniae_ strain cpe004.
 
 Now click on the AMR section of the report (arrow in **Figure 7**). Scroll down and pay particular attention to the ‘Resistance determinants’, that is, the AMR genes and mutations detected in the genome assembly of our strain of interest. Spend some time exploring the AMR report, compare these results with those obtained with AMRFinder and ResFinder for strain cpe004.
 
-![](images/Picture 7.png)  
+![](images/Picture_7.png)  
 **Figure 7.** AMR report for _Klebsiella pneumoniae_ strain cpe004.
 
 Finally, upload the genome assembly of **_E. coli_ cpe069** strain and that of **your assigned CPE strain** by repeating all previous steps (Figures 3 to 6).
