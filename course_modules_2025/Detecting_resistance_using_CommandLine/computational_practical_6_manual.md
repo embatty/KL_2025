@@ -177,9 +177,9 @@ Based on AMRFinderPlus output files, fill in the tables in the Word document **S
 
 ### Introduction to ResFinder
 
-ResFinder, developed by (Center for Genomic Epidemiology at the Technical University of Denmark)[http://www.genomicepidemiology.org/], is a freely accessible tool to identify acquired genes and/or chromosomal mutations mediating antimicrobial resistance in total or partial DNA sequence of bacteria. Published in 2012 for the first time (Zankari *et al.* 2012)[https://doi.org/10.1093/jac/dks261], ResFinder was the first web-based bioinformatics tool developed to provide detection of AMR genes in WGS, aimed at users without specialized bioinformatic skills. A [command-line](https://bitbucket.org/genomicepidemiology/resfinder/) version was later developed which allows the automation of ResFinder analyses within bioinformatic scripts. The authors claim (Florensa *et al.* 2022)[https://doi.org/10.1099/mgen.0.000748] ResFinder has been executed more than 800,000 times from more than 61,000 different users in over 171 countries (web-based version, September 2021).
+ResFinder, developed by [Center for Genomic Epidemiology at the Technical University of Denmark](http://www.genomicepidemiology.org/), is a freely accessible tool to identify acquired genes and/or chromosomal mutations mediating antimicrobial resistance in total or partial DNA sequence of bacteria. Published in 2012 for the first time [Zankari *et al.* 2012](https://doi.org/10.1093/jac/dks261), ResFinder was the first web-based bioinformatics tool developed to provide detection of AMR genes in WGS, aimed at users without specialized bioinformatic skills. A [command-line](https://bitbucket.org/genomicepidemiology/resfinder/) version was later developed which allows the automation of ResFinder analyses within bioinformatic scripts. The authors claim [Florensa *et al.* 2022](https://doi.org/10.1099/mgen.0.000748) ResFinder has been executed more than 800,000 times from more than 61,000 different users in over 171 countries (web-based version, September 2021).
 
-ResFinder, originally developed to detect acquired AMR genes, was later expanded with PointFinder (Zankari *et al.* 2017)[https://doi.org/10.1093/jac/dkx217], a tool that detects chromosomal point mutations mediating resistance to selected antimicrobial agents. Recently, additional databases were developed to link each AMR determinant with phenotypic resistance to specific antimicrobial compounds, and species-specific panels for in silico antibiograms. ResFinder 4.0 (Bortolaia *et al.* 2020)[https://doi.org/10.1093/jac/dkaa345] was validated for several bacterial species including *Salmonella spp.* and *Staphylococcus aureus* strains with a diversity of AST profiles, human and animal sources and geographical origins.
+ResFinder, originally developed to detect acquired AMR genes, was later expanded with PointFinder [Zankari *et al.* 2017](https://doi.org/10.1093/jac/dkx217), a tool that detects chromosomal point mutations mediating resistance to selected antimicrobial agents. Recently, additional databases were developed to link each AMR determinant with phenotypic resistance to specific antimicrobial compounds, and species-specific panels for in silico antibiograms. ResFinder 4.0 [Bortolaia *et al.* 2020](https://doi.org/10.1093/jac/dkaa345) was validated for several bacterial species including *Salmonella spp.* and *Staphylococcus aureus* strains with a diversity of AST profiles, human and animal sources and geographical origins.
 
 ### ResFinder commands
 
@@ -187,7 +187,7 @@ ResFinder can analyse both paired-end Illumina reads in fastq.gz format and geno
 
 Execute the command below to display all ResFinder arguments and options:
 ```bash
-resfinder --help
+python -m resfinder --help
 ```
 
 Next, if not already available, download a local copy of the latest ResFinder databases:
@@ -218,15 +218,15 @@ Remember to set these variables in any new terminal window. Otherwise ResFinder 
 
 Now everything is set to run ResFinder on your terminal screen as shown in the commands below:
 ```bash
-resfinder -ifa cpe004_Kpn-ST78-NDM1.fasta -s "Klebsiella pneumoniae" --acquired --point --outputPath cpe004_Kpn_resfinder
-resfinder -ifa cpe069_Eco-NDM1.fasta -s "Escherichia coli" --acquired --point --outputPath cpe069_Eco_resfinder
+python -m resfinder -ifa cpe004_Kpn-ST78-NDM1.fasta -s "Klebsiella pneumoniae" --acquired --point --outputPath cpe004_Kpn_resfinder
+python -m resfinder -ifa cpe069_Eco-NDM1.fasta -s "Escherichia coli" --acquired --point --outputPath cpe069_Eco_resfinder
 ```
 
 IMPORTANT NOTE: if ResFinder database could not be found (```‘Could not locate ResFinder database path’```, you can use the option ```--db_path_res``` to indicate where the directory of such database is:
 
 ```bash
-resfinder -ifa cpe004_Kpn-ST78-NDM1.fasta -s "Klebsiella pneumoniae" --acquired --point --outputPath cpe004_Kpn_resfinder --db_path_res ./resfinder_db
-resfinder -ifa cpe069_Eco-NDM1.fasta -s "Escherichia coli" --acquired --point --outputPath cpe069_Eco_resfinder --db_path_res ./resfinder_db
+python -m resfinder -ifa cpe004_Kpn-ST78-NDM1.fasta -s "Klebsiella pneumoniae" --acquired --point --outputPath cpe004_Kpn_resfinder --db_path_res ./resfinder_db
+python -m resfinder -ifa cpe069_Eco-NDM1.fasta -s "Escherichia coli" --acquired --point --outputPath cpe069_Eco_resfinder --db_path_res ./resfinder_db
 ```
 
 The command line above was used to run ResFinder on the genome assembly of Klebsiella pneumoniae cpe004 strain (Table 1). Note the following parameters:
@@ -247,7 +247,7 @@ wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/009/ERR4095909/ERR4095909_2.fastq
 In the ResFinder command below note we used the same options as for sample cpe004 except for ‘-ifq’, used here to specify input fastq file(s). ResFinder assumes the input to be single-end fastq if only one file is provided after ‘-ifq’, and to be paired-end data if two files are provided instead.
 
 ```bash
-resfinder -ifq ERR4095909_1.fastq.gz ERR4095909_2.fastq.gz -s "Klebsiella pneumoniae" --acquired --point --outputPath cpe004_ERR4095909_resfinder --db_path_res ./resfinder_db
+python -m resfinder -ifq ERR4095909_1.fastq.gz ERR4095909_2.fastq.gz -s "Klebsiella pneumoniae" --acquired --point --outputPath cpe004_ERR4095909_resfinder --db_path_res ./resfinder_db
 ```
 
 If you could not download the fastq.gz files of sample ERR4095909, remember you can run ResFinder on its assembly file (cpe004_Kpn-ST78-NDM1.fasta) as done earlier.
@@ -256,14 +256,14 @@ If you could not download the fastq.gz files of sample ERR4095909, remember you 
 
 You can use the commands below to run ResFinder for the *S. aureus* samples:
 ```bash
-resfinder -ifa HO50960412.fa -s "Staphylococcus aureus" --acquired --point --outputPath HO50960412_resfinder --db_path_res ./resfinder_db
-resfinder -ifa ERR017261.assembly.fa -s "Staphylococcus aureus" --acquired --point --outputPath ERR017261_resfinder --db_path_res ./resfinder_db
+python -m resfinder -ifa HO50960412.fa -s "Staphylococcus aureus" --acquired --point --outputPath HO50960412_resfinder --db_path_res ./resfinder_db
+python -m resfinder -ifa ERR017261.assembly.fa -s "Staphylococcus aureus" --acquired --point --outputPath ERR017261_resfinder --db_path_res ./resfinder_db
 ```
 
 You can use the commands below to run ResFinder for the *S. typhi* samples:
 ```bash
-resfinder -ifa ERR2093245.assembly.fa -s "Salmonella enterica" --acquired --point --outputPath ERR2093245_resfinder --db_path_res ./resfinder_db
-resfinder -ifa ERR2093329.assembly.fa -s "Salmonella enterica" --acquired --point --outputPath ERR2093329_resfinder --db_path_res ./resfinder_db
+python -m resfinder -ifa ERR2093245.assembly.fa -s "Salmonella enterica" --acquired --point --outputPath ERR2093245_resfinder --db_path_res ./resfinder_db
+python -m resfinder -ifa ERR2093329.assembly.fa -s "Salmonella enterica" --acquired --point --outputPath ERR2093329_resfinder --db_path_res ./resfinder_db
 ```
 
 ### Interpreting ResFinder results
