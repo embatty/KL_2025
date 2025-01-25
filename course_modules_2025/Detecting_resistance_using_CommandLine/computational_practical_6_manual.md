@@ -71,10 +71,10 @@ cp ~/AMR_2025/course_data_2025/cp6/complete_assemblies/cpe069_Eco-NDM1.fasta ~/c
 
 Copy the genome assemblies of the additional strains in Table 2 (the analysis of these strains is optional):
 ```bash
-cp ~/AMR_2025/course_data_2025/cp6/additional_assemblies/HO50960412.fa ~/course/cp6/
-cp ~/AMR_2025/course_data_2025/cp6/additional_assemblies/ERR017261.assembly.fa ~/course/cp6/
-cp ~/AMR_2025/course_data_2025/cp6/additional_assemblies/ERR2093245.assembly.fa ~/course/cp6/
-cp ~/AMR_2025/course_data_2025/cp6/additional_assemblies/ERR2093329.assembly.fa ~/course/cp6/
+cp ~/AMR_2025/course_data_2025/cp6/additional_genomes/HO50960412.fa ~/course/cp6/
+cp ~/AMR_2025/course_data_2025/cp6/additional_genomes/ERR017261.assembly.fa ~/course/cp6/
+cp ~/AMR_2025/course_data_2025/cp6/additional_genomes/ERR2093245.assembly.fa ~/course/cp6/
+cp ~/AMR_2025/course_data_2025/cp6/additional_genomes/ERR2093329.assembly.fa ~/course/cp6/
 ```
 
 Also, identify and copy the genome assembly of **your assigned CPE strain** (the one on your EpiCollect sheet).
