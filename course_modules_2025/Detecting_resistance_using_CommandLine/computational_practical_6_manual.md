@@ -50,5 +50,25 @@ Table 2 Additional strains to be analysed (optional).
 | *S. typhi*	| Klemm *et al.* 2018 (ACT), Pakistan, 2016, 4.3.1 (H58) XDR | BL0006 | ERR2093245	| ERR2093245.assembly.fa |
 | *S. typhi* | Klemm *et al.* 2018, Pakistan (2016) – 4.3.1 (H58) pre-XDR	| Pak60168 | ERR2093329	|ERR2093329.assembly.fa |
 
+If you haven’t done so already, clone the course Github directory into your home directory:
+
+```bash
+cd ~
+git clone https://github.com/WCSCourses/AMR_2025/
+```
+
+Create a new directory for this practical named ‘cp6’ and navigate to this directory:
+```bash
+mkdir ~/course/cp6/
+cd ~/course/cp6/
+```
+
+And copy the genome assemblies we will use (i.e., those in Tables 1 and 2) into cp6 directory:
+```bash
+cp ~/AMR_2025/course_data_2025/cp6/complete_assemblies/cpe004_Kpn-ST78-NDM1.fasta ~/course/cp6/
+cp ~/AMR_2025/course_data_2025/cp6/complete_assemblies/cpe069_Eco-NDM1.fasta ~/course/cp6/
+```
+
+Also, identify and copy the genome assembly of **your assigned CPE strain**.
 
 
