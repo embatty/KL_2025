@@ -94,7 +94,7 @@ cd /home/data
 
 ### Introduction to AMRFinderPlus
 
-To enable accurate assessment of AMR gene content, as part of a multi-agency collaboration, the National Center for Biotechnology Information (NCBI) in the US developed a comprehensive AMR gene database, the Bacterial Antimicrobial Resistance Reference Gene Database, and AMRFinder, an AMR gene detection tool.9 Recently, NCBI released a new version of AMRFinder, known as AMRFinderPlus that, among several new functionalities, has been expanded to detect point mutations in both protein and nucleotide sequences, and taxon-specific analyses that include, or exclude, certain genes and point mutations for specific taxa. (AMRFinderPlus)[https://github.com/ncbi/amr] is available on as a command-line tool only. In this section we will run AMRFinderPlus on the same strain genomes analysed with ResFinder and CARD RGI in previous sections.
+To enable accurate assessment of AMR gene content, as part of a multi-agency collaboration, the National Center for Biotechnology Information (NCBI) in the US developed a comprehensive AMR gene database, the Bacterial Antimicrobial Resistance Reference Gene Database, and AMRFinder, an AMR gene detection tool.9 Recently, NCBI released a new version of AMRFinder, known as AMRFinderPlus that, among several new functionalities, has been expanded to detect point mutations in both protein and nucleotide sequences, and taxon-specific analyses that include, or exclude, certain genes and point mutations for specific taxa. [AMRFinderPlus](https://github.com/ncbi/amr) is available on as a command-line tool only. In this section we will run AMRFinderPlus on the same strain genomes analysed with ResFinder and CARD RGI in previous sections.
 
 ### AMRFinderPlus commands
 
@@ -205,27 +205,28 @@ python3 INSTALL.py kma_index
 cd ..
 cd disinfinder_db
 python3 INSTALL.py kma_index
+cd ..
 ```
 
 Set approximate environment bash variables for ResFinder executable to locate these databases.
 ```bash
-export CGE_RESFINDER_RESGENE_DB="/home/manager/course/cp6/resfinder_db";
-export CGE_RESFINDER_RESPOINT_DB="/home/manager/course/cp6/pointfinder_db";
-export CGE_DISINFINDER_DB="/home/manager/course/cp6/disinfinder_db";
+export CGE_RESFINDER_RESGENE_DB="/home/data/resfinder_db";
+export CGE_RESFINDER_RESPOINT_DB="/home/data/pointfinder_db";
+export CGE_DISINFINDER_DB="/home/data/disinfinder_db";
 ```
 
 Remember to set these variables in any new terminal window. Otherwise ResFinder will exist with the error: ‘Could not locate ResFinder database path’.
 
 Now everything is set to run ResFinder on your terminal screen as shown in the commands below:
 ```bash
-python -m resfinder -ifa cpe004_Kpn-ST78-NDM1.fasta -s "Klebsiella pneumoniae" --acquired --point --outputPath cpe004_Kpn_resfinder
+python -m resfinder -ifa cpe004_Kpn-ST78-NDM1.fasta -s "Klebsiella" --acquired --point --outputPath cpe004_Kpn_resfinder
 python -m resfinder -ifa cpe069_Eco-NDM1.fasta -s "Escherichia coli" --acquired --point --outputPath cpe069_Eco_resfinder
 ```
 
 IMPORTANT NOTE: if ResFinder database could not be found (```‘Could not locate ResFinder database path’```, you can use the option ```--db_path_res``` to indicate where the directory of such database is:
 
 ```bash
-python -m resfinder -ifa cpe004_Kpn-ST78-NDM1.fasta -s "Klebsiella pneumoniae" --acquired --point --outputPath cpe004_Kpn_resfinder --db_path_res ./resfinder_db
+python -m resfinder -ifa cpe004_Kpn-ST78-NDM1.fasta -s "Klebsiella" --acquired --point --outputPath cpe004_Kpn_resfinder --db_path_res ./resfinder_db
 python -m resfinder -ifa cpe069_Eco-NDM1.fasta -s "Escherichia coli" --acquired --point --outputPath cpe069_Eco_resfinder --db_path_res ./resfinder_db
 ```
 
@@ -247,7 +248,7 @@ wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/009/ERR4095909/ERR4095909_2.fastq
 In the ResFinder command below note we used the same options as for sample cpe004 except for ‘-ifq’, used here to specify input fastq file(s). ResFinder assumes the input to be single-end fastq if only one file is provided after ‘-ifq’, and to be paired-end data if two files are provided instead.
 
 ```bash
-python -m resfinder -ifq ERR4095909_1.fastq.gz ERR4095909_2.fastq.gz -s "Klebsiella pneumoniae" --acquired --point --outputPath cpe004_ERR4095909_resfinder --db_path_res ./resfinder_db
+python -m resfinder -ifq ERR4095909_1.fastq.gz ERR4095909_2.fastq.gz -s "Klebsiella" --acquired --point --outputPath cpe004_ERR4095909_resfinder --db_path_res ./resfinder_db
 ```
 
 If you could not download the fastq.gz files of sample ERR4095909, remember you can run ResFinder on its assembly file (cpe004_Kpn-ST78-NDM1.fasta) as done earlier.
