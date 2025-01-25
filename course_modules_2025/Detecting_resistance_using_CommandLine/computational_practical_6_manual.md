@@ -85,6 +85,11 @@ Finally, launch the course Docker image with cp6 directory mounted to it:
 docker run -p 5900:5900 -it --mount type=bind,source=$HOME/course/cp6/,target=/home/data amr:Dockerfile
 ```
 
+Once inside the Docker environment, navidate to `/home/data` where you should find the genome assemblies you just copied:
+```bash
+cd /home/data
+```
+
 ## 4. WGS-based prediction of AMR using AMRFinderPlus <a name="amrfinder"></a>
 
 ### Introduction to AMRFinderPlus
@@ -120,7 +125,7 @@ amrfinder -n cpe004_Kpn-ST78-NDM1.fasta -O Klebsiella_pneumoniae -o cpe004_Kpn-S
 
 The command above will run amrfinder on the *Klebsiella pneumoniae* strain cpe004 we created an assembly for in previous practicals.
 
-It should take a couple of minutes for this command to finish.
+It should take a few minutes for this command to finish.
 
 From the command above, note the following chosen options:
 - AMRFinder only supports the processing of input nucleotide sequences in FASTA format (with the ```-n/--nucleotide``` option), and not the analysis of raw reads in fastq format. This means that raw reads must be de novo assembled first.
@@ -137,7 +142,7 @@ You will find taxa like ‘Klebsiella_pneumoniae’, ‘Staphylococcus_aureus’
 
 The command below will execute AMRFinder on our CPE *E. coli* strain of interest (Table 1):
 ```bash
-amrfinder -n cpe069_Eco-NDM1.fasta -O Escherichia_coli -o cpe069_Eco-NDM1_amrfinder.txt
+amrfinder -n cpe069_Eco-NDM1.fasta -O Escherichia -o cpe069_Eco-NDM1_amrfinder.txt
 ```
 
 Now adapt and run the amrfinder command above on your assigned outbreak strain. First, identify and copy the hybrid assembly of your assigned strain into your working directory. Second, make sure to choose the right organism with the parameter ```-O```.
