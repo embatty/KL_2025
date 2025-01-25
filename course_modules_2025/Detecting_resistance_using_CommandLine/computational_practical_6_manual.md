@@ -275,6 +275,7 @@ Based on the ResFinder commands run in the previous section, you should have obt
 
 Based on the ResFinder output files, fill in the tables in the Word document **Summary of genotypic AMR results - CPE strains.docx** (Figure 1) to facilitate comparison of WGS-predicted antibiograms between tools.
 
+<!---
 ## 6. AMR detection using Pathogenwatch <a name="pathogenwatch"></a>
 
 (Pathogenwatch)[https://pathogen.watch/] is one of most intuitive an easy-to-use web-based platforms for the analysis of bacterial genomes, developed by The Centre for Genomic Pathogen Surveillance (CGPS), UK, that can be used to detect AMR in the genomes of many bacterial pathogens (but not all). You will be provided with pre-generated genome assemblies that can be directly uploaded as input to this tool. Once uploaded, Pathogenwatch performs strain identification, multi-locus sequence typing (MLST) and resistance prediction in an automated manner. Recently, the website was upgraded with the option to upload raw sequencing reads (those obtained directly from sequencing machines without further bioinformatic processing), but as the upload and analysis of raw reads takes much longer, we will be upload the genome assemblies provided instead.
@@ -300,7 +301,6 @@ Click on the ‘Single Genome FASTAs’ option and select the genome assembly fi
 
 The new page (**Figure 5**) will show the status of the different genome analyses being conducted by Pathogenwatch on the background. Click on “**View Genomes**” once all analyses have finalised as pointed by the arrow. In the next window, click on “**View report**”.
 
-<!---<a href="url"><img src="https://github.com/WCSCourses/AMR_2025/blob/main/course_modules_2025/Detecting_resistance_using_CommandLine/images/Picture_5.png" align="left" ></a>--->
 ![](images/Picture_5.png)
 **Figure 5.** Pathogenwatch page on analysis status.
 
@@ -318,7 +318,19 @@ Finally, upload the genome assembly of **_E. coli_ cpe069** strain and that of *
 
 ### Optional - if time allow
 Additionally, obtain the Pathogenwatch report for the two additional *S. aureus* (from genome assembly files ``HO50960412.fa`` & ``ERR017261.assembly.fa``) and the two *S. typhi* strains (from genome assembly files ``ERR2093245.assembly.fa`` & ``ERR2093329.assembly.fa``).
+--->
 
+## 6. AMR detection using Pathogenwatch <a name="pathogenwatch"></a>
+
+See section in PDF manual `2025_Detecting AMR from genomes - online tools.pdf`
+
+## 7. AMR detection using ResFinder Website – Optional <a name="resfinderw"></a>
+
+See section in PDF manual `2025_Detecting AMR from genomes - online tools.pdf`
+
+## 8. AMR detection using CARD RGI Website - Optional <a name="card"></a>
+
+See section in PDF manual `2025_Detecting AMR from genomes - online tools.pdf`
 
 
 
