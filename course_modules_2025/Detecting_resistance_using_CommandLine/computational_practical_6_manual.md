@@ -260,3 +260,66 @@ You can use the commands below to run ResFinder for the *S. typhi* samples:
 resfinder -ifa ERR2093245.assembly.fa -s "Salmonella enterica" --acquired --point --outputPath ERR2093245_resfinder --db_path_res ./resfinder_db
 resfinder -ifa ERR2093329.assembly.fa -s "Salmonella enterica" --acquired --point --outputPath ERR2093329_resfinder --db_path_res ./resfinder_db
 ```
+
+### Interpreting ResFinder results
+
+Based on the ResFinder commands run in the previous section, you should have obtained a ‘_resfinder’ output directory for each of the samples analysed. Out of the various output files, the following ones are key for interpretation:
+
+- ```ResFinder_results_table.txt```: summary of detected acquired AMR genes by antibiotic class, including BLAST statistics such as percentage of nucleotide identity or percentage of gene length covered.
+- ```PointFinder_table.txt```: summary of chromosomal genes scanned for AMR point mutations for the chosen bacterial species.
+- ```PointFinder_results.txt```: detected AMR chromosomal point mutations in your sample, and associated phenotypic resistance.
+- ```pheno_table_[species].txt```: ResFinder (including PointFinder) WGS-predicted phenotypes for the bacterial species chosen, including the detected genetic determinants supporting such prediction.
+- ```pheno_table.txt```: ResFinder (including PointFinder) WGS-predicted phenotypes for all antibiotics included in this database. These results should be interpreted with caution, and the file pheno_table_[species].txt prioritised for reporting.
+
+**IMPORTANT**: Out of all these output files, we should focus on ```pheno_table_[species].txt```, as it contains WGS-predicted phenotypes that are specific for the chosen bacterial species. Also, look at file PointFinder_results.txt to extract AMR point mutations.
+
+Based on the ResFinder output files, fill in the tables in the Word document **Summary of genotypic AMR results - CPE strains.docx** (Figure 1) to facilitate comparison of WGS-predicted antibiograms between tools.
+
+## 6. AMR detection using Pathogenwatch <a name="pathogenwatch"></a>
+
+(Pathogenwatch)[https://pathogen.watch/] is one of most intuitive an easy-to-use web-based platforms for the analysis of bacterial genomes, developed by The Centre for Genomic Pathogen Surveillance (CGPS), UK, that can be used to detect AMR in the genomes of many bacterial pathogens (but not all). You will be provided with pre-generated genome assemblies that can be directly uploaded as input to this tool. Once uploaded, Pathogenwatch performs strain identification, multi-locus sequence typing (MLST) and resistance prediction in an automated manner. Recently, the website was upgraded with the option to upload raw sequencing reads (those obtained directly from sequencing machines without further bioinformatic processing), but as the upload and analysis of raw reads takes much longer, we will be upload the genome assemblies provided instead.
+
+Open the (website)[https://pathogen.watch/] on a new Firefox tab. Click on the “upload” button at the top right corner as indicated by the arrow in **Figure 1**.
+![](images/Picture 1.png)  
+**Figure 1.** Pathogenwatch home page.
+
+You will need to sign in using one of the available options (**Figure 2**) before you can upload any genomes.
+
+![](images/Picture 2.png)  
+**Figure 2.** Pathogenwatch log in options.
+
+Once logged in, a new window with genome upload options will appear as shown in **Figure 3**.
+
+![](images/Picture 3.png)  
+**Figure 3.** Pathogenwatch genome upload options.
+
+Click on the ‘Single Genome FASTAs’ option and select the genome assembly file of the **_Klebsiella pneumoniae_ strain cpe004**. Next, a new window with upload information will appear (**Figure 4**). Click on the ‘Add files’ button to open the file browser and select the file ```cpe004_Kpn-ST78-NDM1.fasta```. The file will be uploaded and the analysis will begin automatically.
+
+![](images/Picture 4.png)  
+**Figure 4.** Pathogenwatch genome upload information.
+
+The new page (**Figure 5**) will show the status of the different genome analyses being conducted by Pathogenwatch on the background. Click on “**View Genomes**” once all analyses have finalised as pointed by the arrow. In the next window, click on “**View report**”.
+
+![](images/Picture 5.png)  
+**Figure 5.** Pathogenwatch page on analysis status.
+
+The Pathogenwatch genome report (**Figure 6**) contains information on multi-locus sequence typing (MLST) at the top (TYPING) followed by antimicrobial resistance (AMR), and quality control (QC) stats. Spend some time familiarising yourself with the sections and content of the report and ask your instructor for clarifications if needed.
+
+![](images/Picture 6.png)  
+**Figure 6.** Pathogenwatch genome report for _Klebsiella pneumoniae_ strain cpe004.
+
+Now click on the AMR section of the report (arrow in **Figure 7**). Scroll down and pay particular attention to the ‘Resistance determinants’, that is, the AMR genes and mutations detected in the genome assembly of our strain of interest. Spend some time exploring the AMR report, compare these results with those obtained with AMRFinder and ResFinder for strain cpe004.
+
+![](images/Picture 7.png)  
+**Figure 7.** AMR report for _Klebsiella pneumoniae_ strain cpe004.
+
+Finally, upload the genome assembly of **_E. coli_ cpe069** strain and that of **your assigned CPE strain** by repeating all previous steps (Figures 3 to 6).
+
+### Optional - if time allow
+Additionally, obtain the Pathogenwatch report for the two additional *S. aureus* (from genome assembly files ``HO50960412.fa`` & ``ERR017261.assembly.fa``) and the two *S. typhi* strains (from genome assembly files ``ERR2093245.assembly.fa`` & ``ERR2093329.assembly.fa``).
+
+
+
+
+
+
