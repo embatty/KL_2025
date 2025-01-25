@@ -163,8 +163,10 @@ The table below includes a few rows and some of the columns of the AMRFinderPlus
 
 The column ‘Gene symbol’ indicates the genetic determinant (either acquired gene or point mutation) associated with phenotypic resistance, the latter indicated in the column ‘Subclass’.
 
-Based on AMRFinderPlus output files, fill in the tables in the Word document **Summary of genotypic AMR results - CPE strains.docx** to facilitate comparison of WGS-predicted antibiograms between strains.
+Based on AMRFinderPlus output files, fill in the tables in the Word document **Summary of genotypic AMR results - CPE strains.docx** (Figure 1) to facilitate comparison of WGS-predicted antibiograms between tools.
 
+![](images/summary_table_amr.png)  
+**Figure 1.** Summary of genotypic and phenotypic antibiogram for K. pnemoniae cpe004 strain.
 
 
 
