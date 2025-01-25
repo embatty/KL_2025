@@ -69,9 +69,17 @@ cp ~/AMR_2025/course_data_2025/cp6/complete_assemblies/cpe004_Kpn-ST78-NDM1.fast
 cp ~/AMR_2025/course_data_2025/cp6/complete_assemblies/cpe069_Eco-NDM1.fasta ~/course/cp6/
 ```
 
-Also, identify and copy the genome assembly of **your assigned CPE strain**.
+Copy the genome assemblies of the additional strains in Table 2 (the analysis of these strains is optional):
+```bash
+cp ~/AMR_2025/course_data_2025/cp6/additional_assemblies/HO50960412.fa ~/course/cp6/
+cp ~/AMR_2025/course_data_2025/cp6/additional_assemblies/ERR017261.assembly.fa ~/course/cp6/
+cp ~/AMR_2025/course_data_2025/cp6/additional_assemblies/ERR2093245.assembly.fa ~/course/cp6/
+cp ~/AMR_2025/course_data_2025/cp6/additional_assemblies/ERR2093329.assembly.fa ~/course/cp6/
+```
 
-Finally, launch the course Docker image with cp6 directory monuted to it:
+Also, identify and copy the genome assembly of **your assigned CPE strain** (the one on your EpiCollect sheet).
+
+Finally, launch the course Docker image with cp6 directory mounted to it:
 
 ```bash
 docker run -p 5900:5900 -it --mount type=bind,source=$HOME/course/cp6/,target=/home/data amr:Dockerfile
@@ -127,7 +135,35 @@ amrfinder -l
 
 You will find taxa like ‘Klebsiella_pneumoniae’, ‘Staphylococcus_aureus’ or ‘Salmonella’ included among the list of supported organisms.
 
-Now adapt and run the amrfinder command above on your assigned outbreak strain. First, identify and copy the hybrid assembly of your assigned strain into your working directory. Second, make sure to choose the right organism with the parameter ```-O```. 
+The command below will execute AMRFinder on our CPE *E. coli* strain of interest (Table 1):
+```bash
+amrfinder -n cpe069_Eco-NDM1.fasta -O Escherichia_coli -o cpe069_Eco-NDM1_amrfinder.txt
+```
+
+Now adapt and run the amrfinder command above on your assigned outbreak strain. First, identify and copy the hybrid assembly of your assigned strain into your working directory. Second, make sure to choose the right organism with the parameter ```-O```.
+
+It time allows, come back to this section later to run AMRFinder on the additional strains:
+```bash
+amrfinder -n HO50960412.fa -O Staphylococcus_aureus -o HO50960412_amrfinder.txt
+amrfinder -n ERR017261.assembly.fa -O Staphylococcus_aureus -o ERR017261_amrfinder.txt
+amrfinder -n ERR2093245.assembly.fa -O Salmonella -o ERR2093245_amrfinder.txt
+amrfinder -n ERR2093329.assembly.fa -O Salmonella -o ERR2093329_amrfinder.txt
+```
+
+### Interpreting AMRFinderPlus results
+
+The table below includes a few rows and some of the columns of the AMRFinderPlus output of *Klebsiella pneumoniae* strain cpe004 (file cpe004_Kpn-ST78-NDM_amrfinder.txt).
+
+| Gene symbol | Sequence name | Element subtype | Subclass |
+| :---        | :---          | :---            | :---     |  
+| aph(3')-VI	| APH(3')-VI family aminoglycoside O-phosphotransferase	| AMR | AMIKACIN/KANAMYCIN |
+| aac(6')-Ib-cr5	| fluoroquinolone-acetylating aminoglycoside 6'-N-acetyltransferase AAC(6')-Ib-cr5 | AMR | AMIKACIN/KANAMYCIN/QUINOLONE/TOBRAMYCIN |
+| aac(6')-Ib-cr5 | fluoroquinolone-acetylating aminoglycoside 6'-N-acetyltransferase AAC(6')-Ib-cr5	| AMR | AMIKACIN/KANAMYCIN/QUINOLONE/TOBRAMYCIN |
+| aac(6')-Ib	| AAC(6')-Ib family aminoglycoside 6'-N-acetyltransferase	| AMR	| AMIKACIN/KANAMYCIN/TOBRAMYCIN |
+
+The column ‘Gene symbol’ indicates the genetic determinant (either acquired gene or point mutation) associated with phenotypic resistance, the latter indicated in the column ‘Subclass’.
+
+Based on AMRFinderPlus output files, fill in the tables in the Word document **Summary of genotypic AMR results - CPE strains.docx** to facilitate comparison of WGS-predicted antibiograms between strains.
 
 
 
