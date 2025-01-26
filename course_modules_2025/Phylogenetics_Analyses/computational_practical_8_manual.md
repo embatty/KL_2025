@@ -13,7 +13,7 @@ Module Developers: Dr. Pakorn Aiewsakun and Dr Francesc Coll I Cerezo
 8. [Relatedness](#relatedness)
 9. [Trait evolution](#trait)
 10. [Types of phylogenetic groups](#types)
-11. [Detecting potential conflicting evolutionary signals within the MSA](#types)
+11. [Detecting potential conflicting evolutionary signals within the MSA](#recombination)
 12. [Phylogenetic network reconstruction](#network)
 13. [Take-home messages](#messages)
 14. [Answers to exercises on interpreting phylogenetic trees](#answers)
@@ -209,37 +209,24 @@ To use `FigTree` to explore the tree you just made, first launch the program by 
 Q: Inspect your ML tree using Figtree, and explore the program a bit. Does the tree look alright in your opinion? How are strains clustered on the tree? How good is the bootstrap value supporting this clustering? 
 
 ## 5. Phylogeny estimation with bootstrapping <a name="bootstrapping"></a>
-
-It is important to appreciate that phylogenetic inference is inherently statistical, guided by only a limited number of organisms that we could get our hands on, and done under a large number of statistical and biological assumptions. Thus, **uncertainty** in the estimated tree should always be taken into consideration when describing **inferred phylogenetic groups** (and evolutionary relationships in general).
-
-However, as previously mentioned, an **ML method** only provides a single ‘**best-fit evolutionary model**’ that most likely generates the observed data (your MSA in this case). So, how can we estimate an uncertainty associated with this one ML solution?
-
-In this case, we can use the ‘**bootstrap**’ method, invented by Bradley Efron in 1979. The term is derived from the phrase ‘pull yourself up by your bootstraps’, meaning ‘to improve one’s situation through hard work and self-determination, rather than getting assistance from someone else’. 
-
-In statistics, **bootstrapping** is a technique to assign variability to sample estimates, relying on **random sampling with replacement**. In our context, it is our MSA that will be bootstrapped, that is, resampled by randomly selecting sites (i.e., columns) with replacement to construct a (pseudo)replicate alignment of the same length. This means that some columns may be sampled multiple times since the sampling is with replacement, and thus the resulting MSA would be slightly different from the original data. This sequence alignment is called a **bootstrap replicate** or sometimes a **pseudoreplicate dataset**. We can then perform the same analysis on this bootstrap sample to get a bootstrap tree (and other associated parameters). Repeat this process a large number of times (typically 1,000 times, or more) until a population of bootstrap trees (and other evolutionary parameters) is obtained. Once we have a distribution of bootstrap trees, we can then compute **bootstrap clade support values** (also known as **branch support** values) for each clade in your main tree — classically, a bootstrap clade support value is defined as ‘the proportion of the trees in the bootstrap distribution showing that clade’, first proposed by Felsenstein in 1985. Robust relationship should be repeatable, and subsequently observed in a large proportion of the bootstrap data. Therefore, if you get 100 out of 100 times for a particular clade, you may therefore conclude that the observed clade is likely not due to chance, but a real one. A clade with a bootstrap support value of, say, 80 means that 80% of the trees in the bootstrap distribution contain that clade. 
-
-One of the most common misconceptions about clade support values is that they indicate the confidence in the ‘split’ at the base of the clade. This is false — the number does not say anything about the branching structure of or within the clade it refers to. This confusion perhaps stems from the fact that support values are sometimes shown next to the nodes on the end of branches, which represent diversification events. Thus, if possible, it is best to display branch support values on branches, and not on nodes, to avoid propagating this confusion.
-
-One important thing to note here is that, according to the `IQ-TREE 2` developer, the ultrafast bootstrap (UFBoot) method implemented in `IQ-TREE 2` is less unbiased compared to the classic (and more conservative) Felsenstein’s bootstrap support value described above — while a clade with a Felsenstein’s **support value of 75–80%** is typically already considered ‘**well-supported**’, it is recommended that a clade should be regarded as well-supported when its **UFBoot support is ≥95%**, corresponds roughly to a probability of 95% that a clade is true. Learn more about this [here](http://www.iqtree.org/doc/Frequently-Asked-Questions#how-do-i-interpret-ultrafast-bootstrap-ufboot-support-values).
-
-Now, let’s have a look at the clade support in your tree. To display branch support on the tree in `Figtree`, check the “`Branch Labels`” box, and select “`Clade support`” under the “`Display`” option (**Figure 6**). If you find the numbers too small, you can increase the font size by adjusting the number in the “`Font Size`” box.
-
-![](images/phy_Figure_6.png)  
-**Figure 6 Figtree showing clade support.**
+See section in PDF manual of this module.
 
 ## 6. Rooting your tree <a name="rooting"></a>
+See section in PDF manual of this module.
 
-As stated earlier, for a phylogeny to show **genealogical relationships**, which intrinsically have a time direction, you need to first **root your tree**. `IQ-TREE 2` does not root the tree for you, and it actually cannot, as there is no temporal information to be found at all in your MSA — your MSA can only provide information about genetic dissimilarity among a set of organisms, and not at all about the direction of molecular changes or time. This is actually why most common nucleotide substation models are time-reversible, and why `IQ-TREE 2` can’t give you a rooted tree. An ‘**unrooted tree**’, also known as an ‘affinity tree’, simply indicates the overall degrees of dissimilarity among the depicted taxa.
+## 7. How to read a phylogenetic tree <a name="readtree"></a>
+See section in PDF manual of this module.
 
-There are several ways to root an unrooted tree, but here, we will included `Germany_2019_Kpn_ST78` as an outgroup in our analysis, and we will use this information to specify the direction of time in our phylogeny. An outgroup is simply a group of organisms, or strains of the same organism, that you know for certain from some other sources of information that they may be genetically related but not part of your in-group, in our case, the outbreak strains investigated in these analyses. In `Figtree`, open the tree generated by `IQ-TREE 2` and visualise the layout and clustering of strains on this tree (**Figure 7**).
+## 8. Relatedness <a name="relatedness"></a>
+See section in PDF manual of this module.
 
-![](images/phy_Figure_7.png)  
-**Figure 7 Figtree showing tree before rooting.**
+## 9. Trait evolution <a name="trait"></a>
+See section in PDF manual of this module.
 
-Now, simply click on the terminal branch leading to strain Germany_2019_Kpn_ST78 and click the “Reroot” icon on the main menu bar to root your tree. How was the clustering of strains changed? (**Figure 8**).
+## 10. Types of phylogenetic groups <a name="types"></a>
+See section in PDF manual of this module.
 
-![](images/phy_Figure_8.png)  
-**Figure 8 Figtree showing tree after rooting.**
+## 11. Detecting potential conflicting evolutionary signals within the MSA <a name="recombination"></a>
 
-Q: Why do you think the strain ‘`Germany_2019_Kpn_ST78`’ was chosen as an outgroup (`-o` option)? Tip: observe the SNP distances derived by pairsnp from your MSA.
+
 
