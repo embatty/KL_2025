@@ -228,5 +228,7 @@ See section in PDF manual of this module.
 
 ## 11. Detecting potential conflicting evolutionary signals within the MSA <a name="recombination"></a>
 
+Owing to the now highly affordable and advanced sequencing technologies, phylogenetic analysis using entire whole genome sequences or gene sequences or SNP sites sampled across the entire genomes is now a common practice, especially in the field of bacteriology. This is actually precisely what we are doing here! It might not look like it as our SNP alignment is very short, but it contains all polymorphic sites from our bacteria’s entire genomes already! While this might not be applicable to us, generally, especially in a **large-scale phylogenomic** study of bacteria, reconstructing a phylogeny from whole genome sequence data is very challenging, if not problematic. This is in part due to that many bacteria often have so-called ‘**mosaic genomes**’, in which different regions have different past histories.
+
 
 
