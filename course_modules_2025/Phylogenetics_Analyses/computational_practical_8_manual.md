@@ -87,7 +87,7 @@ cd /home/data
 
 We will create the whole-genome sequence alignment by concatenating the Snippy consensus sequence of all 14 K. pneumoniae ST78 isolates:
 ```bash
-cat "./snippy_files/"*.consensus.fa > Kpn_ST78.cpe058.mfa
+cat *.consensus.fa > Kpn_ST78.cpe058.mfa
 ```
 
 Next, it is good practice to run tools like `seqkit` to confirm the expected length of the MSA and the total number of expected sequences in it:
