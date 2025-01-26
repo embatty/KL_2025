@@ -59,7 +59,18 @@ The very first and arguably the most critical step in reconstructing a phylogeny
 
 In the previous session, you we run **Snippy** to map the short Illumina reads and **call SNPs** for each individual CPE *Klebsiella pneumoniae* isolate from the suspected hospital outbreak. Now will attempt to construct a molecular phylogeny from this so-called *SNP alignment*.
 
-First, concatenate all Snippy consensus sequences to create a *multi-sequence alignment (MSA)*. Remember all isolates were mapped to the same reference genome (the chromosome of ST78 cpe058 isolate). Here, we will create a *whole-genome alignment* by replacing SNPs and missing alleles called by Snippy along the DNA sequence of the reference genome for each isolate, so all resulting consensus sequences will have the same length (i.e., the length of the chromosome).
+First, concatenate all Snippy consensus sequences to create a **multi-sequence alignment (MSA)**. Remember all isolates were mapped to the same reference genome (the chromosome of ST78 cpe058 isolate). Here, we will create a **whole-genome alignment** by replacing SNPs and missing alleles called by Snippy along the DNA sequence of the reference genome for each isolate, so all resulting consensus sequences will have the same length (i.e., the length of the chromosome).
 
+On your machine, before launching the Docker image, create a new directory for this practical named ‘cp8’ and navigate to this directory:
+```bash
+mkdir ~/course/cp8/
+cd ~/course/cp8/
+```
+
+Next copy the following files and scripts into cp8 directory:
+```bash
+cp ~/AMR_2025/course_data_2025/cp8/snippy_files/* ~/course/cp8/
+cp ~/AMR_2025/course_data_2025/cp8/replace_fasta_ids.py ~/course/cp8/
+```
 
 
