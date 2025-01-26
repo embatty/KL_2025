@@ -172,6 +172,39 @@ Q: Based on earlier sessions, what should the nucleotide composition of your bac
 
 Q: Open the help page of the program using the command `iqtree2 -h`, and try to find out how to fix the nucleotide composition to be that of your bacterial genome. Rerun the analysis. Are the results the same as those returned by the first run?
 
+---
+**Box1: Nucleotide substitution model selection**
 
+There are three major components to a nucleotide substitution model, including:
+* Equilibrium nucleotide frequencies: the simplest model structure is to restrict all nucleotide bases to be the same (25%; +FQ), while the most relaxed structure is to allow all bases to have their own frequency to be estimated by the program (+F: empirical base frequencies or +FO: ML optimised base frequencies).
+* Relative transition rates among all 4 types of nucleotide bases: most common nucleotide substitution models are time-reversible, meaning that the rate of base X changes to Y (X -> Y) is constrained to be equal to the rate of Y->X, reducing the number of parameters to just 6 (A-C, A-G, A-T, C-G, C-T and G-T) from 12 (A->C, A->G, A->T, C->A, C->G, C->T, G->A, G->C, G->T, T->A, T->C, and T->G). The Jukes and Cantor 1969 (JC69) model has the simplest model structure, assuming all rates to be equal (and all four nucleotide frequencies to be equal as well), which is perhaps too simplistic / unrealistic for most cases. Other simple ones, but slightly more complicated, are the Kimura 1980 (K80) model and the Hasegawa, Kishino, and Yano 1985 (HKY85) model, which allow the rates of nucleotide transition (A-G, and C-T) and transversion changes (A-C, A-T, C-G, and G-T) to be different, with K80 assuming equal nucleotide frequencies while HKY85 allowing frequencies of different nucleotides to be different. The most general time-reversible model possible is called the Generalised Time-Reversible model of Tavaré 1986 or the GTR model, which allows nucleotide frequencies, and all of the six symmetrical rates of nucleotide changes to have different values. Note that `IQ-TREE 2` also has the unrestricted non-time reversible model implemented in it as well, in which the rate X-> Y is allowed to be different from that of Y->X, and the frequencies of the four base types can also be different. This model structure is very flexible; however, in order for this model to be meaningfully estimated, the program must somehow know from the beginning the direction of time in your phylogeny (by including some outgroups, for example, see below).
+* Distribution of rate variation among sites within the MSA: Not all sites within the sequences evolve at the same rate. Some parts of a gene evolve faster than others; for example, an active site of an enzyme which is functionally important may be more conserved than others. When comparing several sequences to estimate a phylogeny, we should account for this rate heterogeneity to avoid errors. `IQ-TREE 2` supports site-wise rate heterogeneity modelling with various model structures. This includes:
+  * “+I” model structure: allowing for a proportion within the MSA to be invariable sites.
+  * “+G” model structure: modelling rate heterogeneity among sites by using the discrete Gamma model with default 4 rate categories (+G4).
+  * “+I+G” model structure: invariable site plus discrete Gamma model.
+  * “+R” model structure: FreeRate model that relaxes the assumption of Gamma-distributed rates, with default 4 rate categories (+R4).
+  * “+I+R” model structure: invariable site plus FreeRate model.
 
+Combined, a nucleotide substitution model may therefore be something like “GTR+F+I+R6”, which means that:
+* The relative transition rates among “A”, “T”, “C”, and “G” base types are allowed to be different, but all are constrained to be time reversible (GTR), and…
+* …their equilibrium state frequencies are taken to be equal to the empirical frequencies directly observed from the MSA (+F), and …
+* … sites within the MSA are allowed have unequal overall rates of change, with 6 different rate categories (+R6), but …
+* … some sites may not change at all (+I).
+
+There are many more substitution models supported by `IQ-TREE 2`, such as Lie Markov models, codon models, or even protein models or binary and morphological models. You can learn more about them from http://www.iqtree.org/doc/Substitution-Models.
+
+For each model structure, `IQ-TREE 2` will try to estimate ML parameter values, and compute AIC (Akaike information criterion), AICc (small-sample-size-corrected AIC), and BIC (Bayesian information criterion) scores for each of them. All of these scores take into consideration how likely the model will produce your data (the likelihood score), and the number of parameters within the model, but they are slightly different in term of how the number of parameters is penalised. Generally, the lower these scores, the more preferred the model. Under the default setting, the BIC score is used to decide the best-fit model structure (`--merit BIC`), i.e., the one with the lowest BIC score.
+
+---
+
+Q: What is the best fit nucleotide substitution model for your MSA? Can you make sense of it?
+
+Now, let’s have a look at your tree in `Figtree`. `FigTree` is a program developed specifically for **phylogenetic tree visualisation**. And just like `MEGA` and `IQ-TREE` 2, it is free, and is quite easy to use!
+
+To use `FigTree` to explore the tree you just made, first launch the program by simply double clicking the program icon. Click the menu “`File`” on the program’s menu bar, and select “`Open…`”, and a file navigation system should pop up. Search for your tree file, and then click “`Open`” to import the tree to the program. The program will alert you that “`The node/branches of the tree are labelled. Please select a name for these values.`” These are the bootstrap clade support values (see below). So, let us set the name of these labels to “`Clade support”` and click “`OK`”. The program should then show you your tree (**Figure 5**).
+
+![](images/phy_Figure_5.png)  
+**Figure 5. Phylogenetic visualization with FigTree.**
+
+Q: Inspect your ML tree using Figtree, and explore the program a bit. Does the tree look alright in your opinion? How are strains clustered on the tree? How good is the bootstrap value supporting this clustering? 
 
