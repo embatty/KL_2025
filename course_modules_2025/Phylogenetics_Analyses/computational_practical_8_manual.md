@@ -71,6 +71,107 @@ Next copy the following files and scripts into cp8 directory:
 ```bash
 cp ~/AMR_2025/course_data_2025/cp8/snippy_files/* ~/course/cp8/
 cp ~/AMR_2025/course_data_2025/cp8/replace_fasta_ids.py ~/course/cp8/
+cp ~/AMR_2025/course_data_2025/cp8/Kpn_ST78.run_accessions.strain_ids.txt ~/course/cp8/
 ```
+
+Finally, launch the course Docker image with cp8 directory mounted to it:
+
+```bash
+docker run -p 5900:5900 -it --mount type=bind,source=$HOME/course/cp8/,target=/home/data amr:Dockerfile
+```
+
+Once inside the Docker environment, navidate to `/home/data` where you should find the genome assemblies you just copied:
+```bash
+cd /home/data
+```
+
+We will create the whole-genome sequence alignment by concatenating the Snippy consensus sequence of all 14 K. pneumoniae ST78 isolates:
+```bash
+cat "./snippy_files/"*.consensus.fa > Kpn_ST78.cpe058.mfa
+```
+
+Next, it is good practice to run tools like `seqkit` to confirm the expected length of the MSA and the total number of expected sequences in it:
+```bash
+seqkit stats Kpn_ST78.cpe058.mfa
+```
+
+Next, replace Illumina run accessions in the MSA FASTA file with their corresponding strain ids:
+```bash
+python3 replace_fasta_ids.py -i Kpn_ST78.cpe058.mfa -t Kpn_ST78.run_accessions.strain_ids.txt -o Kpn_ST78.cpe058.strain_ids.mfa
+```
+We can also manipulate the MSA to extract only polymorphic sites across all samples (i.e., SNPs):
+```bash
+snp-sites -c -m -o Kpn_ST78.cpe058.strain_ids.snps.mfa Kpn_ST78.cpe058.strain_ids.mfa
+```
+
+Finally, we will run `pairsnp`, a tool developed to quickly obtain pairwise SNP distance matrices from multiple sequence alignments:
+```bash
+pairsnp -c Kpn_ST78.cpe058.strain_ids.snps.mfa > Kpn_ST78.cpe058.pairsnp.csv
+```
+
+Let’s have a look at your MSA with MEGA. MEGA is a program with a graphical user interface, which is free and easy to use. You can examine your MSA in MEGA by drag your MSA file to the program, and the program will ask “How would you like to open this fasta file?”. Click “Align”, and you should see your alignment as shown in **Figure 4**.
+
+# --> to show screenshots of the alignment Kpn_ST78.cpe058.strain_ids.mfa on MEGA
+[Figure 4, MSA visualised in MEGA]
+
+Q: How many positions are there in your MSA? Are there any ‘gaps’ / ‘missing bases’ in your alignment?
+
+Q: Do you believe that all positions in your MSA are homologous positions? Why?
+
+Q: Can you already roughly group your organisms into distinct clusters based on what you see? Is what you see consistent with what you already know about the bacterial isolates investigated? 
+
+Q: Let’s have a closer look at your sequences, specifically their nucleotide composition. On the program’s main page, click “MODELS” > “Compute Nucleotide Composition”. Then a file navigation window will pop up. Locate and select your MSA file. The program will then ask you a couple more questions. Answer them based on your best understanding of the data. From the results, what is the average nucleotide composition of your MSA?
+
+## 4. Estimating a phylogeny <a name="estimating"></a>
+
+A large number of phylogenetic tree reconstruction methods have been developed, and based on their algorithmic natures and underlying philosophies, some of the most commonly used methods can be tentatively categorised into four large classes:
+
+* i)	The **maximum parsimony methods**: this class of methods aims to identify the tree that requires the smallest number of evolutionary changes to explain the data.
+  
+* ii)	The **phenetic methods, also known as distance-based methods or distance-matrix methods**: methods of this class construct a tree diagram, or more precisely a **phenogram**, by applying a hierarchical clustering algorithm to a dataset of overall organismal pairwise dissimilarity. Strictly speaking, a phenogram does not show evolutionary relatedness, and simply shows the degree of overall dissimilarity among a group of organisms. Nevertheless, in practice, it is often the case that a phenogram will closely resembles the true evolutionary tree as there tend to be a significant correlation between over similarity and evolutionary relatedness.
+  
+* iii)	The **maximum likelihood (ML) methods**: as the name suggests, this class of methods aims to identify an evolutionary model that gives the highest **likelihood** score, which numerically, is equal to the probability that the model will generate the observed MSA. In essence, these methods try to identify a set of evolutionary parameters that will most likely generate the observed MSA. 
+
+An evolutionary model can contain many parameters, including:
+  * tree topology (i.e., the order of diversification events),
+  * length of each branch in the tree (i.e., the number of molecular changes occurring along each branch),
+  * equilibrium molecular state frequencies,
+  * relative rates of molecular changes from one state to others (e.g., the probability that a base “A” will change to “T” within a certain among of time, etc.),
+  * rate variation among lineages / branches, and
+  * rate variation among sites within the MSA. 
+
+As you can imagine, given this large number of evolutionary parameters with each having its own many sub-parameters, and each sub-parameter can also have an enormous range of possible values, an evolutionary landscape that an ML method has to explore is vast, and it would be almost always impractical to explore the entire landscape of all possible models.
+
+Heuristic search is almost always needed to find the ML solution. Conceptually, in a heuristic search, you start somewhere randomly within an evolutionary landscape with a presumably random set of evolutionary parameters and compute a likelihood score. Then, change the values of the investigated evolutionary parameters a little bit, and see if the score changes. If the score changes, you ‘climb the hill’ by moving your model into the direction that increases the likelihood score the most. Repeat these steps until the score doesn’t increase any further, at which point it means that you have reached the top of the hill, and there you get it, an ML solution! However, a naïve hill-climbing algorithm might get you stuck at a local optimal hill, but luckily several algorithms have been developed to overcome this issue (to some degree). With the continuous advancement of heuristic search algorithms and computer hardware, it is now possible to estimate a (close-to-)ML tree from an MSA of thousands of bacterial complete genomes within a practical and reasonable amount of time. Also, one may want to start at several random points within the evolutionary model landscape and see if all reach to similar models; if so that is great! It supports that your answer might really be the ML answer.
+
+* iv)	The **Bayesian inference methods**: methods of this class are closely related to the ML methods, but instead of asking “what is the evolutionary process that will most likely produce the observed MSA?”, these methods ask “given a prior belief of how a set of organisms may evolve, represented by a set of possible (but may be unequally likely) phylogenies and evolutionary models, how is the presumed belief updated upon seeing the actual sequence data?”. This ‘updated belief’ is more formally known as the **posterior probability distribution** of the models. Philosophically, one may argue that these methods are the most attractive among all methods discussed so far; “it computes what we most need, the probabilities of different hypotheses in the light of the data” (Felsenstein, 2004). Another very attractive feature of this class of methods is that, it is the only class of methods among the discussed four classes that intrinsically gives a distribution of models as an answer, and not just ‘the best model’ like the other three, naturally accommodating result uncertainty assessment. Nevertheless, there are some catches! The main catch is that, as hinted earlier, one would need to have their own prior beliefs about all possible evolutionary models beforehand for the math to work — i.e., one would need to assign probabilities to all evolutionary models that one wants to explore a priori even before doing the analysis, which is very difficult to do sensibly, and different **prior probability distributions** of the models can lead to different outcomes. Many people opt to use the program’s default settings for this, which is not the best thing to do. Similar to what suggested above for the ML method, several model prior probability distributions may also be explored to see if all inferences reach to the same / similar posterior probability distributions of the models. If so, then that’s great. It means that your data contain sufficient information to update your beliefs in the same direction no matter where you start. Otherwise, it might indicate that it is your belief that drives the outcomes, and not the data. Another catch is that methods of this class are also very computationally expensive — much more expensive than an ML method. In the ML method, you want just one ‘best solution’, but in a Bayesian method, you want to learn about the entire distribution of all possible models! As a result, what can be done within days by an ML method can take several weeks to complete with this approach even with a modern-day high-performance computer. So, for most common people, a Bayesian phylogenetic inference is only feasible with a relatively small dataset for now…
+
+Here, we will use `IQ-TREE 2` to estimate an **ML phylogeny** from your MSA. `IQ-TREE 2` is an open-source command line tool that can perform a variety of phylogenetic analyses. 
+
+To do this, open your computer ‘terminal’, and type:
+
+```bash
+align="Kpn_ST78.cpe058.strain_ids.mfa";
+pattern=`snp-sites -C $align`;
+iqtree2 -fconst $pattern -s $align -T 4 --mem 4G --ufboot 1000 -m GTR --prefix Kpn_ST78.cpe058_iqtree -wbtl -o Germany_2019_Kpn_ST78
+```
+
+Spend some time exploring what each of ``iqtree2`` parameters chosen mean - more information about IQTree2 options can be found by typing ``iqtree2 -h`` on your terminal – and identify the right output phylogenetic file.
+
+That is it!
+
+With this command, the program will infer an ML tree from your MSA file (as specified via the parameter `-s`), compute something called “clade support” based on 1,000 bootstrap MSAs (see below) using the ultrafast bootstrap approximation method (`--ufboot 1000`), and write the bootstrap trees into a file with branch length information (as specified by the flag `-wbtl`). 
+
+Behind the scenes, this command also automatically selects the ‘best-fit nucleotide substitution model structure’ for you by using ModelFinder (see Box 1). This command also performs, under its default setting, the tree searching with 100 initial parsimony trees (`--ninit 100`). 20 top initial parsimony trees are subsequently optimised with ML nearest neighbour interchange search to initialise the candidate set (`--ntop 20)`, and the program then performs the ML tree search using the top 5 trees in the candidate set (`--nbest 5`).
+
+Explore the variety of **output files** obtained from this run and identify which resulting phylogenetic tree file we should take forward.
+
+Q: Given that **polymorphic sites** (i.e., SNP) are the most informative from an evolutionary point of view, why did not we use the MSA alignment with SNPs only? Note that we used the entire chromosomal MSA (which includes mostly monomorphic sites) as input for IQTree.
+
+Q: Based on earlier sessions, what should the nucleotide composition of your bacterial genome be? Is this the same as the one returned by IQ-TREE 2? If the answers are different, why do you think this happens?
+
+Q: Open the help page of the program using the command `iqtree2 -h`, and try to find out how to fix the nucleotide composition to be that of your bacterial genome. Rerun the analysis. Are the results the same as those returned by the first run?
+
+
 
 
