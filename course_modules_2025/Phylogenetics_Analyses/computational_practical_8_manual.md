@@ -245,6 +245,7 @@ Now, we will run **Gubbins (Genealogies Unbiased By recomBinations In Nucleotide
 Inside the Docker image, execute the commands below:
 
 ```bash
+conda activate gubbins
 align="Kpn_ST78.cpe058.strain_ids.mfa";
 prefix="Kpn_ST78.cpe058.gubbins";
 run_gubbins.py $align --prefix $prefix --use-time-stamp --threads 4 --first-tree-builder fasttree --tree-builder raxml --outgroup Germany_2019_Kpn_ST78
@@ -265,6 +266,7 @@ Pay particular attention to the files containing the detected recombination (i.e
 We will use a script made available by Gubbins to mask recombinant regions detected by Gubbins from the input alignment:
 ```bash
 mask_gubbins_aln.py --aln Kpn_ST78.cpe058.strain_ids.mfa --gff Kpn_ST78.cpe058.gubbins.recombination_predictions.gff --out Kpn_ST78.cpe058.rmRCB.mfa
+conda deactivate
 ```
 
 You can inspect this new alignment with `seqkit stats` to confirm the alignment contains the same number of sequences and length of the alignment:
