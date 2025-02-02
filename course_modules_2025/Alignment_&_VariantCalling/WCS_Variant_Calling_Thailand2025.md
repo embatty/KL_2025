@@ -85,7 +85,7 @@ Snippy is an all-in-one tool for bacterial SNP calling using short-read data. It
   - Use Medaka to call SNPs from the long-read BAM file.
   
     ```
-    #medaka_haploid_variant -i longread.input.fastq.gz -r reference.fasta
+    #medaka_variant -i longread.input.fastq.gz -r reference.fasta
     
     ```
 
