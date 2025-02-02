@@ -96,6 +96,7 @@ Snippy is an all-in-one tool for bacterial SNP calling using short-read data. It
      #MSA
      ls core.*
      #core.aln core.tab core.tab core.txt core.vcf
+     grep ">" core.full.aln # view names of aligned genomes
      ```
 
 ## Long Read Alignment with minimap2 and SNP Calling with Medaka or DeepVariant.
