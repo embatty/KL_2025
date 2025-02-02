@@ -23,12 +23,17 @@ Before starting, ensure you have the following software installed:
 
 ## Data Preparation
 
-Grab the raw fastq files from ENA. We will map Illumina short read data associated with the outbreak case isolate you've been assigned. If you have been assigned a case isolate of a different bacterial species other than Klebsiella pneumoniae, use the following run accession as an example to execute the commands below: ERR4095905 (c/o Dr. Francesc Coll).
+Grab the raw fastq files from ENA. We will map Illumina short read data associated with the outbreak case isolate you've been assigned. If you have been assigned a case isolate of a different bacterial species other than Klebsiella pneumoniae, use the following run accession as an example to execute the commands below: ERR4095905 (c/o Dr. Francesc Coll for short reads). Use the E. coli sample, ERR3284704 for the long read mapping and variant calling and EC958 as the reference genome.
 
 
 ```
+# Short reads:
 wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095905/ERR4095905_1.fastq.gz
 wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095905/ERR4095905_2.fastq.gz
+# Long reads
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR328/004/ERR3284704/ERR3284704.fastq.gz
+# Download the E. coli reference from https://www.ncbi.nlm.nih.gov/nuccore/NZ_HG941718.1?report=fasta and rename with Ecoli_ref.fasta.
+mv seq.fasta Ecoli_ref.fasta
 ```
 
 ### 1. Quality Control:
@@ -86,6 +91,8 @@ Snippy is an all-in-one tool for bacterial SNP calling using short-read data. It
   
     ```
     #medaka_variant -i longread.input.fastq.gz -r reference.fasta
+    medaka_variant -i ERR328470.fastq.gz -r Ecoli_ref.fasta
+    
     
     ```
 
