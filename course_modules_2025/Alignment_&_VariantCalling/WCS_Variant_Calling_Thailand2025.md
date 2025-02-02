@@ -76,7 +76,7 @@ Snippy is an all-in-one tool for bacterial SNP calling using short-read data. It
      ```
      ```
      #MSA
-     snippy-core --prefix core ERR4095885_snippy ERR4095905_snippy
+     snippy-core --prefix core --ref cpe058_Kpn-ST78-NDM1.chr.fasta #ERR4095885_snippy ERR4095905_snippy
      ```
 
 ### 2. Examine the Output:
