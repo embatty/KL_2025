@@ -23,13 +23,16 @@ Before starting, ensure you have the following software installed:
 
 ## Data Preparation
 
-Grab the raw fastq files from ENA. We will map Illumina short read data associated with the outbreak case isolate you've been assigned. If you have been assigned a case isolate of a different bacterial species other than Klebsiella pneumoniae, use the following run accession as an example to execute the commands below: ERR4095905 (c/o Dr. Francesc Coll for short reads). Use the E. coli sample, ERR3284704 for the long read mapping and variant calling and EC958 as the reference genome.
+Grab the raw fastq files from ENA. We will map Illumina short read data associated with the outbreak case isolate you've been assigned. If you have been assigned a case isolate of a different bacterial species other than Klebsiella pneumoniae, use the following run accessions as test samples to execute the commands below: ERR4095905 and ERR4095905. Use the E. coli sample, ERR3284704 for the long read mapping and variant calling and EC958 as the reference genome.
 
 
 ```
 # Short reads:
 wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095905/ERR4095905_1.fastq.gz
 wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095905/ERR4095905_2.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095885/ERR4095885_1.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095885/ERR4095885_2.fastq.gz
+
 # Long reads
 wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR328/004/ERR3284704/ERR3284704.fastq.gz
 # Download the E. coli reference from https://www.ncbi.nlm.nih.gov/nuccore/NZ_HG941718.1?report=fasta and rename with Ecoli_ref.fasta.
@@ -66,10 +69,14 @@ Snippy is an all-in-one tool for bacterial SNP calling using short-read data. It
 ### 1. Run Snippy:
    - Use snippy to perform alignment and SNP calling in one step.
      ```
+     #PSA
      snippy --cpus 4 --outdir snippy_output --reference reference.fasta --R1 output_R1_paired.fastq --R2 output_R2_paired.fastq
-     ```
-     ```
      snippy --cpus 4 --outdir ERR4095905_snippy --reference cpe058_Kpn-ST78-NDM1.chr.fasta --R1 out.ERR4095905_1.fastq.gz --R2 out.ERR4095905_1.fastq.gz
+     snippy --cpus 4 --outdir ERR4095885_snippy --reference cpe058_Kpn-ST78-NDM1.chr.fasta --R1 out.ERR4095885_1.fastq.gz --R2 out.ERR4095885_1.fastq.gz
+     ```
+     ```
+     #MSA
+     snippy-core --prefix core ERR4095885_snippy ERR4095905_snippy
      ```
 
 ### 2. Examine the Output:
@@ -81,7 +88,14 @@ Snippy is an all-in-one tool for bacterial SNP calling using short-read data. It
      - alignment.bam.bai: The BAM index file.
      
      ```
+     # PSA
      cd ERR4095905_snippy/
+     ls
+     ```
+     ```
+     #MSA
+     ls core.*
+     #core.aln core.tab core.tab core.txt core.vcf
      ```
 
 ## Long Read Alignment with minimap2 and SNP Calling with Medaka or DeepVariant.
@@ -93,10 +107,9 @@ Snippy is an all-in-one tool for bacterial SNP calling using short-read data. It
     #medaka_variant -i longread.input.fastq.gz -r reference.fasta
     medaka_variant -i ERR328470.fastq.gz -r Ecoli_ref.fasta
     
-    
     ```
 
-### Run DeepVariant:
+### Run DeepVariant: (Optional)
    - Use minimap2 for aligning long reads.
      ```
      minimap2 -a reference.fasta long_reads.fastq > aligned_long_reads.sam
@@ -123,7 +136,7 @@ Snippy is an all-in-one tool for bacterial SNP calling using short-read data. It
 
      run_deepvariant --model_type PACBIO --ref reference.fasta --reads sorted_long_reads.bam --output_vcf dv_output.vcf --output_gvcf dv_output.g.vcf --num_shards 4
      ```
-### Use PEPPER DeepVariant for nanopore reads: https://github.com/kishwarshafin/pepper
+### Use PEPPER DeepVariant for nanopore reads: https://github.com/kishwarshafin/pepper  (Optional)
 
 ```
 ## Pull the docker image.
@@ -144,7 +157,7 @@ run_pepper_margin_deepvariant call_variant \
 ```
 
 
-## Post-processing and Analysis
+## Post-processing and Analysis  (Optional)
 
 ### 1. Filter SNPs:
    - Apply filters to the VCF files to ensure high-quality SNPs using bcftools. Remove SNPs/Indels with MQ<30 and DP<10.
