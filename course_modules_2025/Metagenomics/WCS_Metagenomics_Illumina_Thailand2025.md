@@ -236,7 +236,12 @@ Visualize taxonomic classifications interactively using **Pavian** or **Krona**:
    - **What It Does**: Extracts only the taxonomic ID and classification from Kraken2 output, creating a format compatible with Krona.
 
 2. **Generate Krona Plot**:
-   ``` 
+   ```
+   # Update taxonomy index
+   ktUpdateTaxonomy.sh
+   ```
+   ```
+   ktImportTaxonomy -m 1 -o krona-test.html
    ktImportTaxonomy krona_input.txt -o krona_output.html
    ```
 
