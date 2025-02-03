@@ -200,7 +200,7 @@ Identify antimicrobial resistance (AMR) genes using **ABRicate**, which screens 
 
 1. **Run ABRicate for AMR Prediction**:
    ``` 
-   abricate --db resfinder bins_folder/bin_1.fa > abricate_output.txt
+   abricate --db resfinder bins_folder/bin.1.fa > abricate_output.txt
    ```
 
    - **What It Does**: ABRicate searches for known AMR genes by comparing genome sequences against the ResFinder database.
