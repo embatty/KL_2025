@@ -148,7 +148,7 @@ Use **CheckM** to evaluate the quality of binned genomes, assessing completeness
 
 1. **Run CheckM**:
    ``` 
-   checkm lineage_wf bins_folder/ checkm_output/
+   checkm lineage_wf -x fa -t 8 bins_folder/ checkm_output/ --pplacer_threads 8
    ```
 
    - **What It Does**: CheckM evaluates each bin for genome completeness and contamination.
