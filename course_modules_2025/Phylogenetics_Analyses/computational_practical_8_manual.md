@@ -151,7 +151,7 @@ Here, we will use `IQ-TREE 2` to estimate an **ML phylogeny** from your MSA. `IQ
 To do this, open your computer ‘terminal’, and type:
 
 ```bash
-iqtree2 -s Kpn_ST78.cpe058.strain_ids.fas -T 4 --mem 4G --ufboot 1000 -m GTR --prefix Kpn_ST78.cpe058_iqtree -wbtl
+iqtree2 -s Kpn_ST78.cpe058.strain_ids.fas -T 4 --mem 4G --ufboot 1000 --prefix Kpn_ST78.cpe058_iqtree -wbtl
 ```
 
 Spend some time exploring what each of ``iqtree2`` parameters chosen mean - more information about IQTree2 options can be found by typing ``iqtree2 -h`` on your terminal – and identify the right output phylogenetic file.
