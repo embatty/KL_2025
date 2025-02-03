@@ -21,7 +21,7 @@ Raw files were grabbed from Guo, X., Tang, N., Lei, H., Fang, Q., Liu, L., Zhou,
   # Raw
   wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR142/072/SRR14297772/SRR14297772_1.fastq.gz
   wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR142/072/SRR14297772/SRR14297772_2.fastq.gz
-  # Spiked: c/o Aarthi and Arun
+  # Spiked: c/o Aarthi and Arun: Download from https://tinyurl.com/mvr3d263
   # Filenames: SRR14297772_cpe107_1.fastq.gz and SRR14297772_cpe107_2.fastq.gz
 
   ```
