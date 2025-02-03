@@ -106,7 +106,7 @@ Snippy is an all-in-one tool for bacterial SNP calling using short-read data. It
   
     ```
     #medaka_variant -i longread.input.fastq.gz -r reference.fasta
-    medaka_variant -i ERR328470.fastq.gz -r Ecoli_ref.fasta
+    medaka_variant -i ERR3284704.fastq.gz -r Ecoli_ref.fasta
     
     ```
 
