@@ -129,7 +129,7 @@ Binning groups contigs into bins representing putative genomes. **MetaBAT2** per
 
 1. **Run MetaBAT2**:
    ``` 
-   metabat2 -i metaspades_output/contigs.fasta -o bins_folder/ -m 1500
+   metabat2 -i metaspades_output/contigs.fasta -o bins_folder/bin -m 1500
    ```
 
    - **What It Does**: MetaBAT2 clusters contigs into bins that represent draft genomes.
