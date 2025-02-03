@@ -183,7 +183,7 @@ Annotate each bin to identify genes and other genomic features using **Prokka**.
 
 1. **Run Prokka for Genome Annotation**:
    ``` 
-   prokka --outdir annotation_output --prefix bin_1_annotation bins_folder/bin_1.fa
+   prokka --outdir annotation_output --prefix bin_1_annotation bins_folder/bin.1.fa
    ```
 
    - **What It Does**: Prokka annotates genes and functional elements in each bin.
