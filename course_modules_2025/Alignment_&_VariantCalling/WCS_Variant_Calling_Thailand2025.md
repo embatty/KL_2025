@@ -8,6 +8,7 @@ Variant calling involves crucial steps in comparative genomics that researchers 
 
 Before starting, ensure you have the following software installed:
 - For short reads:
+  - fastp
   - snippy
   - samtools
   - bcftools
