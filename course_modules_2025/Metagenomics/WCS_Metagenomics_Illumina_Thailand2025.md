@@ -49,7 +49,7 @@ Quality control ensures your Illumina reads are suitable for assembly. **FastQC*
    
    ```
    # We will use the spiked pair
-   fastp -i SRR14297772_cpe107_1_ds.fastq.gz -I SRR14297772_cpe107_2_ds.fastq.gz    -o trimmed_SRR14297772_cpe107_1_ds.fastq.gz -O trimmed_SRR14297772_cpe107_2_ds.fastq.gz -h fastp_report.html -j fastp_report.json --length_required 50 
+   fastp -i SRR14297772_cpe107_1_ds.fastq.gz -I SRR14297772_cpe107_2_ds.fastq.gz    -o trimmed_SRR14297772_cpe107_1_ds_filtered.fastq.gz -O SRR14297772_cpe107_2_ds_filtered.fastq.gz -h fastp_report.html -j fastp_report.json --length_required 50 
    ```
 
    - **What It Does**: Fastp removes adapters, trims low-quality bases, and discards reads shorter than 50 bp. Hostile gets rid of host (mainly) human reads.
@@ -111,7 +111,7 @@ bbnorm.sh in=input.fastq out=downsampled.fastq target=20 min=2
 1. **Run metaSPAdes**:
    ``` 
    metaspades.py -1 clean.SRR14297772_cpe107_1_ds.fastq.gz -2 clean.SRR14297772_cpe107_1_ds.fastq.gz    -o clean_SRR14297772_cpe107_metaspades_output/ --only-assembler # fastp and hostile-cleaned
-   metaspades.py -1 out.SRR14297772_cpe107_1_ds.fastq.gz -2 out.SRR14297772_cpe107_1_ds.fastq.gz    -o SRR14297772_cpe107_metaspades_output/ --only-assembler # fastp-cleaned only
+   metaspades.py -1 SRR14297772_cpe107_1_ds_filtered.fastq.gz -2 SRR14297772_cpe107_1_ds_filtered.fastq.gz    -o SRR14297772_cpe107_metaspades_output/ --only-assembler # fastp-cleaned only
    ```
 
    - **What It Does**: metaSPAdes assembles contigs by building a de Bruijn graph adapted for metagenomic data.
