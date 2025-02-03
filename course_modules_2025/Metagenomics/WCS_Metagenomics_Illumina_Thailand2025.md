@@ -110,7 +110,8 @@ bbnorm.sh in=input.fastq out=downsampled.fastq target=20 min=2
 
 1. **Run metaSPAdes**:
    ``` 
-   metaspades.py -1 clean.SRR14297772_cpe107_1.fastq.gz -2 clean.SRR14297772_cpe107_1.fastq.gz    -o SRR14297772_cpe107_metaspades_output/ --only-assembler
+   metaspades.py -1 clean.SRR14297772_cpe107_1.fastq.gz -2 clean.SRR14297772_cpe107_1.fastq.gz    -o clean_SRR14297772_cpe107_metaspades_output/ --only-assembler # fastp and hostile-cleaned
+   metaspades.py -1 out.SRR14297772_cpe107_1.fastq.gz -2 out.SRR14297772_cpe107_1.fastq.gz    -o SRR14297772_cpe107_metaspades_output/ --only-assembler # fastp-cleaned only
    ```
 
    - **What It Does**: metaSPAdes assembles contigs by building a de Bruijn graph adapted for metagenomic data.
