@@ -1,4 +1,4 @@
-# Genome Alignment and SNP Calling of Bacterial Genomes: A Tutorial for AMR Analysis Workshop in Bangkok, Thailand (February 2025)
+# Genome Alignment and SNP Calling in Bacterial Genomes: A Tutorial for AMR Analysis Workshop in Bangkok, Thailand (February 2025)
 
 ## Introduction
 
