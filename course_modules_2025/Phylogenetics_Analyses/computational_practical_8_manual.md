@@ -87,31 +87,31 @@ cd /home/data
 
 We will create the whole-genome sequence alignment by concatenating the Snippy consensus sequence of all 14 K. pneumoniae ST78 isolates:
 ```bash
-cat *.consensus.fa > Kpn_ST78.cpe058.mfa
+cat *.consensus.fa > Kpn_ST78.cpe058.fas
 ```
 
 Next, it is good practice to run tools like `seqkit` to confirm the expected length of the MSA and the total number of expected sequences in it:
 ```bash
-seqkit stats Kpn_ST78.cpe058.mfa
+seqkit stats Kpn_ST78.cpe058.fas --all --gap-letters "- . N"
 ```
 
 Next, replace Illumina run accessions in the MSA FASTA file with their corresponding strain ids:
 ```bash
-python3 replace_fasta_ids.py -i Kpn_ST78.cpe058.mfa -t Kpn_ST78.run_accessions.strain_ids.txt -o Kpn_ST78.cpe058.strain_ids.mfa
+python3 replace_fasta_ids.py -i Kpn_ST78.cpe058.fas -t Kpn_ST78.run_accessions.strain_ids.txt -o Kpn_ST78.cpe058.strain_ids.fas
 ```
 We can also manipulate the MSA to extract only polymorphic sites across all samples (i.e., SNPs):
 ```bash
-snp-sites -c -m -o Kpn_ST78.cpe058.strain_ids.snps.mfa Kpn_ST78.cpe058.strain_ids.mfa
+snp-sites -c -m -o Kpn_ST78.cpe058.strain_ids.snps.fas Kpn_ST78.cpe058.strain_ids.fas
 ```
 
 Finally, we will run `pairsnp`, a tool developed to quickly obtain pairwise SNP distance matrices from multiple sequence alignments:
 ```bash
-pairsnp -c Kpn_ST78.cpe058.strain_ids.snps.mfa > Kpn_ST78.cpe058.pairsnp.csv
+pairsnp -c Kpn_ST78.cpe058.strain_ids.snps.fas > Kpn_ST78.cpe058.pairsnp.csv
 ```
 
 Let’s have a look at your MSA with MEGA. MEGA is a program with a graphical user interface, which is free and easy to use. You can examine your MSA in MEGA by drag your MSA file to the program, and the program will ask “How would you like to open this fasta file?”. Click “Align”, and you should see your alignment as shown in **Figure 4**.
 
-# --> to show screenshots of the alignment Kpn_ST78.cpe058.strain_ids.mfa on MEGA
+# --> to show screenshots of the alignment Kpn_ST78.cpe058.strain_ids.fas on MEGA
 [Figure 4, MSA visualised in MEGA]
 
 Q: How many positions are there in your MSA? Are there any ‘gaps’ / ‘missing bases’ in your alignment?
@@ -151,9 +151,7 @@ Here, we will use `IQ-TREE 2` to estimate an **ML phylogeny** from your MSA. `IQ
 To do this, open your computer ‘terminal’, and type:
 
 ```bash
-align="Kpn_ST78.cpe058.strain_ids.mfa";
-pattern=`snp-sites -C $align`;
-iqtree2 -fconst $pattern -s $align -T 4 --mem 4G --ufboot 1000 -m GTR --prefix Kpn_ST78.cpe058_iqtree -wbtl -o Germany_2019_Kpn_ST78
+iqtree2 -s Kpn_ST78.cpe058.strain_ids.fas -T 4 --mem 4G --ufboot 1000 -m GTR --prefix Kpn_ST78.cpe058_iqtree -wbtl
 ```
 
 Spend some time exploring what each of ``iqtree2`` parameters chosen mean - more information about IQTree2 options can be found by typing ``iqtree2 -h`` on your terminal – and identify the right output phylogenetic file.
@@ -246,7 +244,7 @@ Inside the Docker image, execute the commands below:
 
 ```bash
 conda activate gubbins
-align="Kpn_ST78.cpe058.strain_ids.mfa";
+align="Kpn_ST78.cpe058.strain_ids.fas";
 prefix="Kpn_ST78.cpe058.gubbins";
 run_gubbins.py $align --prefix $prefix --use-time-stamp --threads 4 --first-tree-builder fasttree --tree-builder raxml --outgroup Germany_2019_Kpn_ST78
 ```
@@ -265,23 +263,23 @@ Pay particular attention to the files containing the detected recombination (i.e
 
 We will use a script made available by Gubbins to mask recombinant regions detected by Gubbins from the input alignment:
 ```bash
-mask_gubbins_aln.py --aln Kpn_ST78.cpe058.strain_ids.mfa --gff Kpn_ST78.cpe058.gubbins.recombination_predictions.gff --out Kpn_ST78.cpe058.rmRCB.mfa
+mask_gubbins_aln.py --aln Kpn_ST78.cpe058.strain_ids.fas --gff Kpn_ST78.cpe058.gubbins.recombination_predictions.gff --out Kpn_ST78.cpe058.rmRCB.fas
 conda deactivate
 ```
 
 You can inspect this new alignment with `seqkit stats` to confirm the alignment contains the same number of sequences and length of the alignment:
 ```bash
-seqkit stats Kpn_ST78.cpe058.rmRCB.mfa
+seqkit stats Kpn_ST78.cpe058.rmRCB.fas
 ```
 
 `pairsnp` can also be run to extract the new pairwise SNP distances from this alignment:
 ```bash
-pairsnp -c Kpn_ST78.cpe058.rmRCB.mfa > Kpn_ST78.cpe058.rmRCB.pairsnp.csv
+pairsnp -c Kpn_ST78.cpe058.rmRCB.fas > Kpn_ST78.cpe058.rmRCB.pairsnp.csv
 ```
 
 Finally, let’s run `IQTree 2` on the latest alignment with masked recombination:
 ```bash
-align="Kpn_ST78.cpe058.rmRCB.mfa";
+align="Kpn_ST78.cpe058.rmRCB.fas";
 pattern=`snp-sites -C $align`;
 iqtree2 -fconst $pattern -s $align -T 4 --mem 4G --ufboot 1000 -m GTR --prefix Kpn_ST78.cpe058.rmRCB_iqtree -wbtl
 ```
