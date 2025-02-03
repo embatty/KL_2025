@@ -164,7 +164,7 @@ Classify contigs to identify their taxonomic origin with **Kraken2**, which comp
 
 1. **Run Kraken2 to identify microbial diversity**: 
    ``` 
-   kraken2 --db kraken2_db --threads 8 --output kraken_output.txt --report kraken_report.txt metaspades_output/contigs.fasta
+   kraken2 --db /home/data/kraken2/ --threads 8 --output kraken_output.txt --report kraken_report.txt metaspades_output/contigs.fasta
    ```
 
    - **What It Does**: Kraken2 assigns taxonomic classifications by matching sequences against a reference database.
