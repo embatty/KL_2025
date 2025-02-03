@@ -61,28 +61,28 @@ In the previous session, you we run **Snippy** to map the short Illumina reads a
 
 First, concatenate all Snippy consensus sequences to create a **multi-sequence alignment (MSA)**. Remember all isolates were mapped to the same reference genome (the chromosome of ST78 cpe058 isolate). Here, we will create a **whole-genome alignment** by replacing SNPs and missing alleles called by Snippy along the DNA sequence of the reference genome for each isolate, so all resulting consensus sequences will have the same length (i.e., the length of the chromosome).
 
-On your machine, before launching the Docker image, create a new directory for this practical named ‘cp8’ and navigate to this directory:
+On your machine, to launch the Docker image, type:
 ```bash
-mkdir ~/course/cp8/
-cd ~/course/cp8/
+docker run -it --mount type=bind,source=C:\Users\4M\Desktop\data,target=/home/data amr:Dockerfile
+```
+
+
+```bash
+cd home/data/
+git clone https://github.com/WCSCourses/AMR_2025/
+mkdir cp8
 ```
 
 Next copy the following files and scripts into cp8 directory:
 ```bash
-cp ~/AMR_2025/course_data_2025/cp8/snippy_files/* ~/course/cp8/
-cp ~/AMR_2025/course_data_2025/cp8/replace_fasta_ids.py ~/course/cp8/
-cp ~/AMR_2025/course_data_2025/cp8/Kpn_ST78.run_accessions.strain_ids.txt ~/course/cp8/
+cp ./AMR_2025/course_data_2025/cp8/snippy_files/* ./cp8/
+cp ./AMR_2025/course_data_2025/cp8/replace_fasta_ids.py ./cp8/
+cp ./AMR_2025/course_data_2025/cp8/Kpn_ST78.run_accessions.strain_ids.txt ./cp8/
 ```
 
-Finally, launch the course Docker image with cp8 directory mounted to it:
-
+Navidate to the module folder `cp8` where you should find the genome assemblies you just copied:
 ```bash
-docker run -p 5900:5900 -it --mount type=bind,source=$HOME/course/cp8/,target=/home/data amr:Dockerfile
-```
-
-Once inside the Docker environment, navidate to `/home/data` where you should find the genome assemblies you just copied:
-```bash
-cd /home/data
+cd cp8
 ```
 
 We will create the whole-genome sequence alignment by concatenating the Snippy consensus sequence of all 14 K. pneumoniae ST78 isolates:
