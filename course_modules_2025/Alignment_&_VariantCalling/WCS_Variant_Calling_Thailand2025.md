@@ -57,10 +57,11 @@ mv sequence.fasta Ecoli_ref.fasta
      fastp -i ERR4095905_1.fastq.gz -I ERR4095905_2.fastq.gz -o out.ERR4095905_1.fastq.gz -O out.ERR4095905_2.fastq.gz
      fastp -i ERR4095885_1.fastq.gz -I ERR4095885_2.fastq.gz -o out.ERR4095885_1.fastq.gz -O out.ERR4095885_2.fastq.gz
      ```
-### 3. Make sure you're in the correct working directory where the files are accessible
+### 3. Make sure you're in the correct working directory where the files are accessible. 
 
  
-     cd home/data/
+     cd /home/data/VC_module/ 
+     # /home/data/VC_module/Practical_outputs/ contains output files and subfolders from pre-runs.
      
 
     
@@ -82,7 +83,7 @@ Github page: https://github.com/tseemann/snippy
      snippy-core --prefix core --ref cpe058_Kpn-ST78-NDM1.chr.fasta *_snippy # or specify the snippy folders: ERR4095885_snippy ERR4095905_snippy
      ```
 
-### 2. Examine the Output: Note the formats and contents of each output file. Compare results, identify key features, and observe any patterns or unexpected findings. 
+### 2. Examine the Output: Note the formats and contents of each output file. Compare results, identify key features, and observe any patterns or unexpected findings.
      
    - The output directory will contain various files, including:
      - snps.vcf: The called SNPs in VCF format.
