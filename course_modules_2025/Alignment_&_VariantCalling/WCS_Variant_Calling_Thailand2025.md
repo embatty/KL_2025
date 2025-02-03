@@ -68,7 +68,7 @@ mv sequence.fasta Ecoli_ref.fasta
 ## Short Read Alignment and SNP Calling with Snippy
 
 Snippy is an all-in-one tool for bacterial SNP calling using short-read data. It aligns the reads to a reference genome and calls variants.
-Github page: https://github.com/tseemann/snippy
+Documentation: https://github.com/tseemann/snippy
 
 ### 1. Run Snippy:
    - Use snippy to perform alignment and SNP calling in one step.
@@ -107,7 +107,7 @@ Github page: https://github.com/tseemann/snippy
 
 ### Run Medaka:
   - Use Medaka to call SNPs from the long-read BAM file.
-    Github page: https://github.com/nanoporetech/medaka
+    Documentation: https://github.com/nanoporetech/medaka
   
     ```
     #medaka_variant -i longread.input.fastq.gz -r reference.fasta
