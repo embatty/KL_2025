@@ -23,7 +23,7 @@ Before starting, ensure you have the following software installed:
 
 ## Data Preparation
 
-Grab the raw fastq files from ENA. We will map Illumina short read data associated with the outbreak case isolate you've been assigned. If you have been assigned a case isolate of a different bacterial species other than Klebsiella pneumoniae, use the following run accessions as test samples to execute the commands below: ERR4095905 and ERR4095905. Use the E. coli sample, ERR3284704 for the long read mapping and variant calling and EC958 as the reference genome.
+Grab the raw fastq files from ENA. We will map Illumina short read data associated with the outbreak case isolate you've been assigned. If you have been assigned a case isolate of a different bacterial species other than Klebsiella pneumoniae, use the following run accessions as test samples to execute the commands below: ERR4095905 and ERR4095885. Use the E. coli sample, ERR3284704 for the long read mapping and variant calling and EC958 as the reference genome.
 
 
 ```
@@ -54,6 +54,7 @@ mv sequence.fasta Ecoli_ref.fasta
      
      ```
      fastp -i ERR4095905_1.fastq.gz -I ERR4095905_2.fastq.gz -o out.ERR4095905_1.fastq.gz -O out.ERR4095905_2.fastq.gz
+     fastp -i ERR4095885_1.fastq.gz -I ERR4095885_2.fastq.gz -o out.ERR4095885_1.fastq.gz -O out.ERR4095885_2.fastq.gz
      ```
 ### 3. Make sure you're in the correct working directory where the files are accessible
 
@@ -76,7 +77,7 @@ Snippy is an all-in-one tool for bacterial SNP calling using short-read data. It
      ```
      ```
      #MSA
-     snippy-core --prefix core --ref cpe058_Kpn-ST78-NDM1.chr.fasta #ERR4095885_snippy ERR4095905_snippy
+     snippy-core --prefix core --ref cpe058_Kpn-ST78-NDM1.chr.fasta *_snippy # or specify the snippy folders: ERR4095885_snippy ERR4095905_snippy
      ```
 
 ### 2. Examine the Output:
