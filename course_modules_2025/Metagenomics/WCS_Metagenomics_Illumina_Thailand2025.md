@@ -19,10 +19,10 @@ Raw files were grabbed from Guo, X., Tang, N., Lei, H., Fang, Q., Liu, L., Zhou,
 
   ```
   # Raw
-  wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR142/072/SRR14297772/SRR14297772_1.fastq.gz
+  wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR142/072/SRR14297772/SRR14297772_1_ds.fastq.gz
   wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR142/072/SRR14297772/SRR14297772_2.fastq.gz
   # Spiked: c/o Aarthi and Arun: Download from https://tinyurl.com/mvr3d263
-  # Filenames: SRR14297772_cpe107_1.fastq.gz and SRR14297772_cpe107_2.fastq.gz
+  # Filenames: SRR14297772_cpe107_1_ds.fastq.gz and SRR14297772_cpe107_2.fastq.gz
 
   ```
 
@@ -49,7 +49,7 @@ Quality control ensures your Illumina reads are suitable for assembly. **FastQC*
    
    ```
    # We will use the spiked pair
-   fastp -i SRR14297772_cpe107_1.fastq.gz -I SRR14297772_cpe107_2.fastq.gz    -o trimmed_SRR14297772_cpe107_1.fastq.gz -O trimmed_SRR14297772_cpe107_2.fastq.gz -h fastp_report.html -j fastp_report.json --length_required 50 
+   fastp -i SRR14297772_cpe107_1_ds.fastq.gz -I SRR14297772_cpe107_2_ds.fastq.gz    -o trimmed_SRR14297772_cpe107_1_ds.fastq.gz -O trimmed_SRR14297772_cpe107_2_ds.fastq.gz -h fastp_report.html -j fastp_report.json --length_required 50 
    ```
 
    - **What It Does**: Fastp removes adapters, trims low-quality bases, and discards reads shorter than 50 bp. Hostile gets rid of host (mainly) human reads.
@@ -65,7 +65,7 @@ Quality control ensures your Illumina reads are suitable for assembly. **FastQC*
       ```
       ```
       # Run Hostile on paired short reads
-      hostile clean --fastq1 SRR14297772_cpe107_1.fastq.gz --fastq2 SRR14297772_cpe107_2.fastq.gz -o - > SRR14297772_cpe107.interleaved.fastq
+      hostile clean --fastq1 SRR14297772_cpe107_1_ds.fastq.gz --fastq2 SRR14297772_cpe107_2.fastq.gz -o - > SRR14297772_cpe107.interleaved.fastq
       ```
       ```
       # Bin interleaved fastq files into clean.fastq1 and clean.fastq2 using seqtk
@@ -110,8 +110,8 @@ bbnorm.sh in=input.fastq out=downsampled.fastq target=20 min=2
 
 1. **Run metaSPAdes**:
    ``` 
-   metaspades.py -1 clean.SRR14297772_cpe107_1.fastq.gz -2 clean.SRR14297772_cpe107_1.fastq.gz    -o clean_SRR14297772_cpe107_metaspades_output/ --only-assembler # fastp and hostile-cleaned
-   metaspades.py -1 out.SRR14297772_cpe107_1.fastq.gz -2 out.SRR14297772_cpe107_1.fastq.gz    -o SRR14297772_cpe107_metaspades_output/ --only-assembler # fastp-cleaned only
+   metaspades.py -1 clean.SRR14297772_cpe107_1_ds.fastq.gz -2 clean.SRR14297772_cpe107_1_ds.fastq.gz    -o clean_SRR14297772_cpe107_metaspades_output/ --only-assembler # fastp and hostile-cleaned
+   metaspades.py -1 out.SRR14297772_cpe107_1_ds.fastq.gz -2 out.SRR14297772_cpe107_1_ds.fastq.gz    -o SRR14297772_cpe107_metaspades_output/ --only-assembler # fastp-cleaned only
    ```
 
    - **What It Does**: metaSPAdes assembles contigs by building a de Bruijn graph adapted for metagenomic data.
