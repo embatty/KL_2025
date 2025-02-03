@@ -28,13 +28,13 @@ Grab the raw fastq files from ENA. We will map Illumina short read data associat
 
 ```
 # Short reads:
-wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095905/ERR4095905_1.fastq.gz
-wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095905/ERR4095905_2.fastq.gz
-wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095885/ERR4095885_1.fastq.gz
-wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095885/ERR4095885_2.fastq.gz
+wget https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095905/ERR4095905_1.fastq.gz
+wget https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095905/ERR4095905_2.fastq.gz
+wget https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095885/ERR4095885_1.fastq.gz
+wget https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095885/ERR4095885_2.fastq.gz
 
 # Long reads
-wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR328/004/ERR3284704/ERR3284704.fastq.gz
+wget https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR328/004/ERR3284704/ERR3284704.fastq.gz
 # Download the E. coli reference from https://www.ncbi.nlm.nih.gov/nuccore/NZ_HG941718.1?report=fasta and rename with Ecoli_ref.fasta.
 mv seq.fasta Ecoli_ref.fasta
 ```
