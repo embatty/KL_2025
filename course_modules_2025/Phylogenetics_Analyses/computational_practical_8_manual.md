@@ -111,8 +111,8 @@ pairsnp -c Kpn_ST78.cpe058.strain_ids.snps.fas > Kpn_ST78.cpe058.pairsnp.csv
 
 Let’s have a look at your MSA with MEGA. MEGA is a program with a graphical user interface, which is free and easy to use. You can examine your MSA in MEGA by drag your MSA file to the program, and the program will ask “How would you like to open this fasta file?”. Click “Align”, and you should see your alignment as shown in **Figure 4**.
 
-# --> to show screenshots of the alignment Kpn_ST78.cpe058.strain_ids.fas on MEGA
-[Figure 4, MSA visualised in MEGA]
+![](images/phy_Figure_4.jpg)  
+**Figure 4, MSA visualised in MEGA**
 
 Q: How many positions are there in your MSA? Are there any ‘gaps’ / ‘missing bases’ in your alignment?
 
