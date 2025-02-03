@@ -111,7 +111,7 @@ pairsnp -c Kpn_ST78.cpe058.strain_ids.snps.fas > Kpn_ST78.cpe058.pairsnp.csv
 
 Let’s have a look at your MSA with MEGA. MEGA is a program with a graphical user interface, which is free and easy to use. You can examine your MSA in MEGA by drag your MSA file to the program, and the program will ask “How would you like to open this fasta file?”. Click “Align”, and you should see your alignment as shown in **Figure 4**.
 
-![](images/phy_Figure_4.jpg)  
+![](images/phy_Figure_4.png)  
 **Figure 4, MSA visualised in MEGA**
 
 Q: How many positions are there in your MSA? Are there any ‘gaps’ / ‘missing bases’ in your alignment?
@@ -165,10 +165,6 @@ Behind the scenes, this command also automatically selects the ‘best-fit nucle
 Explore the variety of **output files** obtained from this run and identify which resulting phylogenetic tree file we should take forward.
 
 Q: Given that **polymorphic sites** (i.e., SNP) are the most informative from an evolutionary point of view, why did not we use the MSA alignment with SNPs only? Note that we used the entire chromosomal MSA (which includes mostly monomorphic sites) as input for IQTree.
-
-Q: Based on earlier sessions, what should the nucleotide composition of your bacterial genome be? Is this the same as the one returned by IQ-TREE 2? If the answers are different, why do you think this happens?
-
-Q: Open the help page of the program using the command `iqtree2 -h`, and try to find out how to fix the nucleotide composition to be that of your bacterial genome. Rerun the analysis. Are the results the same as those returned by the first run?
 
 ---
 **Box1: Nucleotide substitution model selection**
