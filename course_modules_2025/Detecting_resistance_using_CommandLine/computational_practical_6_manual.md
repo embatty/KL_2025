@@ -123,7 +123,7 @@ amrfinder -n cpe004_Kpn-ST78-NDM1.fasta -O Klebsiella_pneumoniae -o cpe004_Kpn-S
 We will change the default delimiter of AMRFinder output file to make it easier to open with Excel:
 
 ```bash
-cpe004_Kpn-ST78-NDM1_amrfinder.txt | tr '\t' ',' > cpe004_Kpn-ST78-NDM1_amrfinder.csv
+cat cpe004_Kpn-ST78-NDM1_amrfinder.txt | tr '\t' ',' > cpe004_Kpn-ST78-NDM1_amrfinder.csv
 ```
 
 The command above will run amrfinder on the *Klebsiella pneumoniae* strain cpe004 we created an assembly for in previous practicals.
@@ -221,9 +221,9 @@ cd ..
 
 Set approximate environment bash variables for ResFinder executable to locate these databases.
 ```bash
-export CGE_RESFINDER_RESGENE_DB="/home/data/resfinder_db";
-export CGE_RESFINDER_RESPOINT_DB="/home/data/pointfinder_db";
-export CGE_DISINFINDER_DB="/home/data/disinfinder_db";
+export CGE_RESFINDER_RESGENE_DB="/home/data/cp6/resfinder_db";
+export CGE_RESFINDER_RESPOINT_DB="/home/data/cp6/pointfinder_db";
+export CGE_DISINFINDER_DB="/home/data/cp6/disinfinder_db";
 ```
 
 Remember to set these variables in any new terminal window. Otherwise ResFinder will exist with the error: ‘Could not locate ResFinder database path’.
@@ -238,10 +238,12 @@ IMPORTANT NOTE: if ResFinder database could not be found (```‘Could not locate
 
 ```bash
 python -m resfinder -ifa cpe004_Kpn-ST78-NDM1.fasta -s "Klebsiella" --acquired --point --outputPath cpe004_Kpn_resfinder --db_path_res ./resfinder_db
+```
+```bash
 python -m resfinder -ifa cpe069_Eco-NDM1.fasta -s "Escherichia coli" --acquired --point --outputPath cpe069_Eco_resfinder --db_path_res ./resfinder_db
 ```
 
-The command line above was used to run ResFinder on the genome assembly of Klebsiella pneumoniae cpe004 strain (Table 1). Note the following parameters:
+The command line above was used to run ResFinder on the genome assembly of *Klebsiella pneumoniae* cpe004 and *Escherichia coli* cpe069 strains (Table 1). Note the following parameters:
 - the option ```-ifa``` is used to indicate that the input genome is provided in FASTA format, following by the path to the genome assembly file we want to analyse;
 - the option ```-s``` is used to indicate the bacterial species in the same. This is important for ResFinder to use the antimicrobial panel specific to each bacterial species;
 - the option ```--acquired``` is chosen to detected acquired resistance genes, and;
