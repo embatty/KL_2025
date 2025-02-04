@@ -1,4 +1,4 @@
-# Tutorial: Metagenomic Analysis of Bacterial Genomes Using Illumina Short-Read Data
+# Tutorial: Metagenomic Analysis of Bacterial Genomes Using Illumina Short-Read Data (Antimicrobial Resistance in Bacterial Pathogens - Asia 2025)
 
 **Aarthi Ravikrishnan, Arun Decano**
 
