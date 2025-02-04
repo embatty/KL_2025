@@ -234,14 +234,26 @@ python -m resfinder -ifa cpe004_Kpn-ST78-NDM1.fasta -s "Klebsiella" --acquired -
 python -m resfinder -ifa cpe069_Eco-NDM1.fasta -s "Escherichia coli" --acquired --point --outputPath cpe069_Eco_resfinder
 ```
 
+Let's know change the delimiter of ResFinder output files to make it easier to open in Excel:
+```bash
+cp ./cpe004_Kpn_resfinder/ResFinder_results_tab.txt | tr '\t' ',' > ./cpe004_Kpn_resfinder/ResFinder_results_tab.csv
+cp ./cpe004_Kpn_resfinder/pheno_table.txt | tr '\t' ',' > ./cpe004_Kpn_resfinder/pheno_table.csv
+cp ./cpe069_Eco_resfinder/ResFinder_results_tab.txt | tr '\t' ',' > ./cpe069_Eco_resfinder/ResFinder_results_tab.csv
+cp ./cpe069_Eco_resfinder/pheno_table_escherichia_coli.txt | tr '\t' ',' > ./cpe069_Eco_resfinder/pheno_table_escherichia_coli.csv
+```
+
+
+<!--- 
 IMPORTANT NOTE: if ResFinder database could not be found (```‘Could not locate ResFinder database path’```, you can use the option ```--db_path_res``` to indicate where the directory of such database is:
 
 ```bash
 python -m resfinder -ifa cpe004_Kpn-ST78-NDM1.fasta -s "Klebsiella" --acquired --point --outputPath cpe004_Kpn_resfinder --db_path_res ./resfinder_db
 ```
+
 ```bash
 python -m resfinder -ifa cpe069_Eco-NDM1.fasta -s "Escherichia coli" --acquired --point --outputPath cpe069_Eco_resfinder --db_path_res ./resfinder_db
 ```
+---> 
 
 The command line above was used to run ResFinder on the genome assembly of *Klebsiella pneumoniae* cpe004 and *Escherichia coli* cpe069 strains (Table 1). Note the following parameters:
 - the option ```-ifa``` is used to indicate that the input genome is provided in FASTA format, following by the path to the genome assembly file we want to analyse;
@@ -254,14 +266,14 @@ Next, we will run ResFinder on the raw sequencing reads of strain cpe004 (Illumi
 
 fastq.gz files can be downloaded directly from the ENA using their FTP links (https://www.ebi.ac.uk/ena/browser/view/ERR4095909):
 ```bash
-wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/009/ERR4095909/ERR4095909_1.fastq.gz
-wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/009/ERR4095909/ERR4095909_2.fastq.gz
+wget https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/009/ERR4095909/ERR4095909_1.fastq.gz
+wget https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/009/ERR4095909/ERR4095909_2.fastq.gz
 ```
 
 In the ResFinder command below note we used the same options as for sample cpe004 except for ‘-ifq’, used here to specify input fastq file(s). ResFinder assumes the input to be single-end fastq if only one file is provided after ‘-ifq’, and to be paired-end data if two files are provided instead.
 
 ```bash
-python -m resfinder -ifq ERR4095909_1.fastq.gz ERR4095909_2.fastq.gz -s "Klebsiella" --acquired --point --outputPath cpe004_ERR4095909_resfinder --db_path_res ./resfinder_db
+python -m resfinder -ifq ERR4095909_1.fastq.gz ERR4095909_2.fastq.gz -s "Klebsiella" --acquired --point --outputPath cpe004_ERR4095909_resfinder
 ```
 
 If you could not download the fastq.gz files of sample ERR4095909, remember you can run ResFinder on its assembly file (cpe004_Kpn-ST78-NDM1.fasta) as done earlier.
@@ -270,14 +282,14 @@ If you could not download the fastq.gz files of sample ERR4095909, remember you 
 
 You can use the commands below to run ResFinder for the *S. aureus* samples:
 ```bash
-python -m resfinder -ifa HO50960412.fa -s "Staphylococcus aureus" --acquired --point --outputPath HO50960412_resfinder --db_path_res ./resfinder_db
-python -m resfinder -ifa ERR017261.assembly.fa -s "Staphylococcus aureus" --acquired --point --outputPath ERR017261_resfinder --db_path_res ./resfinder_db
+python -m resfinder -ifa HO50960412.fa -s "Staphylococcus aureus" --acquired --point --outputPath HO50960412_resfinder
+python -m resfinder -ifa ERR017261.assembly.fa -s "Staphylococcus aureus" --acquired --point --outputPath ERR017261_resfinder
 ```
 
 You can use the commands below to run ResFinder for the *S. typhi* samples:
 ```bash
-python -m resfinder -ifa ERR2093245.assembly.fa -s "Salmonella enterica" --acquired --point --outputPath ERR2093245_resfinder --db_path_res ./resfinder_db
-python -m resfinder -ifa ERR2093329.assembly.fa -s "Salmonella enterica" --acquired --point --outputPath ERR2093329_resfinder --db_path_res ./resfinder_db
+python -m resfinder -ifa ERR2093245.assembly.fa -s "Salmonella enterica" --acquired --point --outputPath ERR2093245_resfinder
+python -m resfinder -ifa ERR2093329.assembly.fa -s "Salmonella enterica" --acquired --point --outputPath ERR2093329_resfinder
 ```
 
 ### Interpreting ResFinder results
