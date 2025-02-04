@@ -234,7 +234,7 @@ python -m resfinder -ifa cpe004_Kpn-ST78-NDM1.fasta -s "Klebsiella" --acquired -
 python -m resfinder -ifa cpe069_Eco-NDM1.fasta -s "Escherichia coli" --acquired --point --outputPath cpe069_Eco_resfinder
 ```
 
-Let's know change the delimiter of ResFinder output files to make it easier to open in Excel:
+Let's now change the delimiter of ResFinder output files to make it easier to open in Excel:
 ```bash
 cat ./cpe004_Kpn_resfinder/ResFinder_results_tab.txt | tr '\t' ',' > ./cpe004_Kpn_resfinder/ResFinder_results_tab.csv
 cat ./cpe004_Kpn_resfinder/pheno_table.txt | tr '\t' ',' > ./cpe004_Kpn_resfinder/pheno_table.csv
@@ -290,6 +290,21 @@ You can use the commands below to run ResFinder for the *S. typhi* samples:
 ```bash
 python -m resfinder -ifa ERR2093245.assembly.fa -s "Salmonella enterica" --acquired --point --outputPath ERR2093245_resfinder
 python -m resfinder -ifa ERR2093329.assembly.fa -s "Salmonella enterica" --acquired --point --outputPath ERR2093329_resfinder
+```
+
+Let's now change the delimiter of ResFinder output files to make it easier to open in Excel:
+```bash
+cat ./HO50960412_resfinder/ResFinder_results_tab.txt | tr '\t' ',' > ./HO50960412_resfinder/ResFinder_results_tab.csv
+cat ./HO50960412_resfinder/pheno_table_staphylococcus_aureus.txt | tr '\t' ',' > ./HO50960412_resfinder/pheno_table_staphylococcus_aureus.csv
+
+cat ./ERR017261_resfinder/ResFinder_results_tab.txt | tr '\t' ',' > ./ERR017261_resfinder/ResFinder_results_tab.csv
+cat ./ERR017261_resfinder/pheno_table_staphylococcus_aureus.txt | tr '\t' ',' > ./ERR017261_resfinder/pheno_table_staphylococcus_aureus.csv
+
+cat ./ERR2093245_resfinder/ResFinder_results_tab.txt | tr '\t' ',' > ./ERR2093245_resfinder/ResFinder_results_tab.csv
+cat ./ERR2093245_resfinder/pheno_table_salmonella_enterica.txt | tr '\t' ',' > ./ERR2093245_resfinder/pheno_table_salmonella_enterica.csv
+
+cat ./ERR2093329_resfinder/ResFinder_results_tab.txt | tr '\t' ',' > ./ERR2093329_resfinder/ResFinder_results_tab.csv
+cat ./ERR2093329_resfinder/pheno_table_salmonella_enterica.txt | tr '\t' ',' > ./ERR2093329_resfinder/pheno_table_salmonella_enterica.csv
 ```
 
 ### Interpreting ResFinder results
