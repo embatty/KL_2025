@@ -15,24 +15,28 @@ To complete this tutorial, you need:
 
 ### Dataset
 
-Raw files were grabbed from Guo, X., Tang, N., Lei, H., Fang, Q., Liu, L., Zhou, Q., & Song, C. (2021). Metagenomic Analysis of Antibiotic Resistance Genes in Untreated Wastewater From Three Different Hospitals. Frontiers in microbiology, 12, 709051. https://doi.org/10.3389/fmicb.2021.709051. Selected ones were spiked with CPE plasmids.
+Raw files were grabbed from Guo, X., Tang, N., Lei, H., Fang, Q., Liu, L., Zhou, Q., & Song, C. (2021). Metagenomic Analysis of Antibiotic Resistance Genes in Untreated Wastewater From Three Different Hospitals. Frontiers in microbiology, 12, 709051. https://doi.org/10.3389/fmicb.2021.709051. 
 
-  ```
-  # Raw
-  wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR142/072/SRR14297772/SRR14297772_1_ds.fastq.gz
-  wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR142/072/SRR14297772/SRR14297772_2.fastq.gz
-  # Spiked: c/o Aarthi and Arun: Download from https://tinyurl.com/mvr3d263
-  # Filenames: SRR14297772_cpe107_1_ds.fastq.gz and SRR14297772_cpe107_2.fastq.gz
+Command to obtain raw sequences
+```
+# Raw
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR142/072/SRR14297772/SRR14297772_1_ds.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR142/072/SRR14297772/SRR14297772_2.fastq.gz
+```
+For this workshop, we will be using a custom set of sequences (which were spiked-in) that can be obtained from here (https://tinyurl.com/mvr3d263). 
 
-  ```
+You can also find these sequences within the ```mgx_sequences``` folder.
+
+```
+# Spiked: c/o Aarthi and Arun: Download from https://tinyurl.com/mvr3d263
+# Filenames: SRR14297772_cpe107_1_ds.fastq.gz and SRR14297772_cpe107_2.fastq.gz
+```
 
 
 ## Step 1: Quality Control of Illumina Reads
-
  
 Quality control ensures your Illumina reads are suitable for assembly. **FastQC** will identify quality issues, and **Fastp** will trim low-quality bases and adapters.
 
- 
 
 1. **Run FastQC to Assess Read Quality**:
    ``` 
@@ -42,21 +46,24 @@ Quality control ensures your Illumina reads are suitable for assembly. **FastQC*
    - **What It Does**: FastQC generates quality metrics and HTML reports, including GC content, read length distribution, and base quality scores.
    - **Output**: HTML reports in the `fastqc_output` directory. Open these to check for any quality issues.
 
-2. **Clean Reads Using Fastp and Hostile**:
-   ``` 
-   fastp -i raw_reads/sample_R1.fastq -I raw_reads/sample_R2.fastq    -o trimmed_sample_R1.fastq -O trimmed_sample_R2.fastq    -h fastp_report.html -j fastp_report.json --length_required 50
-   ```
-   
-   ```
-   # We will use the spiked pair
-   fastp -i SRR14297772_cpe107_1_ds.fastq.gz -I SRR14297772_cpe107_2_ds.fastq.gz    -o trimmed_SRR14297772_cpe107_1_ds_filtered.fastq.gz -O SRR14297772_cpe107_2_ds_filtered.fastq.gz -h fastp_report.html -j fastp_report.json --length_required 50 
-   ```
+2. **Clean Reads Using Fastp and remove host reads using Hostile**:
 
-   - **What It Does**: Fastp removes adapters, trims low-quality bases, and discards reads shorter than 50 bp. Hostile gets rid of host (mainly) human reads.
-   - **Key Options for Fastp**:
+This is a general command used to run fastp. Replace the input and output files based on the files you have.
+``` 
+fastp -i raw_reads/sample_R1.fastq -I raw_reads/sample_R2.fastq    -o trimmed_sample_R1.fastq -O trimmed_sample_R2.fastq    -h fastp_report.html -j fastp_report.json --length_required 50
+```
+
+For the dataset given to you, try the following command to run fastp.
+```
+# We will use the spiked pair
+fastp -i SRR14297772_cpe107_1.fastq.gz -I SRR14297772_cpe107_2.fastq.gz -o SRR14297772_cpe107_1_ds_filtered.fastq.gz -O SRR14297772_cpe107_2_ds_filtered.fastq.gz -h fastp_report.html -j fastp_report.json --length_required 50 
+```
+
+- **What It Does**: Fastp removes adapters, trims low-quality bases, and discards reads shorter than 50 bp. Hostile gets rid of host (mainly) human reads.
+- **Key Options for Fastp**:
      - `-h` and `-j`: Generate HTML and JSON reports with trimming metrics.
      - `--length_required`: Discards reads shorter than 50 bp.
-   - **Hostile**: https://github.com/bede/hostile
+- **Hostile**: https://github.com/bede/hostile
       ```
       # Create and activate a conda env 
       conda create -y -n hostile -c conda-forge -c bioconda hostile
@@ -65,29 +72,34 @@ Quality control ensures your Illumina reads are suitable for assembly. **FastQC*
       ```
       ```
       # Run Hostile on paired short reads
-      hostile clean --fastq1 SRR14297772_cpe107_1_ds.fastq.gz --fastq2 SRR14297772_cpe107_2.fastq.gz -o - > SRR14297772_cpe107.interleaved.fastq
+      hostile clean --fastq1 SRR14297772_cpe107_1.fastq.gz --fastq2 SRR14297772_cpe107_2.fastq.gz -o - > SRR14297772_cpe107.interleaved.fastq
       ```
+  
       ```
       # Bin interleaved fastq files into clean.fastq1 and clean.fastq2 using seqtk
       seqtk seq -1 SRR14297772_cpe107.interleaved.fastq > clean.SRR14297772_cpe107_1.fastq
       seqtk seq -2 SRR14297772_cpe107.interleaved.fastq > clean.SRR14297772_cpe107_2.fastq
       ```
+
       ```
       #Compress all fastq files
       gzip SRR14297772_cpe107.interleaved.fastq
       gzip clean.SRR14297772_cpe107_1.fastq
       gzip clean.SRR14297772_cpe107_2.fastq
       ```
+**IMPORTANT**
+In this tutorial, we will be using the files from cleaned from fastp. However, in the practical applications, please ensure that you have removed the host reads to ensure your downstream analyses is on microbial reads only.
 
-3. **Verify Trimming Results**:
-   Rerun FastQC and run Multiqc on clean fastq files to confirm improvements. 
+4. **Verify Trimming Results**:
+Rerun FastQC and run Multiqc on clean fastq files to confirm improvements. 
 
 
 ## Step 2: Downsample Reads (Optional)
+Sometimes this step is done -- but it is not mandatory.
+For this tutorial, we will skip this step.
+
 Reduce the number of reads in the dataset while preserving the diversity of the sample.
-
 Use **seqtk** sample for random subsampling of reads to a desired percentage or absolute number.
-
 ```
 seqtk sample -s100 input.fastq 0.1 > downsampled.fastq
 
@@ -104,20 +116,22 @@ bbnorm.sh in=input.fastq out=downsampled.fastq target=20 min=2
 
 ## Step 3:  Metagenome Assembly with metaSPAdes
 
- 
 **metaSPAdes** is optimized for metagenomic data and assembles reads into contigs, reconstructing genome fragments from complex microbial communities.
 
 
 1. **Run metaSPAdes**:
+   If you have removed host reads (optional for this tutorial)
    ``` 
    metaspades.py -1 clean.SRR14297772_cpe107_1_ds.fastq.gz -2 clean.SRR14297772_cpe107_1_ds.fastq.gz    -o clean_SRR14297772_cpe107_metaspades_output/ --only-assembler # fastp and hostile-cleaned
+   ```
+   With output from fastp 
+```
    metaspades.py -1 SRR14297772_cpe107_1_ds_filtered.fastq.gz -2 SRR14297772_cpe107_1_ds_filtered.fastq.gz    -o SRR14297772_cpe107_metaspades_output/ --only-assembler # fastp-cleaned only
    ```
+- **What It Does**: metaSPAdes assembles contigs by building a de Bruijn graph adapted for metagenomic data.
+- **Output**: Assembled contigs are saved in the `metaspades_output/` directory.
 
-   - **What It Does**: metaSPAdes assembles contigs by building a de Bruijn graph adapted for metagenomic data.
-   - **Output**: Assembled contigs are saved in the `metaspades_output/` directory.
-
-2. **Review Assembly Results**:
+A. **Review Assembly Results**:
    Inspect `contigs.fasta` in `metaspades_output/` to check contig lengths and quality.
 
 
