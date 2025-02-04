@@ -50,44 +50,41 @@ Table 2 Additional strains to be analysed (optional).
 | *S. typhi*	| Klemm *et al.* 2018 (ACT), Pakistan, 2016, 4.3.1 (H58) XDR | BL0006 | ERR2093245	| ERR2093245.assembly.fa |
 | *S. typhi* | Klemm *et al.* 2018, Pakistan (2016) – 4.3.1 (H58) pre-XDR	| Pak60168 | ERR2093329	|ERR2093329.assembly.fa |
 
+First of all, launch the Docker image on your machine:
+
 If you haven’t done so already, clone the course Github directory into your home directory:
 
 ```bash
-cd ~
+docker run -it --mount type=bind,source=C:\Users\4M\Desktop\data,target=/home/data amr:Dockerfile
+```
+
+Navigate to directory `home/data/`, download the course data, and create a new directory for this practical named `cp6`:
+
+```bash
+cd home/data/
 git clone https://github.com/WCSCourses/AMR_2025/
+mkdir cp6
 ```
 
-Create a new directory for this practical named ‘cp6’ and navigate to this directory:
+Next, copy the genome assemblies we will use (i.e., those in Tables 1 and 2) into cp6 directory:
 ```bash
-mkdir ~/course/cp6/
-cd ~/course/cp6/
-```
-
-And copy the genome assemblies we will use (i.e., those in Tables 1 and 2) into cp6 directory:
-```bash
-cp ~/AMR_2025/course_data_2025/cp6/complete_assemblies/cpe004_Kpn-ST78-NDM1.fasta ~/course/cp6/
-cp ~/AMR_2025/course_data_2025/cp6/complete_assemblies/cpe069_Eco-NDM1.fasta ~/course/cp6/
+cp ./AMR_2025/course_data_2025/cp6/complete_assemblies/cpe004_Kpn-ST78-NDM1.fasta ./cp6/
+cp ./AMR_2025/course_data_2025/cp6/complete_assemblies/cpe069_Eco-NDM1.fasta ./cp6/
 ```
 
 Copy the genome assemblies of the additional strains in Table 2 (the analysis of these strains is optional):
 ```bash
-cp ~/AMR_2025/course_data_2025/cp6/additional_genomes/HO50960412.fa ~/course/cp6/
-cp ~/AMR_2025/course_data_2025/cp6/additional_genomes/ERR017261.assembly.fa ~/course/cp6/
-cp ~/AMR_2025/course_data_2025/cp6/additional_genomes/ERR2093245.assembly.fa ~/course/cp6/
-cp ~/AMR_2025/course_data_2025/cp6/additional_genomes/ERR2093329.assembly.fa ~/course/cp6/
+cp ./AMR_2025/course_data_2025/cp6/additional_genomes/HO50960412.fa ./cp6/
+cp ./AMR_2025/course_data_2025/cp6/additional_genomes/ERR017261.assembly.fa ./cp6/
+cp ./AMR_2025/course_data_2025/cp6/additional_genomes/ERR2093245.assembly.fa ./cp6/
+cp ./AMR_2025/course_data_2025/cp6/additional_genomes/ERR2093329.assembly.fa ./cp6/
 ```
 
 Also, identify and copy the genome assembly of **your assigned CPE strain** (the one on your EpiCollect sheet).
 
-Finally, launch the course Docker image with cp6 directory mounted to it:
-
+Finally, navigate to the module folder `cp6` where you should find the genome assemblies you just copied:
 ```bash
-docker run -p 5900:5900 -it --mount type=bind,source=$HOME/course/cp6/,target=/home/data amr:Dockerfile
-```
-
-Once inside the Docker environment, navidate to `/home/data` where you should find the genome assemblies you just copied:
-```bash
-cd /home/data
+cd cp6
 ```
 
 ## 4. WGS-based prediction of AMR using AMRFinderPlus <a name="amrfinder"></a>
