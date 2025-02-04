@@ -11,6 +11,7 @@ This tutorial provides a step-by-step command-line workflow for analyzing bacter
 3. Bin contigs into genomes (Metagenome-Assembled Genomes or MAGs).
 4. Taxonomically classify and annotate these genomes.
 5. Assess antimicrobial resistance (AMR) potential and visualize taxonomic data.
+6. Understand how to perform high-throughput analyses using a pre-made Snakemake workflow (https://github.com/aarthi31/amr-course-new).
 
 ### Prerequisites
 
