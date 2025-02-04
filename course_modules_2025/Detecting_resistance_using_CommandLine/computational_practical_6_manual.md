@@ -236,10 +236,10 @@ python -m resfinder -ifa cpe069_Eco-NDM1.fasta -s "Escherichia coli" --acquired 
 
 Let's know change the delimiter of ResFinder output files to make it easier to open in Excel:
 ```bash
-cp ./cpe004_Kpn_resfinder/ResFinder_results_tab.txt | tr '\t' ',' > ./cpe004_Kpn_resfinder/ResFinder_results_tab.csv
-cp ./cpe004_Kpn_resfinder/pheno_table.txt | tr '\t' ',' > ./cpe004_Kpn_resfinder/pheno_table.csv
-cp ./cpe069_Eco_resfinder/ResFinder_results_tab.txt | tr '\t' ',' > ./cpe069_Eco_resfinder/ResFinder_results_tab.csv
-cp ./cpe069_Eco_resfinder/pheno_table_escherichia_coli.txt | tr '\t' ',' > ./cpe069_Eco_resfinder/pheno_table_escherichia_coli.csv
+cat ./cpe004_Kpn_resfinder/ResFinder_results_tab.txt | tr '\t' ',' > ./cpe004_Kpn_resfinder/ResFinder_results_tab.csv
+cat ./cpe004_Kpn_resfinder/pheno_table.txt | tr '\t' ',' > ./cpe004_Kpn_resfinder/pheno_table.csv
+cat ./cpe069_Eco_resfinder/ResFinder_results_tab.txt | tr '\t' ',' > ./cpe069_Eco_resfinder/ResFinder_results_tab.csv
+cat ./cpe069_Eco_resfinder/pheno_table_escherichia_coli.txt | tr '\t' ',' > ./cpe069_Eco_resfinder/pheno_table_escherichia_coli.csv
 ```
 
 
