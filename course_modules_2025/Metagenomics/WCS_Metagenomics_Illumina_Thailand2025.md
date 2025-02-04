@@ -154,6 +154,7 @@ metaspades.py -1 SRR14297772_cpe107_1_ds_filtered.fastq.gz -2 SRR14297772_cpe107
 
 - **What It Does**: metaSPAdes assembles contigs by building a de Bruijn graph adapted for metagenomic data.
 - **Output**: Assembled contigs are saved in the `metaspades_output/` directory.
+- **Warning**: This step is usually time consuming and memory intensive.
 
 **A**. **Review Assembly Results**:
 Inspect `contigs.fasta` in `metaspades_output/` to check contig lengths and quality.
