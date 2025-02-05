@@ -139,17 +139,17 @@ bbnorm.sh in=input.fastq out=downsampled.fastq target=20 min=2
 
 1. **Run metaSPAdes**:
 
-**If you have removed host reads (optional for this tutorial)**
+**If you have removed host reads**
 
 ```bash
-metaspades.py -1 clean.SRR14297772_cpe107_1.fastq.gz -2 clean.SRR14297772_cpe107_2.fastq.gz    -o clean_SRR14297772_cpe107_metaspades_output/ --only-assembler # fastp and hostile-cleaned
+metaspades.py -1 clean.SRR14297772_cpe107_1.fastq.gz -2 clean.SRR14297772_cpe107_2.fastq.gz -o clean_SRR14297772_cpe107_metaspades_output/ --only-assembler # fastp and hostile-cleaned
 
 ```
 
 **With output from fastp**
 
 ```bash
-metaspades.py -1 SRR14297772_cpe107_1_ds_filtered.fastq.gz -2 SRR14297772_cpe107_1_ds_filtered.fastq.gz    -o SRR14297772_cpe107_metaspades_output/ --only-assembler # fastp-cleaned only
+metaspades.py -1 SRR14297772_cpe107_1_ds_filtered.fastq.gz -2 SRR14297772_cpe107_1_ds_filtered.fastq.gz -o SRR14297772_cpe107_metaspades_output/ --only-assembler # fastp-cleaned only
 
 ```
 
