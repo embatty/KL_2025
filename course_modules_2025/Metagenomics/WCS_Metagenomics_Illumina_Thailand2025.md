@@ -190,6 +190,7 @@ Use **CheckM** to evaluate the quality of binned genomes, assessing completeness
     
     - **What It Does**: CheckM evaluates each bin for genome completeness and contamination.
     - **Interpret Results**: Bins with >90% completeness and <5% contamination are considered high-quality.
+  
 Q: What is the completeness and contamination of bins? [**Hint**: Look at bin_stats_ext.tsv]
 
 ## Step 6: Taxonomic Classification of Contigs (MAGs) and/or Reads
