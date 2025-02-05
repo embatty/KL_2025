@@ -227,7 +227,7 @@ Annotate each bin to identify genes and other genomic features using **Prokka**.
 
 ## Step 8: AMR Prediction
 
-Identify antimicrobial resistance (AMR) genes using **ABRicate**, which screens genomes against known AMR gene databases. By default it uses NCBI database.
+Identify antimicrobial resistance (AMR) genes using **ABRicate**, which screens genomes against known AMR gene databases. By default it uses NCBI database, which is a subset of the AMRFinderPlus database to do AMR gene detection. To exploit the complete functionality of AMR prediction, use AMRFinderPlus. See note [here](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder/). 
 
 1. **Run ABRicate for AMR Prediction**:
     
@@ -243,7 +243,7 @@ Identify antimicrobial resistance (AMR) genes using **ABRicate**, which screens 
 
 Visualize taxonomic classifications interactively using **Pavian** or **Krona**:
 
-- **Pavian** provides an interactive web-based interface.
+- **Pavian** provides an interactive web-based interface (based on R).
 - **Krona** produces circular, hierarchical plots for exploring multi-level taxonomic data.
 
 ### Option 1: Visualization with Pavian
