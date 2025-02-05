@@ -177,7 +177,7 @@ Binning groups contigs into bins representing putative genomes. **MetaBAT2** per
 2. **Examine Binning Results**:
 The binned genomes are saved in `bins_folder/`, with each bin corresponding to a draft genome.
 
-## Step 5: Quality Assessment of Bins (Optional)
+## Step 5: Quality Assessment of Bins
 
 Use **CheckM** to evaluate the quality of binned genomes, assessing completeness and contamination based on conserved marker genes.
 
