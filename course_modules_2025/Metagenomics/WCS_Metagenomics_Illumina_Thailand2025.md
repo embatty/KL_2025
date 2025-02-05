@@ -260,7 +260,13 @@ Visualize taxonomic classifications interactively using **Pavian** or **Krona**:
     - **Upload**: Load `kraken_report.txt` into Pavian for an interactive visualization.
 
 ### Option 2: Visualization with Krona
-
+Documentation: https://github.com/marbl/Krona/wiki/Installing
+```
+# Installation
+git clone https://github.com/marbl/Krona.git
+cd Krona/KronaTools
+./install.pl
+```
 1. **Convert Kraken2 Output for Krona**:
     
     ```
