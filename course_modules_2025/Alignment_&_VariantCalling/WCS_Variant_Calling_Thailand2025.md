@@ -1,4 +1,5 @@
 # Genome Alignment and SNP Calling in Bacterial Genomes: A Tutorial for AMR Analysis Workshop in Bangkok, Thailand (February 2025)
+Dr. Arun Gonzales Decano
 
 ## Introduction
 
@@ -29,6 +30,7 @@ Grab the raw fastq files from ENA. We will map Illumina short read data associat
 
 ```
 # Short reads:
+cd /home/data/VC_module/
 wget https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095905/ERR4095905_1.fastq.gz
 wget https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095905/ERR4095905_2.fastq.gz
 wget https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095885/ERR4095885_1.fastq.gz
