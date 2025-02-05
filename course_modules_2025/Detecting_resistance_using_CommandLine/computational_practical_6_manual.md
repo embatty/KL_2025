@@ -11,6 +11,7 @@
 7. [AMR detection using ResFinder Website – Optional](#resfinderw)
 8. [AMR detection using CARD RGI Website – Optional](#card)
 9. [Adding genotypic antibiogram of CPE strains into EpiCollect](#epicollect)
+10. [Questions](#questions)
 
 ---
 
@@ -382,6 +383,19 @@ See section in PDF manual `2025_Detecting AMR from genomes - online tools.pdf`
 
 See instructions in PDF manual `Adding genotypic antibiogram EpiCollect.pdf`
 
+## 10. Questions <a name="questions"></a>
+
+- Which organisms are supported by each tool? 
+
+- For **ampicillin** (a penicillin antibiotic), in *Escherichia coli* cpe069 strain, why does ResFinder report a wide range of beta-lactamases whereas AMRFinder and Pathogenwatch only reports penicillinases genes (like OXA and TEM)? 
+
+- For **ciprofloxacin** (a fluoroquinolone antibiotic), which strain(s) are resistant to this antibiotic? Can you tell which genetic determinants are point mutations and acquired AMR genes?
+
+- For **ciprofloxacin** (a fluoroquinolone antibiotic), in *K. pnemoniae* cpe004 strain, the same fluoroquinolone resistance mutations are detected by AMRFinder and Kleborate. Why ResFinder does not report fluoroquinolone-resistance point mutations for this strain?
+
+- For **ciprofloxacin** (a fluoroquinolone antibiotic), in *K. pnemoniae* cpe004 strain, which genes do AMRFinder and ResFinder additionally report that Kleborate does not?
+
+- For **aminoglycoside antibiotics** (Amikacin, Gentamicin and Tobramycin), in *K. pnemoniae* cpe004 strain, can you identify any differences in the aminoglycoside resistance genes identified by each tool? If any, what could be explained these differences?
 
 
 
