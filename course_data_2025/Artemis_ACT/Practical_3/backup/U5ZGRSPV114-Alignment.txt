@@ -1,0 +1,35 @@
+# blastn
+# Iteration: 0
+# Query: cpe004_hybrid_plasmid Klebsiella pneumoniae strain strain
+# RID: U5ZGRSPV114
+# Database: n/a
+# Fields: query acc.ver, subject acc.ver, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score
+# 26 hits found
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	99.968	6344	2	0	138151	144494	121365	115022	0.0	11705
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	99.702	6366	3	1	164699	171064	99865	93516	0.0	11636
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	100.000	1656	0	0	18618	20273	56853	55198	0.0	3059
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	99.852	1354	2	0	34353	35706	99865	98512	0.0	2490
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	100.000	1315	0	0	161628	162942	101885	100571	0.0	2429
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	96.781	1367	44	0	128419	129785	93514	94880	0.0	2281
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	99.864	737	1	0	21434	22170	99950	100686	0.0	1356
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	99.680	625	2	0	38285	38909	100574	99950	0.0	1144
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	88.000	775	90	3	127589	128362	105970	106742	0.0	913
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	77.770	1363	283	18	124453	125807	98396	97046	0.0	821
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	100.000	224	0	0	18618	18841	105751	105974	5.53e-115	414
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	100.000	219	0	0	27638	27856	113480	113698	3.33e-112	405
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	100.000	218	0	0	36590	36807	113698	113481	1.20e-111	403
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	100.000	217	0	0	14237	14453	113482	113698	4.30e-111	401
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	100.000	217	0	0	38993	39209	113482	113698	4.30e-111	401
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	100.000	217	0	0	45683	45899	113482	113698	4.30e-111	401
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	100.000	217	0	0	132618	132834	113482	113698	4.30e-111	401
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	100.000	217	0	0	147995	148211	113482	113698	4.30e-111	401
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	90.268	298	28	1	29139	29435	106743	106446	3.35e-107	388
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	100.000	198	0	0	147557	147754	106940	106743	1.57e-100	366
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	99.441	179	1	0	135382	135560	115122	114944	2.66e-88	326
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	98.039	153	3	0	127442	127594	114951	114799	1.64e-70	267
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	98.925	93	0	1	38200	38292	99950	99859	6.15e-40	165
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	98.750	80	1	0	145648	145727	115023	114944	2.88e-33	143
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	100.000	64	0	0	147493	147556	115235	115172	4.85e-26	119
+cpe004_hybrid_plasmid	cpe069_hybrid_plasmid-IncAC	100.000	37	0	0	38956	38992	100673	100637	4.96e-11	69.4
+
+
