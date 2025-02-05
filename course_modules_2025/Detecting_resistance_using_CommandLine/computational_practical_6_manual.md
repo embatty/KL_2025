@@ -385,7 +385,7 @@ See instructions in PDF manual `Adding genotypic antibiogram EpiCollect.pdf`
 
 ## 10. Questions <a name="questions"></a>
 
-- Which organisms are supported by each tool? 
+- Do all AMR tools (AMRFinder, ResFinder and Pathogenwatch) detect AMR for all organisms investigated? 
 
 - For **ampicillin** (a penicillin antibiotic), in *Escherichia coli* cpe069 strain, why does ResFinder report a wide range of beta-lactamases whereas AMRFinder and Pathogenwatch only reports penicillinases genes (like OXA and TEM)? 
 
