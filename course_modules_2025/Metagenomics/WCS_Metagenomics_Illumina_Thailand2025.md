@@ -211,7 +211,7 @@ Classify contigs to identify their taxonomic origin with [**Kraken2**](https://c
 1. **Run Kraken2 to identify microbial diversity**:
     
     ```bash
-    kraken2 --db /home/data/kraken2/ --threads 8 --output kraken_output.txt --report kraken_report.txt metaspades_output/contigs.fasta
+    kraken2 --db /home/data/kraken2/ --threads 8 --output kraken_output.txt --report kraken_report.txt metaspades/contigs.fasta
     ```
     
     - **What It Does**: Kraken2 assigns taxonomic classifications by matching sequences against a reference database.
@@ -219,7 +219,7 @@ Classify contigs to identify their taxonomic origin with [**Kraken2**](https://c
     - Alternatively, run Kraken 2 on the clean reads.
         
         ```
-        kraken2 --db /home/data/kraken2/ clean.SRR14297772_cpe107_1.fastq.gz clean.SRR14297772_cpe107_2.fastq.gz
+        kraken2 --db /home/data/kraken2/ clean.SRR14297772_cpe107_1.fastq.gz clean.SRR14297772_cpe107_2.fastq.gz --threads 8 --output kraken_output_reads.txt --report kraken_report_reads.txt
         
         ```
         
@@ -251,6 +251,8 @@ Identify antimicrobial resistance (AMR) genes using **ABRicate**, which screens 
     
     - **What It Does**: ABRicate searches for known AMR genes by comparing genome sequences against the ResFinder database.
     - **Output**: Results in `abricate_output.txt` list detected AMR genes, their identities, and resistance classes.
+   
+**Question**: Can you compare the results from Prokka and ABRicate? Do you find anything in common? Can you explain your observation?
 
 ## Step 9: Visualization of Taxonomy with Pavian or Krona
 
