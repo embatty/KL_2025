@@ -243,14 +243,18 @@ Annotate each bin to identify genes and other genomic features using **Prokka**.
 Identify antimicrobial resistance (AMR) genes using **ABRicate**, which screens genomes against known AMR gene databases. By default it uses NCBI database, which is a subset of the AMRFinderPlus database to do AMR gene detection. To exploit the complete functionality of AMR prediction, use AMRFinderPlus. See note [here](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder/). 
 
 1. **Run ABRicate for AMR Prediction**:
-    
-    ```
-    abricate --db resfinder bins_folder/bin.1.fa > abricate_output.txt
-    
-    ```
-    
-    - **What It Does**: ABRicate searches for known AMR genes by comparing genome sequences against the ResFinder database.
-    - **Output**: Results in `abricate_output.txt` list detected AMR genes, their identities, and resistance classes.
+
+   List all available databases:
+   ```
+   abricate --list
+   ```
+
+   To run ABRicate on the bins [Default database is ncbi]
+   ```
+   abricate bins_folder/bin.1.fa > abricate_output.txt
+   ```
+   - **What It Does**: ABRicate searches for known AMR genes by comparing genome sequences against the ResFinder database.
+   - **Output**: Results in `abricate_output.txt` list detected AMR genes, their identities, and resistance classes.
    
 **Question**: Can you compare the results from Prokka and ABRicate? Do you find anything in common? Can you explain your observation?
 
