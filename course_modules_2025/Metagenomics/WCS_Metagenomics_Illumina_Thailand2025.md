@@ -42,21 +42,30 @@ You can also find these sequences within the `metagenomics/mgx_sequences` folder
 # Filenames: SRR14297772_cpe107_1_ds.fastq.gz and SRR14297772_cpe107_2.fastq.gz
 
 ```
+Copy these sequences to the current working directory `metagenomics`.
+
+```
+cp mgx_sequences/SRR14297772_cpe107_* .
+```
 
 ## Step 1: Quality Control of Illumina Reads
 
 Quality control ensures your Illumina reads are suitable for assembly. **FastQC** will identify quality issues, and **Fastp** will trim low-quality bases and adapters.
 
 1. **Run FastQC to Assess Read Quality**:
-    
+   First make an output directory wihtin `metagenomics` folder.
+   ```
+    mkdir fastqc_output/
+   ```
+   Next run fastqc on the sequences in this directory. Note the use of '*' as a wildcard.  
     ```
-    fastqc mgx_sequences/*.fastq.gz -o fastqc_output/
+    fastqc *.fastq.gz -o fastqc_output
     
     ```
     
     - **What It Does**: FastQC generates quality metrics and HTML reports, including GC content, read length distribution, and base quality scores.
     - **Output**: HTML reports in the `fastqc_output` directory. Open these to check for any quality issues.
-2. **Clean Reads Using Fastp and remove host reads using Hostile**:
+3. **Clean Reads Using Fastp and remove host reads using Hostile**:
 
 This is a general command used to run fastp. Replace the input and output files based on the files you have.
 
@@ -86,7 +95,7 @@ conda create -y -n hostile -c conda-forge -c bioconda hostile
 conda activate hostile
 conda activate --stack amr # to access packages from the amr env 
  # Run Hostile on paired short reads 
-hostile clean --fastq1 SRR14297772_cpe107_1.fastq.gz --fastq2 SRR14297772_cpe107_2.fastq.gz -o - > SRR14297772_cpe107.interleaved.fastq
+hostile clean --fastq1 SRR14297772_cpe107_1_ds_filtered.fastq.gz --fastq2 SRR14297772_cpe107_2_ds_filtered.fastq.gz -o - > SRR14297772_cpe107.interleaved.fastq
  
 ```
 
@@ -95,10 +104,10 @@ hostile clean --fastq1 SRR14297772_cpe107_1.fastq.gz --fastq2 SRR14297772_cpe107
 seqtk seq -1 SRR14297772_cpe107.interleaved.fastq > clean.SRR14297772_cpe107_1.fastq
 seqtk seq -2 SRR14297772_cpe107.interleaved.fastq > clean.SRR14297772_cpe107_2.fastq
 
-#Compress all fastq files
-gzip SRR14297772_cpe107.interleaved.fastq
-gzip clean.SRR14297772_cpe107_1.fastq
-gzip clean.SRR14297772_cpe107_2.fastq
+#Compress all fastq files (pigz offers fast compression. You can also use gzip)
+pigz SRR14297772_cpe107.interleaved.fastq
+pigz clean.SRR14297772_cpe107_1.fastq
+pigz clean.SRR14297772_cpe107_2.fastq
 
 ```
 
