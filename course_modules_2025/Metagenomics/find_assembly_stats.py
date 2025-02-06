@@ -20,13 +20,18 @@ def calculate_n50_l50(fasta_file):
     
     return n50, l50
 
+def print_contig_lengths(fasta_file):
+    for record in SeqIO.parse(fasta_file, "fasta"):
+        print(f"Contig: {record.id}, Length: {len(record.seq)}")
+
 if __name__ == "__main__":
     import argparse
     
-    parser = argparse.ArgumentParser(description="Calculate N50 and L50 from a metaSPAdes FASTA file.")
+    parser = argparse.ArgumentParser(description="Calculate N50 and L50 and print contig lengths from a metaSPAdes FASTA file.")
     parser.add_argument("fasta", help="Path to the metaSPAdes output FASTA file (e.g., contigs.fasta)")
     args = parser.parse_args()
     
+    print_contig_lengths(args.fasta)
     n50, l50 = calculate_n50_l50(args.fasta)
     print(f"N50: {n50}")
     print(f"L50: {l50}")
