@@ -206,7 +206,7 @@ Q: What is the completeness and contamination of bins? [**Hint**: Look at bin_st
 
 ## Step 6: Taxonomic Classification of Contigs (MAGs) and/or Reads
 
-Classify contigs to identify their taxonomic origin with **Kraken2**, which compares contigs to a taxonomic database.
+Classify contigs to identify their taxonomic origin with [**Kraken2**](https://ccb.jhu.edu/software/kraken2/), which compares contigs to a taxonomic database.
 
 1. **Run Kraken2 to identify microbial diversity**:
     
@@ -219,7 +219,7 @@ Classify contigs to identify their taxonomic origin with **Kraken2**, which comp
     - Alternatively, run Kraken 2 on the clean reads.
         
         ```
-        kraken2 --db kraken2_db SRR14297772_cpe107.interleaved.fastq
+        kraken2 --db /home/data/kraken2/ clean.SRR14297772_cpe107_1.fastq.gz clean.SRR14297772_cpe107_2.fastq.gz
         
         ```
         
