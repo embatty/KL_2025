@@ -271,7 +271,7 @@ Visualize taxonomic classifications interactively using **Pavian** or **Krona**:
     
     ```
     pavian server
-    # or upload the kraken reports on the web server: <https://shiny.hiplot.cn/pavian/>
+    # or upload the kraken reports on the web server: [<https://shiny.hiplot.cn/pavian/>](https://fbreitwieser.shinyapps.io/pavian/)
     
     ```
     
