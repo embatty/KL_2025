@@ -167,7 +167,9 @@ metaspades.py -1 SRR14297772_cpe107_1_ds_filtered.fastq.gz -2 SRR14297772_cpe107
 - **Warning**: This step is usually time consuming and memory intensive.
 
 **A**. **Review Assembly Results**:
-Inspect `contigs.fasta` in `metaspades_output/` to check contig lengths and quality.
+Inspect `contigs.fasta` in `metaspades_output/` to check contig lengths and quality. What are the N50 and L50 values? [Hint: use python script `find_assembly_stats.py` from the `Metagenomics` folder]. 
+
+_Other tools_ : Check [Quast](https://github.com/ablab/quast).
 
 ## Step 4: Binning the Contigs
 
