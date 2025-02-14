@@ -20,7 +20,7 @@
 | `docker start <container_id_or_name>`  | Starts a stopped container.                                                                           |
 | `docker stats`                         | Displays real-time statistics for running containers (CPU, memory usage, etc.).                       |
 | `docker build -t <image_name> .`       | Builds a Docker image from a Dockerfile in the current directory.                                      |
-| `docker image import <file>`           | Imports a Docker image from a previously exported file (typically a .tar file)                                      |
+| `docker image import <file>`           | Imports a Docker image from a previously exported file (typically a .tar file).                                      |
 | `docker run --link <container_name>`   | Links one container to another, allowing them to communicate.                                          |
 | `docker-compose up`                    | Starts multi-container applications defined in a `docker-compose.yml` file.                           |
 | `docker info`                          | Displays detailed information about the Docker installation and system.                               |
