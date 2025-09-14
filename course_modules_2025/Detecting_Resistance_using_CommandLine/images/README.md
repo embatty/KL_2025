@@ -1,0 +1,1 @@
+Directory containing images used in computational_practical_6_manual.md
