@@ -1,22 +1,26 @@
+# Genome Assembly and annotation
+
 ## Introduction
 
 Genome assembly is a key step in genomic analysis, enabling researchers to reconstruct the complete genomic sequence of an organism from raw sequencing data. This process is particularly significant for bacterial genomes, which are typically compact, circular, and rich in essential genetic information. Understanding bacterial genome assembly is essential for applications ranging from pathogen identification and antibiotic resistance profiling to studying microbial evolution and ecology.
-![Figure 1](/relative/path/to/img.jpg?raw=true "Genome assembly")
+![Figure 1](course_modules_2025/GenomeAssemblyAndAnnotation/AssemblyFig1.png)
 
-The desired outcome is to achieve long contiguous DNA sequences (contigs). We will have to try to put fragmented DNA sequences back to its original, ordered continuous state (whether it is linear or circularized DNA), and this process is called genome assembly. The fundamental principal of genome assembly is to look for overlaps between fragments, and you will appreciate why longer reads are advantageous here (Figure 4.2).
+The desired outcome is to achieve long contiguous DNA sequences (contigs). We will have to try to put fragmented DNA sequences back to its original, ordered continuous state (whether it is linear or circularized DNA), and this process is called genome assembly. The fundamental principal of genome assembly is to look for overlaps between fragments, and you will appreciate why longer reads are advantageous here.
+![Figure 2](course_modules_2025/GenomeAssemblyAndAnnotation/AssemblyFig2.png)
+
 
 <details>
     <summary>Assembly algorithms
     </summary>
 
-#### De Bruijn graphs
+### De Bruijn graphs
 
 Short-read assemblers predominantly rely on de Bruijn graphs, which break the sequencing
 reads into fixed-lengths called k-mers. Overlaps between k-mers are identified and represented
 as edges in a graph, with k-mers as nodes. However, challenges arise with repetitive regions,
 which can create ambiguities in the graph structure.
 
-#### String graphs
+### String graphs
 
 Long-read assemblers use string graphs, which directly represent overlaps between entire reads
 instead of breaking them into k-mers. This method is well suited for long-read data, as the
@@ -28,7 +32,7 @@ challenging for short-read assemblers.
 
 </details>
 
-#### Assembly graph vs final assembly
+### Assembly graph vs final assembly
 
 The two main files produced by genome assemblers are an assembly graph (.gfa) and the final
 genome assembly (.fasta). The assembly graph represents an intermediate output of the
@@ -41,7 +45,11 @@ the bacterial genome after resolving ambiguities and filtering out alternative p
 ### Software Check
 
 To check the tools required for this practical are correctly installed, open a new terminal
-window and run the following commands in turn.
+window and activate the conda environment for this module:
+
+`conda activate assembly`
+
+Run the following commands in turn to make sure the software is installed correctly:
 ```
 shovill -h
 unicycler -h
@@ -50,13 +58,7 @@ prokka -h
 ```
 
 If all are installed correctly, you should see the help page of each tool, and no error.
-Navigate to the home directory:
-`cd ~`
-Make a new working directory – this is where you will perform all commands
-```
-mkdir cp4_work
-cd cp4_work
-```
+Navigate to your data directory:
 
 ### Dataset
 
@@ -72,15 +74,17 @@ and commands shown below.
 
 <summary>Pre-processing QC and filtering steps </summary>
 Specifically, the Illumina paired-end files were processed using the same fastp command you used in Accessing Data and QC. The Nanopore long-reads have had adapters removed with Porechop, then filtered both on quality and read length with Filtlong, retaining only the best quality reads of minimum 1000 bp length.
+
 | Program | Command |
 |---|---|
 |Fastp |fastp --in1 ERR4095909_1.fastq.gz --in2 ERR4095909_2.fastq.gz --out1 cpe004_R1.fastq.gz --out2 cpe004_R2.fastq.gz --length_required 40 --cut_front --cut_tail --cut_mean_quality 25 |
 |Porechop | porechop -i cpe004_long.fastq.gz -o cpe004_porchop.fastq.gz |
 |Filtlong | filtlong --min_length 1000 --keep_percent 95 cpe004_porechop.fastq.gz | gzip > cpe004_filtered.fastq.gz |
+
 </details>
 
 The files we will be using for this practical are listed below and are in the
-course_data_2025/cp4/reads/ folder:
+`GenomeAssemblyAndAnnotation/reads/` folder:
 1. cpe004_R1.fastq.gz = Read 1 (trimmed) Illumina
 2. cpe004_R2.fastq.gz = Read 2 (trimmed) Illumina
 3. cpe004_filtered.fastq.gz = ONT long-reads

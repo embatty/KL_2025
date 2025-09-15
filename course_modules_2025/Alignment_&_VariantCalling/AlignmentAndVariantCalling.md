@@ -1,5 +1,5 @@
 # Genome Alignment and SNP Calling in Bacterial Genomes
-Original version by Dr Arun Gonzales Decano
+Original version by Dr Arun Gonzales Decano, modified by Liz Batty September 2025
 
 ## Introduction
 
@@ -12,47 +12,49 @@ Before starting, ensure you have the following software installed:
   - snippy
   - samtools
   - bcftools
-  - FastQC for quality control
-  - snpEff
+  - fastqc
+  - snpeff
 
 ## Data Preparation
 
-We will map Illumina short read data from a strain of Klebsiella pneumoniae,
+We will map Illumina short read data from a strain of _Klebsiella pneumoniae_. The data files you will need (read files, and a reference genome) are already downloaded for you and are in the `AlignmentAndVariantCalling` directory wherever you placed the downloaded data.
+
 <details>
     <summary>Downloading data</summary>
-    The data files for this tutorial are already available in <dir>. The following commands were used to download the data directly from the Sequence Read Archive.
+    The following commands were used to download the data directly from the Sequence Read Archive.
+
     ```
     wget https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095905/ERR4095905_1.fastq.gz
     wget https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095905/ERR4095905_2.fastq.gz
     wget https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095885/ERR4095885_1.fastq.gz
     wget https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095885/ERR4095885_2.fastq.gz
     ```
+
     Download a Klebsiella pneumoniae reference genome from https://www.ncbi.nlm.nih.gov/nuccore/NZ_HG941718.1?report=fasta
+
 </details>
 
-### 1. Quality Control and Trimming
-   - Use Fastp to remove adapters and low-quality bases.
+## Quality Control and Trimming
+   - First we use `fastp` to remove adapters and low-quality bases, as we practiced in the Data QC module.
      ```
      fastp -i ERR4095905_1.fastq.gz -I ERR4095905_2.fastq.gz -o out.ERR4095905_1.fastq.gz -O out.ERR4095905_2.fastq.gz
      ```
-### 3. Make sure you're in the correct working directory where the files are accessible.
-
-     cd /home/data/VC_module/
-     # /home/data/VC_module/outputs/ contains output files and subfolders from pre-runs.
-
 
 ## Short Read Alignment and SNP Calling with Snippy
 
 [Snippy](https://github.com/tseemann/snippy) is an all-in-one tool for bacterial SNP calling using short-read data. It aligns the reads to a reference genome and calls variants.
 
-1. Run Snippy:
+1. Run Snippy and examine the output
   Use snippy to perform alignment and SNP calling in one step.
+
      ```
      snippy --cpus 1 --outdir ERR4095905_snippy --reference cpe058_Kpn-ST78-NDM1.chr.fasta --R1 out.ERR4095905_1.fastq.gz --R2 out.ERR4095905_2.fastq.gz
      ```
+This will place all the output files from your Snippy run in the output directory `ERR4095905_snippy`. Look at the output files and refer to the Snippy homepage to tell you what is in each output file.
 
-2. Run Snippy-core
-  Snippy-core compares the output of SNP calling on multiple samples run using Snippy. Two samples previously run on Snippy can be found here. Run Snippy-core across all samples:
+2. Run Snippy-core and examine the output
+  Snippy-core compares the output of SNP calling on multiple samples run using Snippy to look at the 'core' genome, where we can call variants in all samples. Three previously run on Snippy can be found in the `AlignmentAndVariantCalling/snippy` directory. First, navigate to this directory, and then run Snippy-core across all samples:
+
   ```
   ```
 
@@ -83,7 +85,7 @@ How many SNPs were removed through filtering?
      ```
 
 ### 3. Visualization:
-   - Visualize the alignment and SNPs using tools using [Integrative Genomics Viewer (IGV)](https://igv.org/doc/desktop/#DownloadPage/).
+   - Visualize the alignment and SNPs using tools using [Integrative Genomics Viewer (IGV)](https://igv.org/doc/desktop/#DownloadPage/). This cannot be installed using Conda but you can download it directly to your computer.
 <details>
     <summary>Explanation of each metric in the pop-up overview of a SNP</summary>
 

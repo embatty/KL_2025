@@ -4,12 +4,11 @@ relative_links:
   enabled: true
   collections: true
 include:
-  - CONTRIBUTING.md
   - README.md
-  - LICENSE.md
-  - COPYING.md
-  - CODE_OF_CONDUCT.md
-  - CONTRIBUTING.md
-  - ISSUE_TEMPLATE.md
-  - PULL_REQUEST_TEMPLATE.md
-
+  - course_modules_2025/AccessingDataAndQC/AccessingDataAndQC.md
+  - course_modules_2025/Alignment_&_VariantCalling/AlignmentAndVariantCalling.md
+  - course_modules_2025/DetectingResistance/DetectingResistance.md
+  - course_modules_2025/GenomeAssemblyAndAnnotation/GenomeAssemblyAndAnnotation.md
+  - course_modules_2025/PhylogeneticAnalysis/PhylogeneticAnalysis.md
+  - course_modules_2025/PhylogeneticVisualization/PhylogeneticVisualization.md
+  - course_modules_2025/EnvironmentAndCommandLine.md
