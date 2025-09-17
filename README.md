@@ -2,7 +2,7 @@
 
 ## Kuala Lumpur, Malaysia, October 7-9th
 
-All material initially developed for the [Wellcome Connecting Science](https://coursesandconferences.wellcomeconnectingscience.org) [2025 course on antimicrobial resistance in bacterial pathogens](https://coursesandconferences.wellcomeconnectingscience.org/event/antimicrobial-resistance-in-bacterial-pathogens-asia-20250202/) and modified by Liz Batty,  and used under a CC licence.
+All material initially developed for the [Wellcome Connecting Science](https://coursesandconferences.wellcomeconnectingscience.org) [2025 course on antimicrobial resistance in bacterial pathogens](https://coursesandconferences.wellcomeconnectingscience.org/event/antimicrobial-resistance-in-bacterial-pathogens-asia-20250202/) and modified by Liz Batty, and used under a CC licence.
 
 ## Programme
 Module 1: [Setting up the environment and command line](course_modules_2025/EnvironmentAndCommandLine.md)
@@ -13,11 +13,12 @@ Module 3: [Alignment and Variant Calling](course_modules_2025/Alignment_&_Varian
 
 Module 4: [Genome Assembly and Annotation](course_modules_2025/GenomeAssemblyAndAnnotation/GenomeAssemblyAndAnnotation.html)
 
-Module 5: [Phylogenetic Analysis](course_modules_2025/PhylogeneticAnalysis/PhylogeneticAnalysis.html)
+Module 5: [Detecting Resistance](course_modules_2025/DetectingResistance/DetectingResistance.html)
 
-Module 6: [Phylogenetic Visualization](course_modules_2025/PhylogeneticVisualization/PhylogeneticVisualization.html)
+Module 6: [Phylogenetic Analysis](course_modules_2025/PhylogeneticAnalysis/PhylogeneticAnalysis.html)
 
-Module 7: [Detecting Resistance](course_modules_2025/DetectingResistance/DetectingResistance.html)
+Module 7: [Phylogenetic Visualization](course_modules_2025/PhylogeneticVisualization/PhylogeneticVisualization.html)
+
 
 ## Citing and Re-using Course Material
 

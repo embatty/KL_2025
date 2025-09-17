@@ -333,11 +333,3 @@ See section in PDF manual `2025_Detecting AMR from genomes - online tools.pdf`
 ## 7. AMR detection using ResFinder Website – Optional <a name="resfinderw"></a>
 
 See section in PDF manual `2025_Detecting AMR from genomes - online tools.pdf`
-
-## 8. AMR detection using CARD RGI Website - Optional <a name="card"></a>
-
-See section in PDF manual `2025_Detecting AMR from genomes - online tools.pdf`
-
-## 9. Adding genotypic antibiogram of CPE strains into EpiCollect <a name="epicollect"></a>
-
-See instructions in PDF manual `Adding genotypic antibiogram EpiCollect.pdf`

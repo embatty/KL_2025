@@ -8,7 +8,7 @@ This directory contains all course module files, including presentations, practi
 - Practical manuals (Markdown, PDF)
 - Supplementary instructional materials </br>
 
-**Important Note**: It is highly advised to convert PowerPoint and Word Documents into PDFs before uploading. 
+**Important Note**: It is highly advised to convert PowerPoint and Word Documents into PDFs before uploading.
 
 ## Best Practices for Naming Conventions
 To ensure clarity and consistency, please follow these naming conventions for your files:
@@ -22,14 +22,14 @@ To ensure clarity and consistency, please follow these naming conventions for yo
 3. **Click on "Add file":** On the right-hand side, you’ll see an option labelled **Add file**.
 4. **Choose "Upload files":** From the dropdown menu, select **Upload files**.
 5. **Drag and Drop or Select Files:** You can either drag and drop your files into the space provided or click **choose your files** to upload them from your computer.
-6. **Commit Changes:** Once your files are uploaded, scroll down to the **Commit changes** section. 
+6. **Commit Changes:** Once your files are uploaded, scroll down to the **Commit changes** section.
    - Enter a brief description of the changes in the commit message field (e.g., "Adding new module materials").
    - Click **Commit changes** to finalize your upload.
 
 ## Overview of Manual Development
 Each module manual should encompass the following essential components to ensure a comprehensive learning experience:
 
-1. **Background of the Topic:** 
+1. **Background of the Topic:**
    - Provide a thorough explanation of key concepts related to the module.
    - Discuss the significance and relevance of the topic in the broader context of the field.
    - Include historical background or foundational theories where applicable.
@@ -72,7 +72,7 @@ Additionally, please review the [PowerPoint Presentation Template Guide](https:/
   - Detailed methodologies, including equipment and materials needed.
   - Safety protocols to follow during the experiments.
   - Data collection and analysis methods.
-  
+
   - Example Lab Manual: [AMR Africa 24](https://drive.google.com/file/d/11ZoiNcW36ZJ80YtqK269XRh3K4a577vS/view?usp=sharing)
   - Example Lab Protocol: [Antimicrobial Susceptibility Testing](https://docs.google.com/document/d/1L6DxB2fvhtSmSnBN3dAKXfOG9jdG2kLQ/edit?usp=share_link&ouid=113316994580307529891&rtpof=true&sd=true)
 
@@ -82,12 +82,12 @@ Additionally, please review the [PowerPoint Presentation Template Guide](https:/
   - A thorough description of the bioinformatics tools or software to be used.
   - Instructions for data input, analysis, and interpretation of results.
   - Examples of datasets to practice on and expected outcomes.
-  
-  - **Examples in Bioinformatics:** 
+
+  - **Examples in Bioinformatics:**
     - Example 1: [Helminths_2021, Module 6: Genome Variation](https://github.com/WCSCourses/Helminths_2021/blob/main/manuals/module_6_genome_variation/module_6_genome_variation.md)
     - Example 2: [WWPG_2021, Task 2: Georeferencing Genomic Data](https://github.com/WCSCourses/WWPG_2021/blob/main/manuals/exercise_bacterial/Task2_georeferencing.pdf)
     - Example 3: [ViralBioinfo_22, Module: Phylogenetics & Virus Typing](https://github.com/WCSCourses/ViralBioinfLAC2022/blob/main/Modules/Phylogeny_&_Virus_Typing_HandsOnEx.md)
-  
+
   - For additional examples, please visit [WCSCourses GitHub](https://github.com/WCSCourses).
 
 ## Converting Between Markdown and PDF
