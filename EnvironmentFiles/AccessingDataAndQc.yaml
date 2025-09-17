@@ -1,0 +1,9 @@
+name: AccessingDataAndQc
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - fastp
+  - fastqc
+  - curl
+  - quast

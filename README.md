@@ -5,7 +5,7 @@
 All material initially developed for the [Wellcome Connecting Science](https://coursesandconferences.wellcomeconnectingscience.org) [2025 course on antimicrobial resistance in bacterial pathogens](https://coursesandconferences.wellcomeconnectingscience.org/event/antimicrobial-resistance-in-bacterial-pathogens-asia-20250202/) and modified by Liz Batty,  and used under a CC licence.
 
 ## Programme
-Module 1: Setting up the environment and using the command line
+Module 1: [Setting up the environment and command line](course_modules_2025/EnvironmentAndCommandLine.md)
 
 Module 2: [Accessing Data and QC](course_modules_2025/AccessingDataAndQC/AccessingDataAndQC.html)
 

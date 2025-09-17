@@ -1,0 +1,6 @@
+name: DetectingResistance
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - ncbi-amrfinderplus

@@ -1,0 +1,11 @@
+name: PhylogeneticAnalysis
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - seqkit
+  - snp-sites
+  - pairsnp
+  - iqtree
+  - figtree
+

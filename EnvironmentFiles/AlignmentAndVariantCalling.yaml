@@ -1,0 +1,11 @@
+name: AlignmentAndVariantCalling
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - fastp
+  - snippy
+  - samtools
+  - bcftools
+  - fastqc
+  - snpeff

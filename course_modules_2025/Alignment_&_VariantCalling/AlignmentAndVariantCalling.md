@@ -1,13 +1,23 @@
-# Genome Alignment and SNP Calling in Bacterial Genomes
+# Computational Practical: Genome Alignment and SNP Calling in Bacterial Genomes
 Original version by Dr Arun Gonzales Decano, modified by Liz Batty September 2025
 
-## Introduction
+## Table of Contents
+1. [Introduction](#intro)
+2. [Prerequisites](#prereq)
+3. [Data preparation](#dataprep)
+4. [Short Read Alignment and SNP Calling with Snippy](#snippy)
+5. [Post-processing and Analysis](#postprocessing)
 
-Variant calling involves crucial steps in comparative genomics that researchers to identify genetic variations between bacterial strains. Short-read sequencing data (from Illumina) and long-read sequencing data (from PacBio or Oxford Nanopore) have distinct characteristics, each with specific tools and methods for optimal processing. This tutorial provides step-by-step instructions for performing SNP (Single Nucleotide Polymorphism) and other forms of variant calling in bacterial genomes using both short-read and long-read (nanopore) sequencing data.
+## Introduction  <a name="intro"></a>
 
-## Prerequisites
+Variant calling involves crucial steps in comparative genomics that researchers to identify genetic variations between bacterial strains. Short-read sequencing data (from Illumina) and long-read sequencing data (from PacBio or Oxford Nanopore) have distinct characteristics, each with specific tools and methods for optimal processing. This tutorial provides step-by-step instructions for performing SNP (Single Nucleotide Polymorphism) and other forms of variant calling in bacterial genomes using short-read sequencing data, with an optional exercise looking at long-read data at the end of the practical.
 
-Before starting, ensure you have the following software installed:
+## Prerequisites <a name="prereq"></a>
+
+Before starting, load up the conda environment for this practical:
+`conda activate AlignmentAndVariantCalling`
+
+And check you have the following tools available:
   - fastp
   - snippy
   - samtools
@@ -15,7 +25,7 @@ Before starting, ensure you have the following software installed:
   - fastqc
   - snpeff
 
-## Data Preparation
+## Data Preparation <a name="dataprep"></a>
 
 We will map Illumina short read data from a strain of _Klebsiella pneumoniae_. The data files you will need (read files, and a reference genome) are already downloaded for you and are in the `AlignmentAndVariantCalling` directory wherever you placed the downloaded data.
 
@@ -30,54 +40,57 @@ We will map Illumina short read data from a strain of _Klebsiella pneumoniae_. T
     wget https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095885/ERR4095885_2.fastq.gz
     ```
 
-    Download a Klebsiella pneumoniae reference genome from https://www.ncbi.nlm.nih.gov/nuccore/NZ_HG941718.1?report=fasta
+    Download a Klebsiella pneumoniae reference genome from https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000240185.1/
 
 </details>
 
-## Quality Control and Trimming
-   - First we use `fastp` to remove adapters and low-quality bases, as we practiced in the Data QC module.
+
+## Short Read Alignment and SNP Calling with Snippy <a name="snippy"></a>
+First we prepare our data using `fastp` to remove adapters and low-quality bases, as we practiced in the Data QC module.
+
      ```
      fastp -i ERR4095905_1.fastq.gz -I ERR4095905_2.fastq.gz -o out.ERR4095905_1.fastq.gz -O out.ERR4095905_2.fastq.gz
      ```
 
-## Short Read Alignment and SNP Calling with Snippy
-
 [Snippy](https://github.com/tseemann/snippy) is an all-in-one tool for bacterial SNP calling using short-read data. It aligns the reads to a reference genome and calls variants.
 
-1. Run Snippy and examine the output
-  Use snippy to perform alignment and SNP calling in one step.
-
+Run Snippy and examine the output.
      ```
      snippy --cpus 1 --outdir ERR4095905_snippy --reference cpe058_Kpn-ST78-NDM1.chr.fasta --R1 out.ERR4095905_1.fastq.gz --R2 out.ERR4095905_2.fastq.gz
      ```
-This will place all the output files from your Snippy run in the output directory `ERR4095905_snippy`. Look at the output files and refer to the Snippy homepage to tell you what is in each output file.
+This will take about ten minutes to run. All the output files from your Snippy run will be placed in the output directory `ERR4095905_snippy`. Look at the output files and refer to the Snippy homepage to tell you what is in each output file.
 
-2. Run Snippy-core and examine the output
-  Snippy-core compares the output of SNP calling on multiple samples run using Snippy to look at the 'core' genome, where we can call variants in all samples. Three previously run on Snippy can be found in the `AlignmentAndVariantCalling/snippy` directory. First, navigate to this directory, and then run Snippy-core across all samples:
-
-  ```
-  ```
-
-3. Examine the Output
-  Note the formats and contents of each output file. A file ending in VCF is in the [Variant Call Format](https://en.wikipedia.org/wiki/Variant_Call_Format), which is a specific file format designed to hold information on genetic variants. A BAM file and the associated BAI index file are a specific file format which contains the reads aligned to the reference genome. A BAM file is a binary file which must be viewed using the `samtools` application.
+ A file ending in VCF is in the [Variant Call Format](https://en.wikipedia.org/wiki/Variant_Call_Format), which is a specific file format designed to hold information on genetic variants. A BAM file and the associated BAI index file are a specific file format which contains the reads aligned to the reference genome. A BAM file is a binary file which must be viewed using the `samtools` application.
      | Filename | Description |
      | snps.vcf | The called SNPs in VCF format |
      | snps.tab | A tabular summary of SNPs |
      | alignment.bam | The aligned reads in BAM format |
      | alignment.bam.bai | The BAM index file |
 
+Now we run snippy-core and examine the output. Snippy-core compares the output of SNP calling on multiple samples run using Snippy to look at the 'core' genome, where we can call variants in all samples. Three previously run on Snippy can be found in the `AlignmentAndVariantCalling/snippy` directory. First, navigate to this directory, and then run Snippy-core across all samples:
 
-## Post-processing and Analysis
+  ```
+  snippy-core --ref Kpne_HS11286.fna snippy/ERR4095905_snippy/ snippy/ERR4095977_snippy/ snippy/ERR9419473_snippy/
+  ```
+
+  Note the formats and contents of each output file. By default all the files produced by snippy-core will starting with `core.`
+
+
+## Post-processing and Analysis <a name="postprocess"></a>
 
 ### 1. Filter SNPs:
-   - Apply filters to the VCF files to remove low-quality SNPs using bcftools. Remove SNPs/Indels with MQ (mapping quality) <30 and DP (depth) <10.
+We can also apply filters to the VCF files to remove or tag low-quality SNPs using `bcftools`. For instance, to remove SNPs with a depth of coverage (DP) below 30:
      ```
-     bcftools filter -s LowQual -e '%QUAL<30 || DP<10' snippy_output/snps.vcf > filtered_snps_short.vcf
+     bcftools filter -e 'FMT/DP<30' snps.vcf > snps.depthfilter.vcf
      ```
+
 How many SNPs were removed through filtering?
+<detail><summary>Answer</summary>
+You can count the number of lines in the SNP file before and after filtering using the `wc -l` command.
+</detail>
 
 ### 2. Annotation of SNPs:
-   - Use [snpEff](https://pcingola.github.io/SnpEff/snpeff/running/) to annotate the SNPs.
+Use [snpEff](https://pcingola.github.io/SnpEff/snpeff/running/) to annotate the SNPs.
 
      ```
      #short reads
@@ -86,6 +99,7 @@ How many SNPs were removed through filtering?
 
 ### 3. Visualization:
    - Visualize the alignment and SNPs using tools using [Integrative Genomics Viewer (IGV)](https://igv.org/doc/desktop/#DownloadPage/). This cannot be installed using Conda but you can download it directly to your computer.
+
 <details>
     <summary>Explanation of each metric in the pop-up overview of a SNP</summary>
 
@@ -146,7 +160,3 @@ Long reads go here
 4. Cingolani P, Platts A, Wang LL, Coon M, Nguyen T, Wang L, Land SJ, Lu X, Ruden DM. (2012). A program for annotating and predicting the effects of single nucleotide polymorphisms, SnpEff: SNPs in the genome of Drosophila melanogaster strain w1118; iso-2; iso-3. Fly, 6(2), 80-92. https://doi.org/10.4161/fly.19695
 
 5. Robinson JT, Thorvaldsdóttir H, Winckler W, Guttman M, Lander ES, Getz G, Mesirov JP. (2011). Integrative genomics viewer. Nature Biotechnology, 29(1), 24-26. https://doi.org/10.1038/nbt.1754
-
-6. Andrews S. (2010). FastQC: A quality control tool for high throughput sequence data. Available online: http://www.bioinformatics.babraham.ac.uk/projects/fastqc
-
-7. Ewels P, Magnusson M, Lundin S, Käller M. (2016). MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics, 32(19), 3047-3048. https://doi.org/10.1093/bioinformatics/btw354

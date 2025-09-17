@@ -42,8 +42,41 @@ We have provided conda environment files, which will automatically set up a cond
 
 All the environment files are in the `EnvironmentFile` subdirectory. For each module there is one environment file, which is named after the module and ends with the `.yaml` file extension.
 
+Navigate to the `EnvironmentFile` subdirectry using the `cd` and `ls` commands.
 
+To set up a new conda environment for the QC module, we will run the following command:
 
+`conda env create --name AccessingDataAndQc -f AccessingDataAndQc.yaml`
+
+This creates a new environment called `AccessingDataAndQc`, which installs all the programs which are listed in the file `AccessingDataAndQc.yaml`. You can take a look at the format of this file using `cat AccessingDataAndQc.yaml`.
+
+Now let's check this conda environment contains all the software we need. First we 'activate' this environment:
+`conda activate AccessingDataAndQc`
+
+You can see which environment is active as the name will be displayed on your screen:
+![](images/conda_env.jpg)
+
+There are four programs installed in this environment: `fastp`, `fastqc`, `curl`, and `quast`. We will find out about these programs later, but for now check that you can run these programs by looking at the help available for these programs:
+
+```
+fastp -h
+fastqc -h
+curl -h
+quast -h
+```
+
+We have a conda environment for each module, plus one extra for the program Gubbins. To set up all the environments, run this set of commands and select `[y]` when asked to install:
+
+```
+conda create -n AccessingDataAndQc -f AccessingDataAndQc.yaml
+conda create -n GenomeAssemblyAndAnnotation -f GenomeAssemblyAndAnnotation.yaml
+conda create -n AlignmentAndVariantCalling -f AlignmentAndVariantCalling.yaml
+conda create -n PhylogeneticAnalysis -f PhylogeneticAnalysis.yaml
+conda create -n Gubbins -f Gubbins.yaml
+conda create -n DetectingResistance -f DetectingResistance.yaml
+```
+
+<!---
 ```bash
 docker run -it --mount type=bind,source=C:\Users\4M\Desktop\data,target=/home/data amr:Dockerfile
 ```
@@ -56,3 +89,4 @@ cd home/data/
 git clone https://github.com/WCSCourses/AMR_2025/
 mkdir cp6
 ```
+-->

@@ -1,0 +1,8 @@
+name: AlignmentAndVariantCalling
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - prokka
+  - shovill
+  - unicycler
