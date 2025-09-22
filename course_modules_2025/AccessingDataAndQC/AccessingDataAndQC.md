@@ -126,7 +126,7 @@ Now run the fastqc tool on the sequence reads of an isolate of _Pseudomonas aeru
 
 1. What is the GC content of the isolate?
 2. Which of the two reads have the lowest quality? What information do you use to determine this?
-3. What commands would you use to download the raw data for isolate cpe079 from the ENA?
+3. What would you do to download the raw data for isolate ERR5386380 from the ENA?
 
 If you would like to see examples of FastQC plots generated when sequencing goes wrong, you can look on the [QCFail site](https://sequencing.qcfail.com/software/fastqc/).
 

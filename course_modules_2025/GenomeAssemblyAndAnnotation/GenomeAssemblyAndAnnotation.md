@@ -103,7 +103,7 @@ The files we will be using for this practical are listed below and are in the
 First, we will perform the genome assembly using only the short-read data. This will be performed using the Shovill tool which is a tool that optimises the SPAdes assembler.
 
 ```
-shovill --cpus 1 --outdir shovill/ --R1 ../course_data_2025/cp4/reads/cpe004_R1.fastq.gz --R2 ../course_data_2025/cp4/reads/cpe004_R2.fastq.gz
+shovill --cpus 1 --outdir shovill/ --R1 data/cpe004_R1.fastq.gz --R2 data/cpe004_R2.fastq.gz
 cp shovill/contigs.fa cpe004_shovill.fasta
 cp shovill/contigs.gfa cpe004_shovill.gfa
 ```
@@ -115,7 +115,6 @@ Breakdown of the command:
 --outdir Name of directory where results will be output
 --R1 Read 1 sequencing file
 --R2 Read 2 sequencing file
-../ Move up one directory
 cp Copy and rename output files
 ```
 
@@ -124,6 +123,8 @@ Shovill produces several files in the output folder. The only two files we will 
 `contigs.fa` - The final assembly file to be used
 
 `contigs.gfa` - Assembly graph used to visualise the assembly
+
+We rename these files with the sample name to make sure we know which sample they are from.
 
 3. Count how many contigs the Shovill assembly has produced with this command:
 
@@ -135,8 +136,9 @@ NB: be careful when using the `grep` tool to look at FASTA format files - if you
 
 `head -n 4 cpe004_shovill.fasta`
 
-5. Use the Bandage tool to visualise the assembly graph produced by Shovill. Open the Bandage software and select File > Load graph > navigate to and select cpe004_shovill.gfa > Click on Draw graph
-The result should look like the image in Figure 4.3 below.
+5. Download and use the [Bandage](https://rrwick.github.io/Bandage/) tool to visualise the assembly graph produced by Shovill. Open the Bandage software and select File > Load graph > navigate to and select cpe004_shovill.gfa > Click on Draw graph
+The result should look like the image below.
+![bandage_illumina](course_modules_2025/GenomeAssemblyAndAnnotation/bandage_illumina.png)
 
 ### Hybrid assembly  <a name="hybrid"></a>
 
@@ -146,7 +148,7 @@ Additionally, long-read sequencing can detect larger structural variations and c
 We will perform genome assembly using the long and short reads for the same sample, which is called hybrid assembly. We will use a tool called Unicycler, which will first create a short-read only assembly, then use the long reads to overlay on top of the assembly to hopefully resolve some of the regions.
 
 ```
-unicycler -t 1 -o unicycler/ --mode bold -1../course_data_2025/cp4/reads/cpe004_R1.fastq.gz -2 ../course_data_2025/cp4/reads/cpe004_R2.fastq.gz -l ../course_data_2025/cp4/reads/cpe004_filtered.fastq.gz
+unicycler -t 1 -o unicycler/ --mode bold -1 cpe004_R1.fastq.gz -2 cpe004_R2.fastq.gz -l cpe004_filtered.fastq.gz
 cp unicycler/assembly.fasta cpe004_hybrid.fasta
 cp unicycler/assembly.gfa cpe004_hybrid.gfa
 ```
@@ -158,7 +160,6 @@ Command line breakdown:
 -1 Read 1 sequencing file
 -2 Read 2 sequencing file
 -l Long-read sequencing file
-../ Move up one directory
 -o Output directory
 cp Copy and rename output files
 ```
@@ -188,10 +189,13 @@ compare the performance of different assembly tools.
 |L50 |Minimum number of contigs required to cover 50% of the total assembly length|
 |L90 |As above but 90% of assembly|
 
+Quast is installed in the conda environment for the AccessingDataAndQc practical. Activate this environment now:
+`conda activate AccessingDataAndQc`.
+
 Run QUAST on both assemblies generated in this practical:
 `quast cpe004_shovill.fasta cpe004_hybrid.fasta -o quast/`
 
-View the results by opening the file `quast/report.html`
+View the results by opening the file `quast/report.html` with your browser.
 
 Which assembly is better? Why?
 

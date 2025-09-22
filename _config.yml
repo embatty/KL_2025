@@ -12,3 +12,4 @@ include:
   - course_modules_2025/PhylogeneticAnalysis/PhylogeneticAnalysis.md
   - course_modules_2025/PhylogeneticVisualization/PhylogeneticVisualization.md
   - course_modules_2025/EnvironmentAndCommandLine.md
+  - course_modules_2025/DetectingResistance/ResFinder.md

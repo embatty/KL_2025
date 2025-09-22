@@ -36,12 +36,9 @@ We will map Illumina short read data from a strain of _Klebsiella pneumoniae_. T
 ```
 curl -o ERR4095905_1.fastq.gz https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095905/ERR4095905_1.fastq.gz
 curl -o ERR4095905_2.fastq.gz https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095905/ERR4095905_2.fastq.gz
-curl -o ERR4095885_1.fastq.gz https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095885/ERR4095885_1.fastq.gz
-curl -o ERR4095885_2.fastq.gz
-https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR409/005/ERR4095885/ERR4095885_2.fastq.gz
 ```
 
-    Download a Klebsiella pneumoniae reference genome from https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000240185.1/
+Download a Klebsiella pneumoniae reference genome from https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000240185.1/
 
 </details>
 
@@ -94,65 +91,75 @@ How many SNPs were removed through filtering?
 You can count the number of lines in the SNP file before and after filtering using the `wc -l` command.
 </detail>
 
+<!---
 ### 2. Annotation of SNPs:
 Use [snpEff](https://pcingola.github.io/SnpEff/snpeff/running/) to annotate the SNPs.
 
 ```
 java -Xmx8g -jar snpEff.jar reference filtered_snps_short.vcf > annotated_snps_short.vcf
 ```
-
+-->
 ### 3. Visualization:
 Visualize the alignment and SNPs using tools using [Integrative Genomics Viewer (IGV)](https://igv.org/doc/desktop/#DownloadPage/). This cannot be installed using Conda but you can download it directly to your computer.
 
-<details>
-    <summary>Explanation of each metric in the pop-up overview of a SNP</summary>
+First you need to load the reference genome we used for alignment, which is called `Kpne_HS11286.fna`:
 
-*Basic Information*
+![load_genome](images/load_genome.png)
 
-ID: This field is empty, indicating no specific identifier (such as a dbSNP ID) is assigned to this SNP.
+Then you can load BAM files of sequence reads which are mapped to the genome. Snippy produces a BAM file which is always called `snps.bam`. You can find this in the directory with your Snippy output. Load this file using the `File` menu:
 
-Chr: NC_009648.1 is the chromosome or contig reference name from the genome assembly.
+![load_bamfile](images/load_bamfile.png)
 
-Position: 2,803,960 is the position on the chromosome where this SNP is located.
+Now use the zoom commands in the top right to zoom in until you can see the reads. You should have a screen which looks a little like this:
+![igv_screenshot](images/igv_screenshot.png)
 
-Reference: C* indicates the reference allele (the allele found in the reference genome) at this position is "C".
-
-Alternate: T is the alternate allele observed in this SNP, meaning a "C" in the reference is replaced by "T" in the observed variant.
-
-Qual (Quality): 882.977 is a quality score for the variant call. It indicates the confidence in the variant being true; higher scores mean greater confidence.
-
-Type: SNP specifies that this variant is a single nucleotide polymorphism.
-
-Is Filtered Out: No indicates that this SNP has passed any filters applied during variant calling, suggesting it is considered a reliable call.
-
-*Alleles Information*
-
-Alternate Alleles: T is the alternate allele for this SNP.
-
-*Variant Attributes*
-
-QA (Quality of Alternate): 1039 is the sum of base quality scores for the reads supporting the alternate allele (T). Higher values suggest more confidence in the variant call.
-
-AB (Allele Balance): 0 represents the proportion of reads supporting the alternate allele relative to the total depth. Since it is 0, this may mean that the calculation could not be performed, or the data isn't available.
-
-QR (Quality of Reference): 32 is the sum of base quality scores for the reads supporting the reference allele (C). Lower values suggest fewer or less confident reads supporting the reference allele.
-
-Depth: 30 is the total read depth at this position, representing the number of reads covering the SNP site.
-
-RO (Reference Observations): 1 indicates the number of reads supporting the reference allele (C).
-
-TYPE: snp reaffirms that this variant is a single nucleotide polymorphism.
-
-AO (Alternate Observations): 29 is the number of reads supporting the alternate allele (T).
-</summary>
-</details>
-
+<!---
 ### Long read variant calling
 Variant calling from long reads can be performed in a similar way to short reads but using different tools designed for long read sequencing.
 <details><summary>Long read variant calling protocol</summary>
 
-Long reads go here
+Long Read Alignment with minimap2 and SNP Calling with Medaka or DeepVariant.
+
+### Run Medaka:
+- Use Medaka to call SNPs from the long-read BAM file.
+Documentation: https://github.com/nanoporetech/medaka
+
+```
+#medaka_variant -i longread.input.fastq.gz -r reference.fasta
+medaka_variant -i ERR3284704.fastq.gz -r Ecoli_ref.fasta
+
+```
+
+### Run DeepVariant: (Optional)
+- Use minimap2 for aligning long reads.
+```
+minimap2 -a reference.fasta long_reads.fastq > aligned_long_reads.sam
+```
+
+- Convert and sort the alignment.
+```
+samtools view -S -b aligned_long_reads.sam > aligned_long_reads.bam
+samtools sort aligned_long_reads.bam -o sorted_long_reads.bam
+```
+
+- Index the BAM file.
+```
+samtools index sorted_long_reads.bam
+```
+- Remove duplicates.
+```
+samtools rmdup sorted_long_reads.bam deduplicated.bam
+```
+
+- Use DeepVariant to call SNPs from the long-read BAM file.
+```
+# Assuming DeepVariant is installed and properly set up
+
+run_deepvariant --model_type PACBIO --ref reference.fasta --reads sorted_long_reads.bam --output_vcf dv_output.vcf --output_gvcf dv_output.g.vcf --num_shards 4
+```
+
 </details>
+-->
 ## References
 
 1. Bush SJ, Foster D, Eyre DW, Clark EL, De Maio N, Shaw LP, Stoesser N, Peto TEA, Crook DW, Walker AS, Wilson DJ. (2020). Genomic diversity affects the accuracy of bacterial SNP calling pipelines. Genome Biology, 21, 20. https://doi.org/10.1186/s13059-019-1921-9

@@ -68,12 +68,12 @@ quast -h
 We have a conda environment for each module, plus one extra for the program Gubbins. To set up all the environments, run this set of commands and select `[y]` when asked to install:
 
 ```
-conda create -n AccessingDataAndQc -f AccessingDataAndQc.yaml
-conda create -n GenomeAssemblyAndAnnotation -f GenomeAssemblyAndAnnotation.yaml
-conda create -n AlignmentAndVariantCalling -f AlignmentAndVariantCalling.yaml
-conda create -n PhylogeneticAnalysis -f PhylogeneticAnalysis.yaml
-conda create -n Gubbins -f Gubbins.yaml
-conda create -n DetectingResistance -f DetectingResistance.yaml
+conda env create -n AccessingDataAndQc -f AccessingDataAndQc.yaml
+conda env create -n GenomeAssemblyAndAnnotation -f GenomeAssemblyAndAnnotation.yaml
+conda env create -n AlignmentAndVariantCalling -f AlignmentAndVariantCalling.yaml
+conda env create -n PhylogeneticAnalysis -f PhylogeneticAnalysis.yaml
+conda env create -n Gubbins -f Gubbins.yaml
+conda env create -n DetectingResistance -f DetectingResistance.yaml
 ```
 
 <!---
