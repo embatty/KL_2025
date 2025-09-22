@@ -5,7 +5,7 @@
 2. [Bacterial strains to be analysed](#strains)
 3. [AMR detection using AMRFinderPlus command line](#amrfinder)
 4. [AMR detection for tuberculosis using TBProfiler](#resfinder)
-5. [AMR detection using Pathogenwatch](#pathogenwatch)
+5. [AMR detection using Pathogenwatch - Optional](#pathogenwatch)
 6. [AMR detection using ResFinder Website – Optional](#resfinderw)
 7. [AMR detection using CARD RGI Website – Optional](#card)
 8. [Questions](#questions)
@@ -27,13 +27,15 @@ Over the years, several global studies have identified the genes and mutations t
 Table 1 contains the list of strains to be analysed in this practical from a carbapenemase-resistant enterobacteriaceae outbreak. Table 2 contains additional strains to be analysed (optionally, if time allows) sourced from key studies on the genomic epidemiology of methicillin-resistant *Staphylococcus aureus* (MRSA) ([Holden *et al.* 2013](https://doi.org/10.1101/gr.147710.112)) and extensively drug-resistant (XDR) *Salmonella typhi* ([Klemm *et al.* 2018](https://doi.org/10.1128/mbio.00105-18)). In this practical we will use a command line-based tool (NCBI AMRFinder) and a web-based tool (ResFinder) to identify AMR genetic determinants from whole-genome sequences, and look at a specific tool used to detect resistance in *Mycobacterium tuberculosis*.
 
 Table 1 CPE strains to be analysed in this practical
+
 | Species | Study and origin | Strain Id | Illumina accession | Assembly file name |
 | :---    | :---             | :---      | :---               | :---      |
 | *K. pneumoniae* | Roberts *et al.* 2024 | cpe004 | ERR4095909 | cpe004_Kpn-ST78-NDM1.fasta |
-| *K. pneumoniae* | Roberts *et al.* 2024 | cpe022 | ERR5386299 | cpe022_Kpn-ST78-NDM1.fasta |
+| *E. coli* | Roberts *et al.* 2024 | cpe069 | ERR5386299 | cpe069_Eco-NDM1.fasta |
 | *M. tuberculosis | Hall *et al.* 2023 | R21363 | ERR5987445 | ERR5987445_1.fastq.gz and ERR5987445_2.fastq.gz |
 
 Table 2 Additional strains to be analysed (optional).
+
 | Species	| Study and origin | Strain Id | Genome accession | Assembly file name |
 | :---    | :---             | :---      | :---               | :---      |
 | *S. aureus*	| Holden *et al.* 2013, Berlin (Germany), 2007, ST22 EMRSA-15 | 07-02477 | ERR017261  | ERR017261.assembly.fa |
@@ -106,10 +108,10 @@ You will find taxa like ‘Klebsiella_pneumoniae’, ‘Staphylococcus_aureus’
 
 The command below will execute AMRFinder on our CPE *E. coli* strain of interest (Table 1):
 ```bash
-amrfinder -n cpe093_Ehor-ST94-NDM1.fasta -O Escherichia -o cpe093_Ehor-ST94-NDM1_amrfinder.txt
+amrfinder -n cpe069_Eco-NDM1.fasta -O Escherichia -o cpe069_Eco-NDM1_amrfinder.txt
 ```
 ```bash
-cat cpe093_Ehor-ST94-NDM1_amrfinder.txt | tr '\t' ',' > cpe093_Ehor-ST94-NDM1_amrfinder.csv
+cat cpe069_Eco-NDM1_amrfinder.txt | tr '\t' ',' > cpe069_Eco-NDM1_amrfinder.csv
 ```
 
 It time allows, come back to this section later to run AMRFinder on the additional strains:

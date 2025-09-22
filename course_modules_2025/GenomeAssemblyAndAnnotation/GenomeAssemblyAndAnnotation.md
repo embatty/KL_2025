@@ -12,15 +12,16 @@ Module developed by Fahad Khokhar and modified by Liz Batty.
 ## Introduction <a name="intro"></a>
 
 Genome assembly is a key step in genomic analysis, enabling researchers to reconstruct the complete genomic sequence of an organism from raw sequencing data. This process is particularly significant for bacterial genomes, which are typically compact, circular, and rich in essential genetic information. Understanding bacterial genome assembly is essential for applications ranging from pathogen identification and antibiotic resistance profiling to studying microbial evolution and ecology.
-![Figure 1](course_modules_2025/GenomeAssemblyAndAnnotation/AssemblyFig1.png)
+
+![Figure 1](AssemblyFig1.png)
 
 The desired outcome is to achieve long contiguous DNA sequences (contigs). We will have to try to put fragmented DNA sequences back to its original, ordered continuous state (whether it is linear or circularized DNA), and this process is called genome assembly. The fundamental principal of genome assembly is to look for overlaps between fragments, and you will appreciate why longer reads are advantageous here.
-![Figure 2](course_modules_2025/GenomeAssemblyAndAnnotation/AssemblyFig2.png)
+
+![Figure 2](AssemblyFig2.png)
 
 
 <details>
-    <summary>Assembly algorithms
-    </summary>
+<summary>Assembly algorithms</summary>
 
 ### De Bruijn graphs
 
@@ -91,7 +92,7 @@ Specifically, the Illumina paired-end files were processed using the same fastp 
 </details>
 
 The files we will be using for this practical are listed below and are in the
-`GenomeAssemblyAndAnnotation/reads/` folder:
+`GenomeAssemblyAndAnnotation/data/` folder:
 1. cpe004_R1.fastq.gz = Illumina read 1 (trimmed)
 2. cpe004_R2.fastq.gz = Illumina read 2 (trimmed)
 3. cpe004_filtered.fastq.gz = ONT reads (filtered)
@@ -138,7 +139,8 @@ NB: be careful when using the `grep` tool to look at FASTA format files - if you
 
 5. Download and use the [Bandage](https://rrwick.github.io/Bandage/) tool to visualise the assembly graph produced by Shovill. Open the Bandage software and select File > Load graph > navigate to and select cpe004_shovill.gfa > Click on Draw graph
 The result should look like the image below.
-![bandage_illumina](course_modules_2025/GenomeAssemblyAndAnnotation/bandage_illumina.png)
+
+![bandage_illumina](bandage_illumina.png)
 
 ### Hybrid assembly  <a name="hybrid"></a>
 
@@ -190,9 +192,11 @@ compare the performance of different assembly tools.
 |L90 |As above but 90% of assembly|
 
 Quast is installed in the conda environment for the AccessingDataAndQc practical. Activate this environment now:
+
 `conda activate AccessingDataAndQc`.
 
 Run QUAST on both assemblies generated in this practical:
+
 `quast cpe004_shovill.fasta cpe004_hybrid.fasta -o quast/`
 
 View the results by opening the file `quast/report.html` with your browser.
@@ -208,7 +212,7 @@ The annotated genome files, commonly formatted as GFF3 (.gff), serve as foundati
 1. Use the following Prokka command to annotate the cpe004_hybrid.fasta assembly:
 
 ```
-prokka --cpus 4 --prefix cpe004_hybrid --outdir prokka/ cpe004_hybrid.fasta
+prokka --cpus 1 --prefix cpe004_hybrid --outdir prokka/ cpe004_hybrid.fasta
 ```
 
 Prokka produces a number of output files:
