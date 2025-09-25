@@ -4,6 +4,7 @@
 1. [Uploading to Microreact](#upload)
 2. [Customizing Microreact visualisations](#customize)
 3. [AMR visualisation](#amr)
+4. [Further exercises](#further)
 
 ## Uploading to Microreact <a name="upload"></a>
 We will start by visualising the outbreak tree we analysed earlier in the phylogenetics practical.
@@ -44,10 +45,12 @@ Next, zoom into the clade of outbreak cases and identify the clustering (sub-cla
 
 *Question:* based on the temporal distribution and phylogenetic clustering of CPE cases, which patients might be among the early sources of the outbreak? Which patients could be ruled out as sources of the outbreak? *Important note:* we cannot infer the origin of an outbreak based solely on phylogenetic and temporal data, we would need to gather epidemiological data too (i.e., hospital contacts, hospital room stays).
 
-2. [AMR visualisation](#amr)
+## AMR visualisation <a name="AMR"></a>
 
 Finally, we will explore the distribution of antibiograms and AMR genetic determinants. It is possible to view multiple variables against the tree simultaneously. First, click on the ‘Show controls’ button and under ‘Nodes & Labels’ menu to toggle both the ‘Leaf Labels’ and ‘Align Lead Labels’ buttons to switch on and make sure leaf labels are visible and aligned. Next, click the ‘Metadata blocks’ menu button and check all the boxes that relate to phenotypic antibiotic resistance (that is, from amikacin to piperacillin_tazobactam). See Figure 9.
 
 This will allow us to visualise the entire antibiogram of our local CPE cases. You can look at the genotypic AMR data by setting a particular column as the leaf labels, or by visualising those columns in the metadata pane below the tree. Try disabling the columns you are not currently interested in and expanding the columns to see the complete text.
 
-For a further example, see the PDF for Exercise 2, which follows a Microreact visualisation for XDR _Salmonella typhi_ from Pakistan.
+## Further exercises <a name="further"></a>
+
+For a further example, see the [pdf](Phylogenetic_visualisation_exercise_2.pdf) for Exercise 2, which follows a Microreact visualisation for XDR _Salmonella typhi_ from Pakistan.

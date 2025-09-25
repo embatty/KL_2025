@@ -1,15 +1,13 @@
-# Computational Practical 6: Detecting antimicrobial resistance from bacterial genomes
+# Computational Practical: Detecting antimicrobial resistance from bacterial genomes
 
 ## Table of Contents
 1. [Introduction](#intro)
 2. [Bacterial strains to be analysed](#strains)
 3. [AMR detection using AMRFinderPlus command line](#amrfinder)
-4. [AMR detection for tuberculosis using TBProfiler](#resfinder)
-5. [AMR detection using Pathogenwatch - Optional](#pathogenwatch)
-6. [AMR detection using ResFinder Website – Optional](#resfinderw)
-7. [AMR detection using CARD RGI Website – Optional](#card)
-8. [Questions](#questions)
-
+4. [AMR detection for tuberculosis using TBProfiler](#tbprofiler)
+5. [AMR detection using Pathogenwatch](#pathogenwatch)
+6. [AMR detection for melioidosis using ARdAP](#ardap)
+6. [AMR detection using Resfinder (optional)](#resfinder)
 ---
 
 ## Introduction <a name="intro"></a>
@@ -32,8 +30,8 @@ Table 1 CPE strains to be analysed in this practical
 | :---    | :---             | :---      | :---               | :---      |
 | *K. pneumoniae* | Roberts *et al.* 2024 | cpe004 | ERR4095909 | cpe004_Kpn-ST78-NDM1.fasta |
 | *E. coli* | Roberts *et al.* 2024 | cpe069 | ERR5386299 | cpe069_Eco-NDM1.fasta |
-| *M. tuberculosis | Hall *et al.* 2023 | R21363 | ERR5987445 | ERR5987445_1.fastq.gz and ERR5987445_2.fastq.gz |
-
+| *M. tuberculosis* | Hall *et al.* 2023 | R21363 | ERR5987445 | ERR5987445_1.fastq.gz and ERR5987445_2.fastq.gz |
+| *B. pseudomallei* | Evans *et al.* 2025 | LSP2320879 | - | 286137_LSP2320879.fasta |
 Table 2 Additional strains to be analysed (optional).
 
 | Species	| Study and origin | Strain Id | Genome accession | Assembly file name |
@@ -50,7 +48,11 @@ cd DetectingResistance
 ```
 and make sure you can see the assemblies and raw data for the strains we are using in the `data` directory.
 
-## 4. WGS-based prediction of AMR using AMRFinderPlus <a name="amrfinder"></a>
+Then load the conda enviroment:
+
+`conda activate DetectingResistance`
+
+## WGS-based prediction of AMR using AMRFinderPlus <a name="amrfinder"></a>
 
 ### Introduction to AMRFinderPlus
 
@@ -80,7 +82,7 @@ amrfinder_update -d ./amrfinder_db
 After making sure the latest AMR database is downloaded, you can run amrfinder on genome assemblies, as showed in the command line below:
 
 ```bash
-amrfinder -n cpe004_Kpn-ST78-NDM1.fasta -O Klebsiella_pneumoniae -o cpe004_Kpn-ST78-NDM1_amrfinder.txt
+amrfinder -n data/cpe004_Kpn-ST78-NDM1.fasta -O Klebsiella_pneumoniae -o cpe004_Kpn-ST78-NDM1_amrfinder.txt
 ```
 
 We will change the default delimiter of AMRFinder output file to make it easier to open with Excel:
@@ -108,18 +110,18 @@ You will find taxa like ‘Klebsiella_pneumoniae’, ‘Staphylococcus_aureus’
 
 The command below will execute AMRFinder on our CPE *E. coli* strain of interest (Table 1):
 ```bash
-amrfinder -n cpe069_Eco-NDM1.fasta -O Escherichia -o cpe069_Eco-NDM1_amrfinder.txt
+amrfinder -n data/cpe069_Eco-NDM1.fasta -O Escherichia -o cpe069_Eco-NDM1_amrfinder.txt
 ```
 ```bash
 cat cpe069_Eco-NDM1_amrfinder.txt | tr '\t' ',' > cpe069_Eco-NDM1_amrfinder.csv
 ```
 
-It time allows, come back to this section later to run AMRFinder on the additional strains:
+If time allows, come back to this section later to run AMRFinder on the additional strains:
 ```bash
-amrfinder -n HO50960412.fa -O Staphylococcus_aureus -o HO50960412_amrfinder.txt
-amrfinder -n ERR017261.assembly.fa -O Staphylococcus_aureus -o ERR017261_amrfinder.txt
-amrfinder -n ERR2093245.assembly.fa -O Salmonella -o ERR2093245_amrfinder.txt
-amrfinder -n ERR2093329.assembly.fa -O Salmonella -o ERR2093329_amrfinder.txt
+amrfinder -n data/HO50960412.fa -O Staphylococcus_aureus -o HO50960412_amrfinder.txt
+amrfinder -n data/ERR017261.assembly.fa -O Staphylococcus_aureus -o ERR017261_amrfinder.txt
+amrfinder -n data/ERR2093245.assembly.fa -O Salmonella -o ERR2093245_amrfinder.txt
+amrfinder -n data/ERR2093329.assembly.fa -O Salmonella -o ERR2093329_amrfinder.txt
 ```
 ```bash
 cat HO50960412_amrfinder.txt | tr '\t' ',' > HO50960412_amrfinder.csv
@@ -141,21 +143,7 @@ The table below includes a few rows and some of the columns of the AMRFinderPlus
 
 The column ‘Gene symbol’ indicates the genetic determinant (either acquired gene or point mutation) associated with phenotypic resistance, the latter indicated in the column ‘Subclass’.
 
-
-
-## 5. WGS-based prediction of AMR using ResFinder <a name="resfinder"></a>
-
-### Introduction to ResFinder
-
-ResFinder, developed by [Center for Genomic Epidemiology at the Technical University of Denmark](http://www.genomicepidemiology.org/), is a freely accessible tool to identify acquired genes and/or chromosomal mutations mediating antimicrobial resistance in total or partial DNA sequence of bacteria. Published in 2012 for the first time [Zankari *et al.* 2012](https://doi.org/10.1093/jac/dks261), ResFinder was the first web-based bioinformatics tool developed to provide detection of AMR genes in WGS, aimed at users without specialized bioinformatic skills. A [command-line](https://bitbucket.org/genomicepidemiology/resfinder/) version was later developed which allows the automation of ResFinder analyses within bioinformatic scripts. The authors claim [Florensa *et al.* 2022](https://doi.org/10.1099/mgen.0.000748) ResFinder has been executed more than 800,000 times from more than 61,000 different users in over 171 countries (web-based version, September 2021).
-
-ResFinder, originally developed to detect acquired AMR genes, was later expanded with PointFinder [Zankari *et al.* 2017](https://doi.org/10.1093/jac/dkx217), a tool that detects chromosomal point mutations mediating resistance to selected antimicrobial agents. Recently, additional databases were developed to link each AMR determinant with phenotypic resistance to specific antimicrobial compounds, and species-specific panels for in silico antibiograms. ResFinder 4.0 [Bortolaia *et al.* 2020](https://doi.org/10.1093/jac/dkaa345) was validated for several bacterial species including *Salmonella spp.* and *Staphylococcus aureus* strains with a diversity of AST profiles, human and animal sources and geographical origins.
-
-### ResFinder commands
-
-ResFinder can analyse both paired-end Illumina reads in fastq.gz format and genome assemblies in FASTA format. ResFinder can be run on the command line but it is quite complicated to install and run - for small jobs a [web interface](https://genepi.food.dtu.dk/resfinder) is available and easier to use. The instructions for installation and use of ResFinder on the command line can be accessed [here](course_modules_2025/DetectingResistance/ResFinder.md)
-
-## Detecting resistance in *Mycobacterium tuberculosis* using TBProfiler
+## Detecting resistance in *Mycobacterium tuberculosis* using TBProfiler <a name="tbprofiler"></a>
 
 Some bacterial species have specific tools to look at resistance. *Mycobacterium tuberculosis* has an extensive curated database of SNPs which cause drug resistance, and isolates can be classified in different ways as drug resistant (MDR, XDR, pre-XDR) and can also be classified by the glocal lineage they belong to. [TBProfiler](https://tbdr.lshtm.ac.uk/) is a tool specifically designed to look at *Mycobacterium tuberculosis*, and it can be run using the command line or through a web interface. To look at many samples, it will be faster and easier to use the command line, but for this example we will upload one sample to the TBProfiler web interface.
 
@@ -185,9 +173,7 @@ The TBProfiler team have already run their tool on all the *M. tuberculosis* dat
 
 You can look at the [pre-XDR strain results](https://tbdr.lshtm.ac.uk/results/SRR10185946) to see the information which is associated with each resistance mutation.
 
-
-<!---
-## 6. AMR detection using Pathogenwatch <a name="pathogenwatch"></a>
+## AMR detection using Pathogenwatch <a name="pathogenwatch"></a>
 
 (Pathogenwatch)[https://pathogen.watch/] is one of most intuitive an easy-to-use web-based platforms for the analysis of bacterial genomes, developed by The Centre for Genomic Pathogen Surveillance (CGPS), UK, that can be used to detect AMR in the genomes of many bacterial pathogens (but not all). You will be provided with pre-generated genome assemblies that can be directly uploaded as input to this tool. Once uploaded, Pathogenwatch performs strain identification, multi-locus sequence typing (MLST) and resistance prediction in an automated manner. Recently, the website was upgraded with the option to upload raw sequencing reads (those obtained directly from sequencing machines without further bioinformatic processing), but as the upload and analysis of raw reads takes much longer, we will be upload the genome assemblies provided instead.
 
@@ -225,20 +211,41 @@ Now click on the AMR section of the report (arrow in **Figure 7**). Scroll down 
 ![](images/Picture_7.png)
 **Figure 7.** AMR report for _Klebsiella pneumoniae_ strain cpe004.
 
-Finally, upload the genome assembly of **_E. coli_ cpe069** strain and that of **your assigned CPE strain** by repeating all previous steps (Figures 3 to 6).
-
 ### Optional - if time allow
 Additionally, obtain the Pathogenwatch report for the two additional *S. aureus* (from genome assembly files ``HO50960412.fa`` & ``ERR017261.assembly.fa``) and the two *S. typhi* strains (from genome assembly files ``ERR2093245.assembly.fa`` & ``ERR2093329.assembly.fa``).
 
+## Prediction of AMR using ARdAP in Burkholderia pseudomallei <a name="ardap"></a>
+*Burkholderia pseudomallei* is another species where a targeted tool will more accurately predict resistance than using a multi-species tool like AMRFinder or ResFinder.
 
-## 6. AMR detection using Pathogenwatch <a name="pathogenwatch"></a>
+Try running `amrfinder` on a strain of *B. pseudomallei*, the fasta file is in the `data` directory and is called `286137_LSP2320879.fasta`. Make sure to use the `-O` option to specify the organism as `Burkholderia_pseudomallei`.
 
-See section in PDF manual `2025_Detecting AMR from genomes - online tools.pdf`
+ What phenotypic resistance would you predict for this strain using AMRFinder?
 
-## 7. AMR detection using ResFinder Website – Optional <a name="resfinderw"></a>
+ [ARdAP](https://pmc.ncbi.nlm.nih.gov/articles/PMC7724162/) y Madden et. al. is designed specifically for prediction of antimicrobial resistant in *B. pseudomallei*. This link is to the [report](286137_LSP2320879_report.html) produced by running ARdAP on this strain of *B. pseudomallei*.
 
-See section in PDF manual `2025_Detecting AMR from genomes - online tools.pdf`
---->
+ What phenotypic resistance does ARdAP predict for this strain? Which tools gives the most clinically relevant results?
+
+ ARdAP can be installed on your own computer using the instructions [here](https://github.com/dsarov/ARDaP).
+
+## WGS-based prediction of AMR using ResFinder <a name="resfinder"></a>
+
+### Introduction to ResFinder
+
+ResFinder, developed by [Center for Genomic Epidemiology at the Technical University of Denmark](http://www.genomicepidemiology.org/), is a freely accessible tool to identify acquired genes and/or chromosomal mutations mediating antimicrobial resistance in total or partial DNA sequence of bacteria. Published in 2012 for the first time [Zankari *et al.* 2012](https://doi.org/10.1093/jac/dks261), ResFinder was the first web-based bioinformatics tool developed to provide detection of AMR genes in WGS, aimed at users without specialized bioinformatic skills. A [command-line](https://bitbucket.org/genomicepidemiology/resfinder/) version was later developed which allows the automation of ResFinder analyses within bioinformatic scripts. The authors claim [Florensa *et al.* 2022](https://doi.org/10.1099/mgen.0.000748) ResFinder has been executed more than 800,000 times from more than 61,000 different users in over 171 countries (web-based version, September 2021).
+
+ResFinder, originally developed to detect acquired AMR genes, was later expanded with PointFinder [Zankari *et al.* 2017](https://doi.org/10.1093/jac/dkx217), a tool that detects chromosomal point mutations mediating resistance to selected antimicrobial agents. Recently, additional databases were developed to link each AMR determinant with phenotypic resistance to specific antimicrobial compounds, and species-specific panels for in silico antibiograms. ResFinder 4.0 [Bortolaia *et al.* 2020](https://doi.org/10.1093/jac/dkaa345) was validated for several bacterial species including *Salmonella spp.* and *Staphylococcus aureus* strains with a diversity of AST profiles, human and animal sources and geographical origins.
+
+### ResFinder commands
+
+ResFinder can analyse both paired-end Illumina reads in fastq.gz format and genome assemblies in FASTA format. ResFinder can be run on the command line but it is quite complicated to install and run - for small jobs a [web interface](https://genepi.food.dtu.dk/resfinder) is available and easier to use. The instructions for installation and use of ResFinder on the command line can be accessed [here](course_modules_2025/DetectingResistance/ResFinder.md)
+
+
 References:
+
 Phelan, J. E. et al. Integrating informatics tools and portable sequencing technology for rapid detection of resistance to anti-tuberculous drugs. Genome Med. 11, 41 (2019).
+
 Coll F, et al. Rapid determination of anti-tuberculosis drug resistance from whole-genome sequences. Genome Medicine 7: 51 (2015).
+
+Madden DE, Webb JR, Steinig EJ, Currie BJ, Price EP, Sarovich DS. Taking the next-gen step: Comprehensive antimicrobial resistance detection from Burkholderia pseudomallei. EBioMedicine. 2021 Jan;63:103152. doi: 10.1016/j.ebiom.2020.103152. Epub 2020 Dec 4.
+
+Evans TJ, et. al. Case Report: Genetic evolution of Burkholderia pseudomallei during treatment leading to antibiotic resistance and disease relapse. Wellcome Open Res. 2025 Jul 30;10:281. doi: 10.12688/wellcomeopenres.24138.2.

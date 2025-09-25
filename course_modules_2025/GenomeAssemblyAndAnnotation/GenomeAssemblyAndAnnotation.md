@@ -69,7 +69,7 @@ prokka -h
 
 If all are installed correctly, you should see the help page of each tool, and no error.
 
-Navigate to your data directory: `/home/course_data_2025/GenomeAssemblyAndAnnotation`
+Navigate to your data directory: `course_data_2025/GenomeAssemblyAndAnnotation`
 
 ### Dataset <a name="dataset"></a>
 
@@ -149,8 +149,10 @@ Additionally, long-read sequencing can detect larger structural variations and c
 
 We will perform genome assembly using the long and short reads for the same sample, which is called hybrid assembly. We will use a tool called Unicycler, which will first create a short-read only assembly, then use the long reads to overlay on top of the assembly to hopefully resolve some of the regions.
 
+Unicycler will take *up to one hour to run*, so start this command now and go for a coffee break.
+
 ```
-unicycler -t 1 -o unicycler/ --mode bold -1 cpe004_R1.fastq.gz -2 cpe004_R2.fastq.gz -l cpe004_filtered.fastq.gz
+unicycler -t 1 -o unicycler/ --mode bold --kmers 71 -1 data/cpe004_R1.fastq.gz -2 data/cpe004_R2.fastq.gz -l data/cpe004_filtered.fastq.gz
 cp unicycler/assembly.fasta cpe004_hybrid.fasta
 cp unicycler/assembly.gfa cpe004_hybrid.gfa
 ```
@@ -163,6 +165,7 @@ Command line breakdown:
 -2 Read 2 sequencing file
 -l Long-read sequencing file
 -o Output directory
+--kmers Use a particular set of kmers in the graph build (applied here to speed up run time)
 cp Copy and rename output files
 ```
 

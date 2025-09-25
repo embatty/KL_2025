@@ -54,7 +54,7 @@ fastp -i ERR4095905_1.fastq.gz -I ERR4095905_2.fastq.gz -o out.ERR4095905_1.fast
 Run Snippy and examine the output.
 
 ```
-snippy --cpus 1 --outdir ERR4095905_snippy --reference cpe058_Kpn-ST78-NDM1.chr.fasta --R1 out.ERR4095905_1.fastq.gz --R2 out.ERR4095905_2.fastq.gz
+snippy --cpus 1 --outdir ERR4095905_snippy --reference cpe058_Kpn-ST78-NDM1.fasta --R1 out.ERR4095905_1.fastq.gz --R2 out.ERR4095905_2.fastq.gz
 ```
 
 This will take about ten minutes to run. All the output files from your Snippy run will be placed in the output directory `ERR4095905_snippy`. Look at the output files and refer to the Snippy homepage to tell you what is in each output file.
@@ -80,10 +80,10 @@ Note the formats and contents of each output file. By default all the files prod
 ## Post-processing and Analysis <a name="postprocess"></a>
 
 ### 1. Filter SNPs:
-We can also apply filters to the VCF files to remove or tag low-quality SNPs using `bcftools`. For instance, to remove SNPs with a depth of coverage (DP) below 30:
+We can also apply filters to the VCF files to remove or tag low-quality SNPs using `bcftools`. For instance, to remove SNPs with a depth of coverage (DP) below 30 for the sample ERR4095905:
 
 ```
-bcftools filter -e 'FMT/DP<30' snps.vcf > snps.depthfilter.vcf
+bcftools filter -e 'FMT/DP<30' ERR4095905_snippy/snps.vcf > snps.depthfilter.vcf
 ```
 
 How many SNPs were removed through filtering?
