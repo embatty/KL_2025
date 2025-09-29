@@ -25,7 +25,7 @@ Modified by Dr Elizabeth Batty, August 2025
 
 **Phylogenetic analysis** is central to many areas of modern microbiological research, from pathogen classification to examination of pathogen-host co-evolution and tracking of transmission of infectious diseases. The main result from a phylogenetic analysis is a **phylogeny**, also known as **phylogenetic tree**, or simply a tree, depicting evolutionary relationships of a set of taxa – these can be different species or different strains of the same species, as it is often the case in genomic epidemiology studies. **Figure 1** to familiarise with commonly used phylogenetic terminology (e.g., internal nodes, branches, etc,).
 
-![](images/phy_Figure_1.jpg)
+![](images/phy_Figure_1.png)
 
 **Figure 1. Basic phylogenetic terminology. This figure has been reproduced from [Aiewsakun 2024](https://doi.org/10.1016/B978-0-323-99886-4.00013-2).**
 
@@ -79,10 +79,6 @@ We have created a whole-genome sequence alignment by concatenating the Snippy co
 
 It is good practice to run tools like `seqkit` to confirm the expected length of the MSA and the total number of expected sequences in it.
 
-First, activate the conda environment for the phylogenetic analysis module:
-
-`conda activate PhylogeneticAnalysis`
-
 ```
 seqkit stats data/Kpn_ST78.cpe058.fas --all --gap-letters "- . N"
 ```
@@ -96,7 +92,7 @@ snp-sites -c -m -o Kpn_ST78.cpe058.snps.fas data/Kpn_ST78.cpe058.fas
 Finally, we will run `pairsnp`, a tool developed to quickly obtain pairwise SNP distance matrices from multiple sequence alignments:
 
 ```bash
-pairsnp -c Kpn_ST78.cpe058.strain_ids.snps.fas > Kpn_ST78.cpe058.pairsnp.csv
+pairsnp -c Kpn_ST78.cpe058.snps.fas > Kpn_ST78.cpe058.pairsnp.csv
 ```
 
 Let’s have a look at your MSA with MEGA. MEGA is a program with a graphical user interface, which is free and easy to use. You can examine your MSA in MEGA by drag your MSA file to the program, and the program will ask “How would you like to open this fasta file?”. Click “Align”, and you should see your alignment as shown in **Figure 4**.

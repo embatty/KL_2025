@@ -84,6 +84,10 @@ There are a few other bioinformatics tools which will be useful during this cour
 * [MEGA](https://www.megasoftware.net/)
 * [FigTree](https://github.com/rambaut/figtree/releases/tag/v1.4.4)
 * [Bandage](https://rrwick.github.io/Bandage/)
+* [Integrative Genomics Viewer (IGV)](https://igv.org/doc/desktop/#DownloadPage/)
+For MEGA you will also need to create an account the first time you run the software, and log in and select the "Free" account plan.
+
+For FigTree, if you do not already have Java installed on your computer you will also need to install a Java runtime first.
 
 <!---
 ```bash
