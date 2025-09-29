@@ -34,7 +34,7 @@ Let's assess the sequence data quality of an isolate of *Escherichia coli* (ERR5
 
 Open your browser and navigate to [https://www.ebi.ac.uk/ena/browser/view/ERR5386320](https://www.ebi.ac.uk/ena/browser/view/ERR5386320) to look at the data available for this sample. You can download the data through the web browser, but it can often be easier to download all the data using the command line. Try right-clicking on the FASTQ file to get the direct link to the file.
 
-Now open the terminal and change your working directory to the directory with the files for this practical, which is a folder called AccessingDataAndQC. If you put the data in your `home/` folder, you can navigate to this directory:
+Now open the terminal and change your working directory to the directory with the files for this practical, which is a folder called `AccessingDataAndQC`. If you put the data in your `home/` folder, you can navigate to this directory:
 
 `cd /home/data/course_data_2025/AccessingDataAndQC`
 

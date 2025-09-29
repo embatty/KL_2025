@@ -128,7 +128,7 @@ NB: be careful when using the `grep` tool to look at FASTA format files - if you
 
 `head -n 4 cpe004_shovill.fasta`
 
-5. Download and use the [Bandage](https://rrwick.github.io/Bandage/) tool to visualise the assembly graph produced by Shovill. Open the Bandage software and select File > Load graph > navigate to and select cpe004_shovill.gfa > Click on Draw graph
+5. Use the [Bandage](https://rrwick.github.io/Bandage/) tool to visualise the assembly graph produced by Shovill. Open the Bandage software and select File > Load graph > navigate to and select cpe004_shovill.gfa > Click on Draw graph
 The result should look like the image below.
 
 ![bandage_illumina](bandage_illumina.png)

@@ -8,12 +8,12 @@
 
 ## Uploading to Microreact <a name="upload"></a>
 We will start by visualising the outbreak tree we analysed earlier in the phylogenetics practical.
-Start by opening a new window in Firefox and typing https://microreact.org/ in the address bar. Click on “Upload” and browse for the phylogenetic tree(cpe_cases.tree) and metadata files
+Start by opening a new window in Firefox and typing https://microreact.org/ in the address bar. Click on “Upload” and browse for the phylogenetic tree(cpe_cases.tree.nwk) and metadata files
 (cpe_cases.epicollect_data.tsv) to create a new MicroReact project (Figure 1 and 2).
 ![](images/microreact_fig1.png)
 ![](images/microreact_fig2.png)
 
-Once the tree and metadata files are loaded you will be directed to a new window where files will be automatically detected as Data (CSV or TSV) file(cpe_cases.epicollect_data.csv) and Tree (Newick) file (cpe_cases.tree.nwk). In this new window click on ‘Continue’. In the next window, make sure the column ‘barcode’ is selected as the ‘ID Column’ and then click on ‘Continue’. The ‘ID column’ is the column in the metadata file that must match the strain labels in the phylogenetic tree (i.e. tip or leave labels).
+Once the tree and metadata files are loaded you will be directed to a new window where files will be automatically detected as Data (CSV or TSV) file (cpe_cases.epicollect_data.tsv) and Tree (Newick) file (cpe_cases.tree.nwk). In this new window click on ‘Continue’. In the next window, make sure the column ‘barcode’ is selected as the ‘ID Column’ and then click on ‘Continue’. The ‘ID column’ is the column in the metadata file that must match the strain labels in the phylogenetic tree (i.e. tip or leave labels).
 
 Once the form is completed your data will be utilized to create a MicroReact project. You should now have a view like the one shown in Figure 3.
 ![](images/microreact_fig3.png)
