@@ -15,42 +15,33 @@ Genome assembly is a key step in genomic analysis, enabling researchers to recon
 
 ![Figure 1](AssemblyFig1.png)
 
-The desired outcome is to achieve long contiguous DNA sequences (contigs). We will have to try to put fragmented DNA sequences back to its original, ordered continuous state (whether it is linear or circularized DNA), and this process is called genome assembly. The fundamental principal of genome assembly is to look for overlaps between fragments, and you will appreciate why longer reads are advantageous here.
+The desired outcome is to achieve long contiguous DNA sequences (contigs). We will have to try to put fragmented DNA sequences back to its original, ordered continuous state (whether it is linear or circularized DNA), and this process is called genome assembly. The fundamental principal of genome assembly is to look for overlaps between fragments.
 
-![Figure 2](AssemblyFig2.png)
+Imagine we are trying to reassemble the genome at the top of this figure from short reads. In this example, the genome is non-repetitive and the complete genome can be reassembled easily.
 
+![Shortreadgood](shortread_good.png)
 
-<details>
-<summary>Assembly algorithms</summary>
+In this example, there is a repeat in the reference genome. Using the short reads, we cannot resolve the genome structure around this repeat.
+
+![Shortreadbad](shortread_bad.png)
+
+This example has the same reference genome but the reads are of a longer length. As the reads are longer than the repeat region, the genome can be completely assembled.
+
+![Longreadgood](longread_good.png)
+
+## Assembly algorithms
 
 ### De Bruijn graphs
 
-Short-read assemblers predominantly rely on de Bruijn graphs, which break the sequencing
-reads into fixed-lengths called k-mers. Overlaps between k-mers are identified and represented
-as edges in a graph, with k-mers as nodes. However, challenges arise with repetitive regions,
-which can create ambiguities in the graph structure.
+Short-read assemblers predominantly rely on de Bruijn graphs, which break the sequencing reads into fixed-lengths called k-mers. Overlaps between k-mers are identified and represented as edges in a graph, with k-mers as nodes. However, challenges arise with repetitive regions, which can create ambiguities in the graph structure.
 
 ### String graphs
 
-Long-read assemblers use string graphs, which directly represent overlaps between entire reads
-instead of breaking them into k-mers. This method is well suited for long-read data, as the
-greater read lengths can span across repetitive regions and reduce fragmentation. String graphs
-allow for a more straightforward assembly process but requires accurate overlap detection and
-can also require error correction, particularly if using older long-read sequencing datasets. The
-resulting assemblies if often more contiguous, capturing complex genomic regions that are
-challenging for short-read assemblers.
-
-</details>
+Long-read assemblers use string graphs, which directly represent overlaps between entire reads instead of breaking them into k-mers. This method is well suited for long-read data, as the greater read lengths can span across repetitive regions and reduce fragmentation. String graphs allow for a more straightforward assembly process but requires accurate overlap detection and can also require error correction, particularly if using older long-read sequencing datasets. The resulting assemblies are often more contiguous, capturing complex genomic regions that are challenging for short-read assemblers.
 
 ### Assembly graph vs final assembly <a name="graphfinal"></a>
 
-The two main files produced by genome assemblers are an assembly graph (.gfa) and the final
-genome assembly (.fasta). The assembly graph represents an intermediate output of the
-assembly process, detailing the connections between reads or contigs as nodes and edges in a
-graphical format. It includes unresolved regions, repetitive sequences, and possible alternative
-paths that are not yet fully resolved into a linear sequence. In contrast, the final assembly file
-provides a polished and linearised sequence of contigs, representing the best approximation of
-the bacterial genome after resolving ambiguities and filtering out alternative paths.
+The two main files produced by genome assemblers are an assembly graph (.gfa) and the final genome assembly (.fasta). The assembly graph represents an intermediate output of the assembly process, detailing the connections between reads or contigs as nodes and edges in a graphical format. It includes unresolved regions, repetitive sequences, and possible alternative paths that are not yet fully resolved into a linear sequence. In contrast, the final assembly file provides a polished and linearised sequence of contigs, representing the best approximation of the bacterial genome after resolving ambiguities and filtering out alternative paths.
 
 ### Software check <a name="software"></a>
 
@@ -212,7 +203,7 @@ Bacterial genome annotation is an important process for interpreting raw genomic
 Tools such as [Prokka](https://github.com/tseemann/prokka) have revolutionised this workflow by offering an automated, high-throughput solution for generating annotated genome files. Utilising genome assembly fasta files, Prokka integrates curated databases and advanced algorithms to deliver precise predictions and functional assignments, facilitating robust and reproducible annotation.
 The annotated genome files, commonly formatted as GFF3 (.gff), serve as foundational resources for a wide range of downstream applications. These include comparative genomics, phylogenetic analyses, as well as aiding in the development of diagnostic tools.
 
-1. Use the following Prokka command to annotate the cpe004_hybrid.fasta assembly:
+1. Use the following Prokka command to annotate the cpe004_hybrid.fasta assembly (this will take 20-30 minutes):
 
 ```
 prokka --cpus 1 --prefix cpe004_hybrid --outdir prokka/ cpe004_hybrid.fasta

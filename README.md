@@ -19,6 +19,9 @@ Module 6: [Phylogenetic Analysis](course_modules_2025/PhylogeneticAnalysis/Phylo
 
 Module 7: [Phylogenetic Visualization](course_modules_2025/PhylogeneticVisualization/PhylogeneticVisualization.html)
 
+Module 8: [Metagenomics (PDF)](course_modules_2025/Metagenomics/ComputationalPractical_8_Metagenomics_AMR_CZID.pdf)
+
+
 
 ## Citing and Re-using Course Material
 

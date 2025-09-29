@@ -32,6 +32,7 @@ Table 1 CPE strains to be analysed in this practical
 | *E. coli* | Roberts *et al.* 2024 | cpe069 | ERR5386299 | cpe069_Eco-NDM1.fasta |
 | *M. tuberculosis* | Hall *et al.* 2023 | R21363 | ERR5987445 | ERR5987445_1.fastq.gz and ERR5987445_2.fastq.gz |
 | *B. pseudomallei* | Evans *et al.* 2025 | LSP2320879 | - | 286137_LSP2320879.fasta |
+
 Table 2 Additional strains to be analysed (optional).
 
 | Species	| Study and origin | Strain Id | Genome accession | Assembly file name |
@@ -84,17 +85,6 @@ After making sure the latest AMR database is downloaded, you can run amrfinder o
 ```bash
 amrfinder -n data/cpe004_Kpn-ST78-NDM1.fasta -O Klebsiella_pneumoniae -o cpe004_Kpn-ST78-NDM1_amrfinder.txt
 ```
-
-We will change the default delimiter of AMRFinder output file to make it easier to open with Excel:
-
-```bash
-cat cpe004_Kpn-ST78-NDM1_amrfinder.txt | tr '\t' ',' > cpe004_Kpn-ST78-NDM1_amrfinder.csv
-```
-
-The command above will run amrfinder on the *Klebsiella pneumoniae* strain cpe004 we created an assembly for in previous practicals.
-
-It should take a few minutes for this command to finish.
-
 From the command above, note the following chosen options:
 - AMRFinder only supports the processing of input nucleotide sequences in FASTA format (with the ```-n/--nucleotide``` option), and not the analysis of raw reads in fastq format. This means that raw reads must be de novo assembled first.
 - The option ```-o/--output``` allows you to choose the name of the output file.
@@ -105,13 +95,19 @@ Use ```amrfinder -l``` to list the organism options supported by AMRFinder:
 ```bash
 amrfinder -l
 ```
-
 You will find taxa like ‘Klebsiella_pneumoniae’, ‘Staphylococcus_aureus’ or ‘Salmonella’ included among the list of supported organisms.
+
+We will change the default delimiter of AMRFinder output file to make it easier to open with Excel:
+
+```bash
+cat cpe004_Kpn-ST78-NDM1_amrfinder.txt | tr '\t' ',' > cpe004_Kpn-ST78-NDM1_amrfinder.csv
+```
 
 The command below will execute AMRFinder on our CPE *E. coli* strain of interest (Table 1):
 ```bash
 amrfinder -n data/cpe069_Eco-NDM1.fasta -O Escherichia -o cpe069_Eco-NDM1_amrfinder.txt
 ```
+
 ```bash
 cat cpe069_Eco-NDM1_amrfinder.txt | tr '\t' ',' > cpe069_Eco-NDM1_amrfinder.csv
 ```
@@ -175,25 +171,29 @@ You can look at the [pre-XDR strain results](https://tbdr.lshtm.ac.uk/results/SR
 
 ## AMR detection using Pathogenwatch <a name="pathogenwatch"></a>
 
-(Pathogenwatch)[https://pathogen.watch/] is one of most intuitive an easy-to-use web-based platforms for the analysis of bacterial genomes, developed by The Centre for Genomic Pathogen Surveillance (CGPS), UK, that can be used to detect AMR in the genomes of many bacterial pathogens (but not all). You will be provided with pre-generated genome assemblies that can be directly uploaded as input to this tool. Once uploaded, Pathogenwatch performs strain identification, multi-locus sequence typing (MLST) and resistance prediction in an automated manner. Recently, the website was upgraded with the option to upload raw sequencing reads (those obtained directly from sequencing machines without further bioinformatic processing), but as the upload and analysis of raw reads takes much longer, we will be upload the genome assemblies provided instead.
+[Pathogenwatch](https://pathogen.watch/) is one of the most intuitive and easy-to-use web-based platforms for the analysis of bacterial genomes, developed by The Centre for Genomic Pathogen Surveillance (CGPS), UK. Once uploaded, Pathogenwatch performs strain identification, multi-locus sequence typing (MLST) and resistance prediction in an automated manner. Recently, the website was upgraded with the option to upload raw sequencing reads (those obtained directly from sequencing machines without further bioinformatic processing), but as the upload and analysis of raw reads takes much longer, we will be upload the genome assemblies provided instead.
 
-Open the (website)[https://pathogen.watch/] on a new Firefox tab. Click on the “upload” button at the top right corner as indicated by the arrow in **Figure 1**.
+Open the [Pathogenwatch website](https://pathogen.watch/) on a new Firefox tab. Click on the “upload” button at the top right corner as indicated by the arrow in **Figure 1**.
 ![](images/Picture_1.png)
+
 **Figure 1.** Pathogenwatch home page.
 
 You will need to sign in using one of the available options (**Figure 2**) before you can upload any genomes.
 
 ![](images/Picture_2.png)
+
 **Figure 2.** Pathogenwatch log in options.
 
 Once logged in, a new window with genome upload options will appear as shown in **Figure 3**.
 
 ![](images/Picture_3.png)
+
 **Figure 3.** Pathogenwatch genome upload options.
 
 Click on the ‘Single Genome FASTAs’ option and select the genome assembly file of the **_Klebsiella pneumoniae_ strain cpe004**. Next, a new window with upload information will appear (**Figure 4**). Click on the ‘Add files’ button to open the file browser and select the file ```cpe004_Kpn-ST78-NDM1.fasta```. The file will be uploaded and the analysis will begin automatically.
 
 ![](images/Picture_4.png)
+
 **Figure 4.** Pathogenwatch genome upload information.
 
 The new page (**Figure 5**) will show the status of the different genome analyses being conducted by Pathogenwatch on the background. Click on “**View Genomes**” once all analyses have finalised as pointed by the arrow. In the next window, click on “**View report**”.
@@ -201,14 +201,16 @@ The new page (**Figure 5**) will show the status of the different genome analyse
 ![](images/Picture_5.png)
 **Figure 5.** Pathogenwatch page on analysis status.
 
-The Pathogenwatch genome report (**Figure 6**) contains information on multi-locus sequence typing (MLST) at the top (TYPING) followed by antimicrobial resistance (AMR), and quality control (QC) stats. Spend some time familiarising yourself with the sections and content of the report and ask your instructor for clarifications if needed.
+The Pathogenwatch genome report (**Figure 6**) contains information on multi-locus sequence typing (MLST) at the top (TYPING) followed by antimicrobial resistance (AMR), and quality control (QC) stats.
 
 ![](images/Picture_6.png)
+
 **Figure 6.** Pathogenwatch genome report for _Klebsiella pneumoniae_ strain cpe004.
 
-Now click on the AMR section of the report (arrow in **Figure 7**). Scroll down and pay particular attention to the ‘Resistance determinants’, that is, the AMR genes and mutations detected in the genome assembly of our strain of interest. Spend some time exploring the AMR report, compare these results with those obtained with AMRFinder and ResFinder for strain cpe004.
+Now click on the AMR section of the report (arrow in **Figure 7**). Scroll down and pay particular attention to the ‘Resistance determinants’, that is, the AMR genes and mutations detected in the genome assembly of our strain of interest, and compare these results with those obtained with AMRFinder for strain cpe004.
 
 ![](images/Picture_7.png)
+
 **Figure 7.** AMR report for _Klebsiella pneumoniae_ strain cpe004.
 
 ### Optional - if time allow
@@ -219,9 +221,16 @@ Additionally, obtain the Pathogenwatch report for the two additional *S. aureus*
 
 Try running `amrfinder` on a strain of *B. pseudomallei*, the fasta file is in the `data` directory and is called `286137_LSP2320879.fasta`. Make sure to use the `-O` option to specify the organism as `Burkholderia_pseudomallei`.
 
+<details>
+    <summary>ARdAP command</summary>
+
+```
+amrfinder --nucleotide data/286137_LSP2320879.fasta -O Burkholderia_pseudomallei
+```
+</details>
  What phenotypic resistance would you predict for this strain using AMRFinder?
 
- [ARdAP](https://pmc.ncbi.nlm.nih.gov/articles/PMC7724162/) y Madden et. al. is designed specifically for prediction of antimicrobial resistant in *B. pseudomallei*. This link is to the [report](286137_LSP2320879_report.html) produced by running ARdAP on this strain of *B. pseudomallei*.
+ [ARdAP](https://pmc.ncbi.nlm.nih.gov/articles/PMC7724162/) by Madden et. al. is designed specifically for prediction of antimicrobial resistant in *B. pseudomallei*. This link is to the [report](286137_LSP2320879_report.html) produced by running ARdAP on this strain of *B. pseudomallei*.
 
  What phenotypic resistance does ARdAP predict for this strain? Which tools gives the most clinically relevant results?
 
@@ -237,10 +246,10 @@ ResFinder, originally developed to detect acquired AMR genes, was later expanded
 
 ### ResFinder commands
 
-ResFinder can analyse both paired-end Illumina reads in fastq.gz format and genome assemblies in FASTA format. ResFinder can be run on the command line but it is quite complicated to install and run - for small jobs a [web interface](https://genepi.food.dtu.dk/resfinder) is available and easier to use. The instructions for installation and use of ResFinder on the command line can be accessed [here](course_modules_2025/DetectingResistance/ResFinder.md)
+ResFinder can analyse both paired-end Illumina reads in fastq.gz format and genome assemblies in FASTA format. ResFinder can be run on the command line but it is quite complicated to install and run - for small jobs a [web interface](https://genepi.food.dtu.dk/resfinder) is available and easier to use. The instructions for installation and use of ResFinder on the command line can be accessed [here](ResFinder.md).
 
 
-References:
+### References:
 
 Phelan, J. E. et al. Integrating informatics tools and portable sequencing technology for rapid detection of resistance to anti-tuberculous drugs. Genome Med. 11, 41 (2019).
 

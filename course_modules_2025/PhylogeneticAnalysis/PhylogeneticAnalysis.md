@@ -15,10 +15,9 @@ Modified by Dr Elizabeth Batty, August 2025
 9. [Trait evolution](#trait)
 10. [Types of phylogenetic groups](#types)
 11. [Detecting potential conflicting evolutionary signals within the MSA](#recombination)
-12. [Phylogenetic network reconstruction](#network)
-13. [Take-home messages](#messages)
-14. [Answers to exercises on interpreting phylogenetic trees](#answers)
-15. [Bibliography](#biblio)
+12. [Take-home messages](#messages)
+13. [Answers to exercises on interpreting phylogenetic trees](#answers)
+14. [Bibliography](#biblio)
 
 ---
 
@@ -59,7 +58,9 @@ The very first and arguably the most critical step in reconstructing a phylogeny
 
 ![](images/phy_Figure_3.png)
 
-**Figure 3. How polymorphic sites may inform phylogenetic inference.** An example of a simple MSA of eight sites from four strains, which include monomorphic (squared) and polymorphic sites. Genetic changes in the phylogenetic tree are showed as coloured vertical rectangles on the branch where they originated. The identification of genetic changes (alleles) that are unique and common to multiple taxa (strains) are used to group them into phylogenetic clusters in a hierarchical manner with the goal of constructing the most plausible genealogical relationships between strains.
+**Figure 3. How polymorphic sites may inform phylogenetic inference.**
+
+An example of a simple MSA of eight sites from four strains, which include monomorphic (squared) and polymorphic sites. Genetic changes in the phylogenetic tree are showed as coloured vertical rectangles on the branch where they originated. The identification of genetic changes (alleles) that are unique and common to multiple taxa (strains) are used to group them into phylogenetic clusters in a hierarchical manner with the goal of constructing the most plausible genealogical relationships between strains.
 
 In the previous session, we ran **Snippy** to map the short Illumina reads and **call SNPs** for an individual *Klebsiella pneumoniae* isolate. Now will attempt to construct a molecular phylogeny from this so-called *SNP alignment*.
 
@@ -83,13 +84,13 @@ First, activate the conda environment for the phylogenetic analysis module:
 `conda activate PhylogeneticAnalysis`
 
 ```
-seqkit stats Kpn_ST78.cpe058.fas --all --gap-letters "- . N"
+seqkit stats data/Kpn_ST78.cpe058.fas --all --gap-letters "- . N"
 ```
 
 We can also manipulate the MSA to extract only polymorphic sites across all samples (i.e., SNPs):
 
 ```
-snp-sites -c -m -o Kpn_ST78.cpe058.snps.fas Kpn_ST78.cpe058.fas
+snp-sites -c -m -o Kpn_ST78.cpe058.snps.fas data/Kpn_ST78.cpe058.fas
 ```
 
 Finally, we will run `pairsnp`, a tool developed to quickly obtain pairwise SNP distance matrices from multiple sequence alignments:
@@ -101,6 +102,7 @@ pairsnp -c Kpn_ST78.cpe058.strain_ids.snps.fas > Kpn_ST78.cpe058.pairsnp.csv
 Let’s have a look at your MSA with MEGA. MEGA is a program with a graphical user interface, which is free and easy to use. You can examine your MSA in MEGA by drag your MSA file to the program, and the program will ask “How would you like to open this fasta file?”. Click “Align”, and you should see your alignment as shown in **Figure 4**.
 
 ![](images/phy_Figure_4.png)
+
 **Figure 4, MSA visualised in MEGA**
 
 Q: How many positions are there in your MSA? Are there any ‘gaps’ / ‘missing bases’ in your alignment?
@@ -137,19 +139,16 @@ Heuristic search is almost always needed to find the ML solution. Conceptually, 
 
 Here, we will use `IQ-TREE 2` to estimate an **ML phylogeny** from your MSA. `IQ-TREE 2` is an open-source command line tool that can perform a variety of phylogenetic analyses.
 
-
 ```
-iqtree2 -s Kpn_ST78.cpe058.fas -T 1 --mem 4G --ufboot 1000 --prefix Kpn_ST78.cpe058_iqtree -wbtl
+iqtree -s data/Kpn_ST78.cpe058.fas -T 1 --mem 4G --ufboot 1000 --prefix Kpn_ST78.cpe058_iqtree -wbtl
 ```
 
-Spend some time exploring what each of ``iqtree2`` parameters chosen mean - more information about IQTree2 options can be found by typing ``iqtree2 -h`` on your terminal – and identify the right output phylogenetic file.
+Spend some time exploring what each of the ``iqtree`` parameters chosen mean - more information about IQTree2 options can be found by typing ``iqtree -h`` on your terminal – and identify the right output phylogenetic file.
 
 With this command, the program will infer an ML tree from your MSA file (as specified via the parameter `-s`), compute something called “clade support” based on 1,000 bootstrap MSAs (see below) using the ultrafast bootstrap approximation method (`--ufboot 1000`), and write the bootstrap trees into a file with branch length information (as specified by the flag `-wbtl`).
 
 Behind the scenes, this command also automatically selects the ‘best-fit nucleotide substitution model structure’ for you by using ModelFinder (see below). This command also performs, under its default setting, the tree searching with 100 initial parsimony trees (`--ninit 100`). 20 top initial parsimony trees are subsequently optimised with ML nearest neighbour interchange search to initialise the candidate set (`--ntop 20)`, and the program then performs the ML tree search using the top 5 trees in the candidate set (`--nbest 5`).
-<details>
-    <summary>Nucleotide substitution model selection</summary>
----
+
 There are three major components to a nucleotide substitution model, including:
 * Equilibrium nucleotide frequencies: the simplest model structure is to restrict all nucleotide bases to be the same (25%; +FQ), while the most relaxed structure is to allow all bases to have their own frequency to be estimated by the program (+F: empirical base frequencies or +FO: ML optimised base frequencies).
 * Relative transition rates among all 4 types of nucleotide bases: most common nucleotide substitution models are time-reversible, meaning that the rate of base X changes to Y (X -> Y) is constrained to be equal to the rate of Y->X, reducing the number of parameters to just 6 (A-C, A-G, A-T, C-G, C-T and G-T) from 12 (A->C, A->G, A->T, C->A, C->G, C->T, G->A, G->C, G->T, T->A, T->C, and T->G). The Jukes and Cantor 1969 (JC69) model has the simplest model structure, assuming all rates to be equal (and all four nucleotide frequencies to be equal as well), which is perhaps too simplistic / unrealistic for most cases. Other simple ones, but slightly more complicated, are the Kimura 1980 (K80) model and the Hasegawa, Kishino, and Yano 1985 (HKY85) model, which allow the rates of nucleotide transition (A-G, and C-T) and transversion changes (A-C, A-T, C-G, and G-T) to be different, with K80 assuming equal nucleotide frequencies while HKY85 allowing frequencies of different nucleotides to be different. The most general time-reversible model possible is called the Generalised Time-Reversible model of Tavaré 1986 or the GTR model, which allows nucleotide frequencies, and all of the six symmetrical rates of nucleotide changes to have different values. Note that `IQ-TREE 2` also has the unrestricted non-time reversible model implemented in it as well, in which the rate X-> Y is allowed to be different from that of Y->X, and the frequencies of the four base types can also be different. This model structure is very flexible; however, in order for this model to be meaningfully estimated, the program must somehow know from the beginning the direction of time in your phylogeny (by including some outgroups, for example, see below).
@@ -172,39 +171,170 @@ For each model structure, `IQ-TREE 2` will try to estimate ML parameter values, 
 
 Q: What is the best fit nucleotide substitution model for your MSA? Can you make sense of it?
 
----
-</details>
-
 Explore the variety of **output files** obtained from this run and identify which resulting phylogenetic tree file we should take forward.
 
 Q: Given that **polymorphic sites** (i.e., SNP) are the most informative from an evolutionary point of view, why did not we use the MSA alignment with SNPs only? Note that we used the entire chromosomal MSA (which includes mostly monomorphic sites) as input for IQTree.
 
 Now, let’s have a look at your tree in `Figtree`. `FigTree` is a program developed specifically for **phylogenetic tree visualisation**. And just like `MEGA` and `IQ-TREE` 2, it is free, and is quite easy to use!
 
+`FigTree` can be downloaded from the [Github page](https://github.com/rambaut/figtree/releases/tag/v1.4.4). Select and install the appropriate version for your system (.dmg for Mac, .zip for Windows, and .tgz for Linux).
+
 To use `FigTree` to explore the tree you just made, first launch the program by simply double clicking the program icon. Click the menu “`File`” on the program’s menu bar, and select “`Open...`”, and a file navigation system should pop up. Search for your tree file, and then click “`Open`” to import the tree to the program. The program will alert you that “`The node/branches of the tree are labelled. Please select a name for these values.`” These are the bootstrap clade support values (see below). So, let us set the name of these labels to “`Clade support”` and click “`OK`”. The program should then show you your tree (**Figure 5**).
 
 ![](images/phy_Figure_5.png)
+
 **Figure 5. Phylogenetic visualization with FigTree.**
 
 Q: Inspect your ML tree using Figtree, and explore the program a bit. Does the tree look alright in your opinion? How are strains clustered on the tree? How good is the bootstrap value supporting this clustering?
 
-## 5. Phylogeny estimation with bootstrapping <a name="bootstrapping"></a>
-See section in [PDF manual](course_modules_2025/PhylogeneticAnalysis/PhylogeneticAnalysis.pdf) of this module.
 
-## 6. Rooting your tree <a name="rooting"></a>
-See section in [PDF manual](course_modules_2025/PhylogeneticAnalysis/PhylogeneticAnalysis.pdf) of this module.
+## 5. Rooting your tree <a name="rooting"></a>
+For a phylogeny to show genealogical relationships, which intrinsically have a time direction, you need to first root your tree (for further details, see "How to read a phylogenetic tree?" below). With just an MSA as input, IQ-TREE 2 doesn’t root the tree for you, and it actually cannot, as there is no temporal information to be found at all in your MSA — your MSA can only provide information about genetic dissimilarity among a set of organisms, and not at all
+about the direction of molecular changes or time. This is actually why most common nucleotide substation models are time-reversible, and why IQ-TREE 2 can’t give a rooted tree (without extra information) to you. An ‘unrooted tree’, also known as an ‘affinity tree’, simply indicates the overall degrees of dissimilarity among the depicted taxa.
+There are several ways to root an unrooted tree. Here, we have included Germany_2019_Kpn_ST78 as our outgroup, and we will use this information to specify the direction of time in our phylogeny. An outgroup is simply a group of organisms that you know for certain from some other sources of information that they are genetically related but not part of your in-group, in our case, the outbreak strains investigated.
+In Figtree, open our tree file, and to root our tree with strain Germany_2019_Kpn_ST78, simply click on its terminal branch and click the "Reroot" icon on the main menu bar. Now your tree should look like the one shown in Figure 6.
+
+![](images/phy_Figure_6.png)
+
+**Figure 6. Rooted phylogeny.**
+
+## 6. Phylogeny estimation with bootstrapping <a name="bootstrapping"></a>
+
+It is important to appreciate that phylogenetic inference is inherently statistical, guided by only a limited number of organisms that we could get our hands on, and done under a large number of statistical and biological assumptions. Thus, uncertainty in the estimated tree should always be taken into consideration when describing inferred phylogenetic groups (and evolutionary relationships in general).
+However, as previously mentioned, an ML method only provides a single ‘best-fit evolutionary model’ that most likely generates the observed data (your MSA in this case). So, how can we estimate an uncertainty associated with this one ML solution?
+In this case, we can use the ‘bootstrap’ method, invented by Bradley Efron in 1979. In statistics, bootstrapping is a technique to assign variability to sample estimates, relying on random sampling with replacement. In our context, it is our MSA that will be bootstrapped, that is, resampled by randomly selecting sites (i.e., columns) with replacement to construct a (pseudo)replicate alignment of the same length. This means that some columns may be sampled multiple times, while some columns would not be sampled at all since the sampling is with replacement. Thus, the resulting MSA would be slightly different from the original data. This sequence alignment is called a bootstrap replicate or sometimes a pseudoreplicate dataset. We can then perform the same analysis on this bootstrap sample to get a bootstrap tree (and other associated parameters). Repeat this process a large number of times (typically 1,000 times, or more) until a population of bootstrap trees (and other evolutionary parameters) is obtained.
+Once we have a distribution of bootstrap trees, we can then compute bootstrap clade support values (also known as branch support values) for each clade in your main tree — classically, a bootstrap clade support value is defined as ‘the proportion of the trees in the bootstrap distribution showing that clade’, first proposed by Felsenstein in 1985. Robust relationship should be repeatable, and subsequently observed in a large proportion of the bootstrap data. Therefore, if you get 100 out of 100 times for a particular clade, you may therefore conclude that the inferred clade is unlikely due to chance, and a real one. A clade with a bootstrap support value of, say, 80 means that 80% of the trees in the bootstrap distribution contain that clade.
+One of the most common misconceptions about clade support values is that they indicate the confidence in the ‘split’ at the base of the clade. This is false — the number does not say anything about the branching structure of or within the clade it refers to. This confusion perhaps stems from the fact that support values are sometimes shown next to the nodes on the end of branches, which represent diversification events. Thus, if possible, it is best to display branch support values on branches, and not on nodes, to avoid propagating this confusion.
+One important thing to note here is that, according to the IQ-TREE 2 developer, the ultrafast bootstrap (UFBoot) method implemented in IQ-TREE 2 is less biased compared to the classic (and more conservative) Felsenstein’s bootstrap support value described above — while a clade with a Felsenstein’s support value of 75–80% is typically already considered ‘well-supported’, it is recommended that a clade should be regarded as well-supported when its UFBoot support is ≥95%, corresponding roughly to a probability of 95% that a clade is true. Learn more about this [here](http://www.iqtree.org/doc/Frequently-Asked-Questions#how-do-i-interpret-ultrafast-bootstrap-ufboot-support-values).
+Now, let’s have a look at the clade support in your tree. To display branch support on the tree in Figtree, check the "Branch Labels" box, and select "Clade support" under the "Display" option (Figure 7). If you find the numbers too small, you can increase the font
+size by adjusting the number in the "Font Size" box.
+
+![](images/phy_Figure_7.png)
+
+**Figure 7. Tree with clade support**
+
+What is the clade support value for each of the main distinct clades you see on your tree?
 
 ## 7. How to read a phylogenetic tree <a name="readtree"></a>
-See section in [PDF manual](course_modules_2025/PhylogeneticAnalysis/PhylogeneticAnalysis.pdf) of this module.
+
+A phylogeny is a diagrammatic hypothesis that depicts relationships, or relatedness, of a set of biological entities. Figure 1 above illustrates what a typical phylogeny might look like. Mathematically speaking, a phylogeny is simply a ‘tree’ graph that contain a set of nodes connected together by a set of branches or edges. To illustrate genealogical relationships, which intrinsically has a time dimension, requires that the tree graph is directed, having all branches pointing away from the root node. This in turn allows us to organise the genealogical relationships in a nested hierarchical fashion. Nodes at the tips of the tree are called terminal nodes, or leaves, or simply tips, representing individual organisms used to reconstruct the tree. An internal node in a rooted tree, in which the direction of time is well defined, can be thought of as a divergence event, where a single taxon diversifies to give rise to two or more descendants, who may further diversify down the tree to give rise to more descendants, and so on. An internal node with descendants can thus be thought of as the most recent common ancestor (MRCA) of all of its subsequent descendants as well, with the root node representing the MRCA of all of the organisms in the tree. The root is the oldest node in the tree, defining the direction of time or the flow of genetic information in the tree, moving away from the root towards the tips. A branch connecting two organisms together indicates their evolutionary relatedness, representing the ‘line of decent’ or the path of vertical transmission of genetic information from one organism (parent) to the next (descendent). One can also think of a branch as a continuous chain of organisms linking by (imperfect) reproduction. Branch length is typically drawn proportionally to the degree of differences between the two connected organisms, usually in the units of ‘years’ or ‘substitutions per site’ — the longer the branch,the larger the amount of changes or divergent time it represents. In such cases, a scale bar is often provided to give a scale for the branch length (instead of labelling each branch with its length). Note that when we talk about branches, only the lines along the time axis (horizontal lines, Figure 1) count. Lines perpendicular to the time axis (vertical lines, Figure 1) have no meaning — they do not count as parts of the branches, and are simply there to lay out the tree visually so that the labels and branches do not overlap on top of each other. Several terms can be used to refer to the general overall pattern of diversification process, including branching order, branching pattern, or simply tree topology.
 
 ## 8. Relatedness <a name="relatedness"></a>
-See section in [PDF manual](course_modules_2025/PhylogeneticAnalysis/PhylogeneticAnalysis.pdf) of this module.
+
+One key concept in phylogenetics is relatedness. Relatedness is determined by how recently organisms share a common ancestor — the more recently they share a common ancestor, the more closely related they are. We will explore an example below from the family tree of the organisms A to F (Figure 8) to see how we can describe evolutionary relationships from a phylogeny.
+
+![](images/phy_Figure_8.png)
+
+**Figure 8. Phylogenetic trees of hypothetical asexual organisms. Each blue circle represents an individual organism. The direction of time is from left to right, and arrows indicate the direction of the relationship between individuals; parent is at the base and its descendant is at the tip. Lineages of organisms that manage to
+survive up until the 10th generation are drawn with thick solid arrows, otherwise drawn with thin dashed arrows.**
+
+Based on their family tree, we can say that:
+* A and B share the MRCA one generation ago.
+* C, D, and E also share the MRCA one generation ago.
+* A, B, C, D and E share the MRCA two generations ago, and this ancestral organism exists prior to the MRCA of A, and B, and the MRCA of C, D, and E.
+* A is more closely related to B than C, since A shares a common ancestor more recently with B than it does with C.
+* In fact, since A and B are more closely related to each other than any other organisms on the tree, A and B are said to be sister groups.
+* Although B is depicted closer to C than A is to C on the family tree, both A and B are equally related to C since they both last share a common ancestor with C two generations ago.
+* The lineage of A, B, C, D and E could be traced back to the very first generation in the simulation (nine generations ago), when the ancestral organism diversified into two distinct lineages with the other being the ancestral lineage of F.
+Notice that we can make all these statements only because we know precisely the direction of time (i.e., that our tree is rooted), making clear which events come before or after in the evolutionary history of the organisms.
+One important thing to realise is that, in reality, unlike those shown in Figure 8, a phylogeny typically depicts a very much incomplete history of the organisms based on which it is
+reconstructed, showing only lineages of the organisms used to reconstruct the tree (Figure 9).
+
+![](images/phy_Figure_9.png)
+
+**Figure 9. A phylogeny usually features an incomplete evolutionary history of the organisms used to reconstruct the tree, and ancestral organisms along branches, extinct lineages, and evolutionary changes, are usually not drawn on the tree.**
+
+Also bear in mind that a branch is a continuous chain of organisms that are linked together by the process of (imperfect) reproduction, and (multiple) evolutionary changes may occur along the way (and not necessarily at a node, of which the main purpose is to depict a diversification event). Many people often forget this point as ancestral individuals along the branches, extinct lineages, and evolutionary changes are not usually shown on a phylogeny (Figure 9). Indeed, introductory students / researchers may mistakenly project the organisms from the tips backward in time to occupy internal nodes as if no changes have had occurred at all along the branches, which is inappropriate.
+
+For example, based on the tree shown in Figure 9, it would be incorrect to say that the organisms A, B, C and D descended from E, when all the tree implies is that the organisms A, B, C and D are more closely related to each other than to E, and that the five organisms simply share a common ancestor at some point in the past. Likewise, it would be incorrect to say that F is most similar to the root node, when the tree in fact shows that all of the six organisms are equally distantly related to the root (in the unit of time).
+It is also incorrect to say that F evolved earlier than other taxa, when the tree implies that all organisms took the same amount of time to get to where they are on the tree. Also remember that a phylogenetic tree is read along the time axis, and not across the tips of the tree. Relatedness is not about proximity of the names of the organisms on the tree, but how long ago they last share a common ancestor. Therefore, a tree can be drawn in many ways — as long as they depict the same evolutionary relationships (i.e., showing the same tree topologies and branch lengths), they are the same trees (Figure 10).
+
+![](images/phy_Figure_10.png)
+
+**Figure 10. A tree can be drawn in many ways. As long as they depict the same tree topologies and branch lengths, they are the same trees.**
+
+Now it is your turn to do some exercises! Answer the questions below based on this rooted tree shown in Figure 11.
+
+![](images/phy_Figure_11.png)
+
+**Figure 11 A hypothetical tree of 10 samples and 1 outgroup**
+
+**Question 1.** Based on the tree above, what internal node corresponds to the MRCA of samples
+8 and 10:
+* Node F
+* Node D
+* Sample 7
+* Node E
+
+**Question 2.** Based on the tree above, which group of samples are most closely related:
+* Samples 1 to 5
+* Samples 6 & 7
+* Samples 6 to 10
+* Samples 8 & 9
+
+**Question 3.** Based on the tree above, which of the following statements referring to sample 10
+is most accurate:
+* Sample 10 is more closely related to sample 7 than to sample 8
+* Sample 10 is more closely related to sample 8 than to sample 7
+* Sample 10 is equally related to sample 7 and sample 8
+* Sample 10 is related to sample 8, but it is not related to sample 7
+
+**Question 4.** Based on the tree above, which of the following statements referring to sample 7
+is most accurate:
+* Sample 7 is more closely related to sample 8 than to sample 10
+* Sample 7 is more closely related to sample 10 than to sample 8
+* Sample 7 is equally related to sample 8 and sample 10
+* Sample 7 is related to sample 8, but it is not related to sample 10
+
+Answers are given at the end of the practical.
 
 ## 9. Trait evolution <a name="trait"></a>
-See section in [PDF manual](course_modules_2025/PhylogeneticAnalysis/PhylogeneticAnalysis.pdf) of this module.
+
+In molecular phylogenetic analysis, we often have information about our samples beyond their molecular sequences, such as their taxonomic group, sampling locations, biological features, etc. One thing we can do with a tree is to use it as a scaffold to unite all of this information under a single framework. Statistical methods can then be applied to infer how ancestral organisms might have looked like in the past. Phylogenetic structures of the investigated traits can then be examined to learn more about their past evolutionary history beyond the relatedness of the organisms. Such an analysis falls within the realm of phylogenetic comparative study — a study of an evolutionary process from a combination of phylogenetic and phenotypic data.
+In the context of infectious disease epidemiology, a phylogenetic tree is commonly used to identify where person-to-person transmission occurs; to identify the sources and study the transmission routes of outbreak and epidemic clones; and to determine whether bacterial clones are restricted to specific hosts and settings or, on the contrary, able to circulate among multiple ones. A common phylogenetic method used to study how bacterial traits evolved is ancestral state reconstruction (Figure 12).
+
+![](images/phy_Figure_12.png)
+
+**Figure 12. Traits evolutionary study by ancestral state reconstruction. Strains on the same tree are labelled based on the presence of different traits. Arrows indicate what internal node (ancestor) in the tree most likely changed (lost or gained) such a trait.**
+
+Bacterial traits we may be interested in reconstructing include:
+* geographical location — to then identify movement between regions / transmission events
+* colonising or infecting host — to enable us to identify host jumps
+* antibiotic susceptibility — to enable us to identify
+evolution of antimicrobial resistance.
+The emergence and spread of individual mutations, genes and mobile genetic elements can also be reconstructed in a bacterial phylogeny using this method.
+Ancestral state reconstruction is a difficult subject. One simple way to do this is to use the principle of parsimony to infer the most likely scenario, positing that the most preferred trait evolutionary model is the simplest one, involving the smallest total number of trait changes required to explain the data.
+Now, apply this concept to the rooted tree shown in Figure 13 with tips annotated with sampling locations to infer geographical locations at each internal node, and answer the
+following questions.
+
+![](images/phy_Figure_13.png)
+
+**Figure 13. A hypothetical tree of 10 samples and 1 outgroup with tips annotated with sampling location**
+
+**Question 5.** Based on the country of origin of samples on the tree above, which of the following statements about transmission events is more certain:
+* The common ancestor of samples 6 to 10 (node D) most likely circulated in country A first and later on transmitted to country B and C
+* The common ancestor of samples 6 to 10 (node D) most likely circulated in country B first and later on transmitted to country C
+* The common ancestor of samples 6 to 10 (node D) most likely circulated in country C first and later on transmitted to country B
+* The common ancestor of samples 6 to 10 (node D) could have circulated in country A or B
+
+**Question 6.** Based on the country of origin of samples on the tree above, which of the following statements about transmission events is more certain:
+* The common ancestor of samples 1 to 10 (node A) most likely circulated in country A first and later on transmitted to country B and C
+* The common ancestor of samples 1 to 10 (node A) most likely circulated in country B first and later on transmitted to country A and C
+* The common ancestor of samples 1 to 10 (node A) most likely circulated in country C first and later on transmitted to country A and B
+* The common ancestor of samples 1 to 10 (node A) could have circulated in country A or B
+
+Answers are given at the end of the practical.
 
 ## 10. Types of phylogenetic groups <a name="types"></a>
-See section in [PDF manual](course_modules_2025/PhylogeneticAnalysis/PhylogeneticAnalysis.pdf) of this module.
+In the case that you have a classification scheme, another thing you can do with your tree is to examine phylogenetic structures of your taxa. Under a phylogenetic framework, we can categorise organismal taxa into three classes (Figure 14):
+
+![](images/phy_Figure_14.png)
+
+**Figure 14. Various types of phylogenetic groups.**
+
+* Monophyletic group: a group of an organism and all of its descendants. A monophyletic group is also known as a clade.
+* Paraphyletic group: a group of an organism, and some of its descendants.
+* Polyphyletic group: a group of organisms that have multiple evolutionary origins, or a group that is not defined by a single common ancestor. This is equivalent to a group of organisms that do not contain their MRCA.
 
 ## 11. Detecting potential conflicting evolutionary signals within the MSA <a name="recombination"></a>
 
@@ -214,20 +344,13 @@ Owing to the now highly affordable and advanced sequencing technologies, phyloge
 
 In the context of molecular phylogenetic reconstruction, it is commonly assumed that all sites within the analysed MSA have the same underlying tree (although different sites may allow to have different evolutionary rates and probabilities of character substitutions). If this assumption is met, then a single tree diagram is sufficient for depicting the histories of all features used in the analysis. However, this assumption is violated more often than not, especially in large-scale phylogenetic analysis of bacteria due to the pervasive HGT outlined above. Thus, it is best to always check for potential presence of mosaic sequences in the dataset analysed; otherwise, naïve application of a standard method to a dataset containing mosaic sequences, which often assumes all molecular sites to share the same underlying phylogeny, could potentially produce a severely biased tree (reviewed in [here](https://doi.org/10.1016/B978-0-323-99886-4.00013-2).
 
-`SplitsTree` is, again, a free program with a graphic user interface for computing unrooted ‘phylogenetic’ networks from molecular sequence data (see below). To perform the Phi test on your MSA, open the program. Then click “`File`” > “`Open`”. A file navigation window should pop up. Locate your MSA file and then open the file in the program. The program will automatically generate a phylogenetic network for you, but let’s ignore it for now.
-
-To perform phi test, click “`Analysis`” > “`Run Phi Test for Recombination`”.
-
-Q: Does your MSA contain an overall significant signal of recombination?
-
 Now, we will run **Gubbins (Genealogies Unbiased By recomBinations In Nucleotide Sequences)**, a commonly used bioinformatics tool to identify loci containing elevated densities of base substitutions, which are marked as recombination, and to build a phylogeny based on the putative point mutations outside of these regions.
 
 Gubbins is installed inside its own conda environment. Activate this now:
 `conda activate gubbins`
 
-
 ```
-run_gubbins.py Kpn_ST78.cpe058.fas --prefix Kpn_ST78.cpe058.gubbins --use-time-stamp --threads 1 --first-tree-builder fasttree --tree-builder raxml --outgroup Germany_2019_Kpn_ST78
+run_gubbins.py data/Kpn_ST78.cpe058.fas --prefix Kpn_ST78.cpe058.gubbins --use-time-stamp --threads 1 --first-tree-builder fasttree --tree-builder raxml --outgroup Germany_2019_Kpn_ST78
 ```
 
 Spend some time familiarising yourself with the options and parameters available on Gubbins:
@@ -245,10 +368,14 @@ Pay particular attention to the files containing the detected recombination (i.e
 We will use a script made available by Gubbins to mask recombinant regions detected by Gubbins from the input alignment:
 
 ```
-mask_gubbins_aln.py --aln Kpn_ST78.cpe058.fas --gff Kpn_ST78.cpe058.gubbins.recombination_predictions.gff --out Kpn_ST78.cpe058.rmRCB.fas
+mask_gubbins_aln.py --aln data/Kpn_ST78.cpe058.fas --gff Kpn_ST78.cpe058.gubbins.recombination_predictions.gff --out Kpn_ST78.cpe058.rmRCB.fas
 ```
 
-You can inspect this new alignment with `seqkit stats` to confirm the alignment contains the same number of sequences and length of the alignment:
+You can inspect this new alignment with `seqkit stats` to confirm the alignment contains the same number of sequences and length of the alignment. First reactivate the conda environment with seqkit in:
+`conda activate PhylogeneticAnalysis`
+
+Then run `seqkit`:
+
 ```
 seqkit stats Kpn_ST78.cpe058.rmRCB.fas
 ```
@@ -260,34 +387,44 @@ pairsnp -c Kpn_ST78.cpe058.rmRCB.fas > Kpn_ST78.cpe058.rmRCB.pairsnp.csv
 
 Finally, let’s run `IQTree 2` on the latest alignment with masked recombination:
 ```bash
-iqtree2 -s Kpn_ST78.cpe058.rmRCB.fas -T 4 --mem 4G --ufboot 1000 --prefix Kpn_ST78.cpe058.rmRCB_iqtree -wbtl
+iqtree -s Kpn_ST78.cpe058.rmRCB.fas -T 4 --mem 4G --ufboot 1000 --prefix Kpn_ST78.cpe058.rmRCB_iqtree -wbtl
 ```
 
-Note that output files have been named with the suffix `rmRCB` (removed recombination) not to overwrite the output files generated by `iqtree2` earlier.
+Note that output files have been named with the suffix `rmRCB` (removed recombination) not to overwrite the output files generated by `iqtree` earlier.
 
 Compare the IQTree phylogenetic trees before (left tree in image below) and after removing recombination (on the right).
 
 ![](images/phy_Figure_16.png)
+
 **Figure 16. FigTree visualisation of the *Klebsiella pneumoniae* ST78 tree before and after removing recombination.**
 
 Q: What differences can be observed in the topology, clustering, and branch length of the trees?
 Tip: inspect as well the pairwise SNP distances generated by pairsnp.
 
-## 12. Phylogenetic network reconstruction <a name="network"></a>
-See section in PDF manual of this module.
-
-## 13. Take-home messages <a name="messages"></a>
+## 12. Take-home messages <a name="messages"></a>
 
 Phylogenetic analysis is now a standard practice for microbiologists. Here, you have learnt the basic about how to estimate organismal phylogenetic relationships from molecular data, and how to interpret phylogenies. We have also covered a few methods to detect conflicting evolutionary signals within molecular data, and how to deal with them using phylogenetic network analysis. Additionally, we briefly touched on examining the phylogenetic structure of trait evolution and grouping.
 
-While this might seem like a lot already, this is just the beginning. The applications of phylogenetic analysis extend far beyond what we have covered here. To give you a few examples, phylogenetic analysis can be used to estimate effective population size dynamics, trace the detailed transmission history of pathogens, and establish correlations between genetic factors and phenotypic traits such as drug resistance. We hope that this practical has provided you a somewhat solid foundation and sparked your interest in the broader applications of phylogenetic analysis. 😊
+While this might seem like a lot already, this is just the beginning. The applications of phylogenetic analysis extend far beyond what we have covered here. To give you a few examples, phylogenetic analysis can be used to estimate effective population size dynamics, trace the detailed transmission history of pathogens, and establish correlations between genetic factors and phenotypic traits such as drug resistance. We hope that this practical has provided you a somewhat solid foundation and sparked your interest in the broader applications of phylogenetic analysis.
 
 Keep exploring!
 
-## 14. Answers to exercises on interpreting phylogenetic trees <a name="answers"></a>
-See section in PDF manual of this module.
+## 13. Answers to exercises on interpreting phylogenetic trees <a name="answers"></a>
 
-## 15. Bibliography <a name="biblio"></a>
+
+**Question 1:** 'Node E' is the correct answer. 'Node F' is an ancestor of sample 8 but not of sample 10. 'Node D' is a common ancestor of samples 8 and 10, but it is more ancient than 'node E'. 'Sample 7' is a living specimen and is not an ancestor.
+
+**Question 2:** Samples 1 to 5 is the correct answer. Remember that in a tree represented as a rectangular layout, the length of horizontal lines (branches) represent genetic distances whereas vertical lines are only used to connect horizontal lines. In the tree above, samples 1 to 5 have the shortest branches connecting them to their common ancestor (node B).
+
+**Question 3:** Sample 10 is more closely related to sample 8 than to sample 7. The MRCA of samples 10 and 8 is at node E, whereas the MRCA of samples 10 and 7 is at node D, which is deeper (more ancestral) in the tree.
+
+**Question 4:** Sample 7 is equally related to sample 8 and sample 10. The MRCA of samples 7 and 8 is at node D, as is the MRCA of sample 7 and 10. All descendants of node E are equally related to sample 7.
+
+**Question 5:** The common ancestor of samples 6 to 10 (node D) most likely circulated in country B first and later on transmitted to country C. Country B is the most likely origin of the common ancestor represented by 'node D' because its direct descendants ('node C' and 'node E') both contain samples collected on this country. Later on, one clone transmitted from country B to C before diversifying (represented by 'node F') to then give rise to sample 8 and 9.
+
+**Question 6:** The common ancestor of samples 1 to 10 (node A) could have circulated either in countries A or B. Information on the countries of origin of samples that descended from more ancestral nodes to 'Node A' is needed to draw a more definitive conclusion.
+
+## 14. Bibliography <a name="biblio"></a>
 
 Aiewsakun P. Microbial evolutionary reconstruction in the presence of mosaic sequences. *Phylogenomics*. 1st ed. Elsevier, 2024, 177–217.
 

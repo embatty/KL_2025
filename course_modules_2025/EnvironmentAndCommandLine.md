@@ -4,6 +4,7 @@
 2. [Installing Conda](#conda)
 3. [Download the course data files](#downloads)
 4. [Set up Conda environments](#environments)
+5. [Other software tools](#Software)
 
 ---
 
@@ -32,7 +33,7 @@ This will download the correct installer. Then you can run the installer with th
 Download the course data files from [link]() and put them in a folder that you can see in your command line terminal.
 (instructions for windows go here).
 
-For each module, there is a folder which contains the data you will need to run the practical exercises for each module. There is also a subdirectory named `outputs` which has the output files produced in each module - if you have any trouble running any of the steps of the practical, you can look at the output anyway.
+All the course data is in the `course_data_2025` directory. Inside this directory there is a subdirectory for each module which contains the data you will need to run the practical exercises for each module. The raw data you need is in the `data` subdirectory. There is also a subdirectory named `outputs` which has the output files produced in each module - if you have any trouble running any of the steps of the practical, you can look at the output anyway.
 
 ## Setting up conda environments <a name="environments"></a>
 
@@ -40,7 +41,7 @@ A conda environment is a convenient way to install a set of software tools so th
 
 We have provided conda environment files, which will automatically set up a conda environment for you with all the software you need for each module.
 
-All the environment files are in the `EnvironmentFile` subdirectory. For each module there is one environment file, which is named after the module and ends with the `.yaml` file extension.
+All the environment files are in the `EnvironmentFile` subdirectory of the `course_data_2025` directory you downloaded. For each module there is one environment file, which is named after the module and ends with the `.yaml` file extension.
 
 Navigate to the `EnvironmentFile` subdirectry using the `cd` and `ls` commands.
 
@@ -75,6 +76,14 @@ conda env create -n PhylogeneticAnalysis -f PhylogeneticAnalysis.yaml
 conda env create -n Gubbins -f Gubbins.yaml
 conda env create -n DetectingResistance -f DetectingResistance.yaml
 ```
+
+## Other software tools <a name="software"></a>
+
+There are a few other bioinformatics tools which will be useful during this course. Download and install the following software:
+
+* [MEGA](https://www.megasoftware.net/)
+* [FigTree](https://github.com/rambaut/figtree/releases/tag/v1.4.4)
+* [Bandage](https://rrwick.github.io/Bandage/)
 
 <!---
 ```bash
