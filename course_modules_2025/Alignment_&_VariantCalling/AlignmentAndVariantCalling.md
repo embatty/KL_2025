@@ -27,7 +27,7 @@ And check you have the following tools available:
 
 ## Data Preparation <a name="dataprep"></a>
 
-We will map Illumina short read data from a strain of _Klebsiella pneumoniae_. The data files you will need (read files, and a reference genome) are already downloaded for you and are in the `AlignmentAndVariantCalling` directory wherever you placed the downloaded data.
+We will map Illumina short read data from a strain of _Klebsiella pneumoniae_. The data files you will need (read files, and a reference genome) are already downloaded for you and are in the `data` subdirectory of the `AlignmentAndVariantCalling` directory.
 
 <details>
     <summary>Downloading data</summary>
@@ -46,7 +46,7 @@ Download a Klebsiella pneumoniae reference genome from https://www.ncbi.nlm.nih.
 ## Short Read Alignment and SNP Calling with Snippy <a name="snippy"></a>
 First we prepare our data using `fastp` to remove adapters and low-quality bases, as we practiced in the Data QC module.
 ```
-fastp -i ERR4095905_1.fastq.gz -I ERR4095905_2.fastq.gz -o out.ERR4095905_1.fastq.gz -O out.ERR4095905_2.fastq.gz
+fastp -i data/ERR4095905_1.fastq.gz -I data/ERR4095905_2.fastq.gz -o out.ERR4095905_1.fastq.gz -O out.ERR4095905_2.fastq.gz
 ```
 
 [Snippy](https://github.com/tseemann/snippy) is an all-in-one tool for bacterial SNP calling using short-read data. It aligns the reads to a reference genome and calls variants.
@@ -54,7 +54,7 @@ fastp -i ERR4095905_1.fastq.gz -I ERR4095905_2.fastq.gz -o out.ERR4095905_1.fast
 Run Snippy and examine the output.
 
 ```
-snippy --cpus 1 --outdir ERR4095905_snippy --reference cpe058_Kpn-ST78-NDM1.fasta --R1 out.ERR4095905_1.fastq.gz --R2 out.ERR4095905_2.fastq.gz
+snippy --cpus 1 --outdir ERR4095905_snippy --reference data/Kpne_HS11286.fna --R1 out.ERR4095905_1.fastq.gz --R2 out.ERR4095905_2.fastq.gz
 ```
 
 This will take about ten minutes to run. All the output files from your Snippy run will be placed in the output directory `ERR4095905_snippy`. Look at the output files and refer to the Snippy homepage to tell you what is in each output file.
@@ -80,25 +80,19 @@ Note the formats and contents of each output file. By default all the files prod
 ## Post-processing and Analysis <a name="postprocess"></a>
 
 ### 1. Filter SNPs:
+Make sure you are back in the root directory for this module (`AlignmentAndVariantCalling` and not the `snippy` subdirectory).
+
 We can also apply filters to the VCF files to remove or tag low-quality SNPs using `bcftools`. For instance, to remove SNPs with a depth of coverage (DP) below 30 for the sample ERR4095905:
 
 ```
-bcftools filter -e 'FMT/DP<30' ERR4095905_snippy/snps.vcf > snps.depthfilter.vcf
+bcftools filter -e 'FMT/DP<30' ERR4095905_snippy/snps.vcf > ERR4095905_snps.depthfilter.vcf
 ```
 
 How many SNPs were removed through filtering?
-<detail><summary>Answer</summary>
+<detail><summary>Hint</summary>
 You can count the number of lines in the SNP file before and after filtering using the `wc -l` command.
 </detail>
 
-<!---
-### 2. Annotation of SNPs:
-Use [snpEff](https://pcingola.github.io/SnpEff/snpeff/running/) to annotate the SNPs.
-
-```
-java -Xmx8g -jar snpEff.jar reference filtered_snps_short.vcf > annotated_snps_short.vcf
-```
--->
 ### 3. Visualization:
 Visualize the alignment and SNPs using tools using [Integrative Genomics Viewer (IGV)](https://igv.org/doc/desktop/#DownloadPage/). This cannot be installed using Conda but you can download it directly to your computer.
 
