@@ -4,8 +4,8 @@
 2. [Installing Conda](#conda)
 3. [Download the course data files](#downloads)
 4. [Set up Conda environments](#environments)
-5. [Other software tools](#Software)
-
+5. [Other software tools](#software)
+6. [The command line](#commandline)
 ---
 
 ## Introduction to bioinformatics software <a name="intro"></a>
@@ -30,8 +30,7 @@ This will download the correct installer. Then you can run the installer with th
 
 ## Download the course data files <a name="downloads"></a>
 
-Download the course data files from [link]() and put them in a folder that you can see in your command line terminal.
-(instructions for windows go here).
+Download the course data files from [this link](https://drive.google.com/drive/folders/1HhF6K61-2zvSkkDtfu9ixpqknHEJ_cur?usp=sharing), unzip the files and put them in a folder that you can see in your command line terminal. For all future practicals you will need to navigate to this directory.
 
 All the course data is in the `course_data_2025` directory. Inside this directory there is a subdirectory for each module which contains the data you will need to run the practical exercises for each module. The raw data you need is in the `data` subdirectory. There is also a subdirectory named `outputs` which has the output files produced in each module - if you have any trouble running any of the steps of the practical, you can look at the output anyway.
 
@@ -85,9 +84,14 @@ There are a few other bioinformatics tools which will be useful during this cour
 * [FigTree](https://github.com/rambaut/figtree/releases/tag/v1.4.4)
 * [Bandage](https://rrwick.github.io/Bandage/)
 * [Integrative Genomics Viewer (IGV)](https://igv.org/doc/desktop/#DownloadPage/)
+
 For MEGA you will also need to create an account the first time you run the software, and log in and select the "Free" account plan.
 
 For FigTree, if you do not already have Java installed on your computer you will also need to install a Java runtime first.
+
+## Using the command line <a name="commandline"></a>
+
+If you need more instruction on the command line, there is a tutorial [here](course_modules_2025/Intro_to_UNIX_CommandLine/ComputationalPractical_1_Introduction_to_the_Command_Line_and_Unix.pdf)
 
 <!---
 ```bash

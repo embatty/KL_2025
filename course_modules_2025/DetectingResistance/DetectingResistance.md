@@ -7,8 +7,7 @@
 4. [AMR detection for tuberculosis using TBProfiler](#tbprofiler)
 5. [AMR detection using Pathogenwatch](#pathogenwatch)
 6. [AMR detection for melioidosis using ARdAP](#ardap)
-6. [AMR detection using Resfinder (optional)](#resfinder)
----
+7. [AMR detection using Resfinder (optional)](#resfinder)
 
 ## Introduction <a name="intro"></a>
 
@@ -18,13 +17,13 @@ AST is routinely performed using culture-based techniques in clinical diagnostic
 
 Mutational (chromosomal) resistance is the main driver of acquired resistance in certain bacterial species, such as *Mycobacterium tuberculosis* and *Helicobacter pylori*, or for particular antibiotics, especially to synthetic agents such as fluoroquinolones and oxazolidinones. Resistance mutations are vertically transmitted, i.e., via clonal reproduction of bacteria, or can be transmitted horizontally via homologous recombination between different strains. Gene-mediated resistance is the main driver of acquired resistance in certain bacterial species, particularly in gram-negatives. Resistance genes can be horizontally transmitted (via mobile genetic elements such as plasmids) and vertically transmitted via clonal reproduction of bacteria, particularly stable if integrated into the chromosome. In some bacterial species, chromosomal and gene-mediated resistance are equally common (e.g., *Staphylococcus aureus*). Resistance to the same antibiotic can be conferred by both mutations and acquired genes (e.g., fusidic acid in Staphylococcus aureus, colistin resistance in *Escherichia coli*).
 
-Over the years, several global studies have identified the genes and mutations that confer resistance to particular antibiotics. There are several databases such as the [Comprehensive Antimicrobial Resistance Database (CARD)](https://card.mcmaster.ca/), [ResFinder](https://cge.cbs.dtu.dk/services/ResFinder/), [AMRFinde](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder/) or [Pathogenwatch](https://pathogen.watch/) that contain information about the genes and mutations that confer resistance. The use of these databases and tools depends on the species and mechanisms of resistance one is interested in.
+Over the years, several global studies have identified the genes and mutations that confer resistance to particular antibiotics. There are several databases such as the [Comprehensive Antimicrobial Resistance Database (CARD)](https://card.mcmaster.ca/), [ResFinder](https://cge.cbs.dtu.dk/services/ResFinder/), [AMRFinder](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder/) or [Pathogenwatch](https://pathogen.watch/) that contain information about the genes and mutations that confer resistance. The use of these databases and tools depends on the species and mechanisms of resistance one is interested in.
 
 ## Bacterial strains to be analysed in this practical <a name="strains"></a>
 
 Table 1 contains the list of strains to be analysed in this practical from a carbapenemase-resistant enterobacteriaceae outbreak. Table 2 contains additional strains to be analysed (optionally, if time allows) sourced from key studies on the genomic epidemiology of methicillin-resistant *Staphylococcus aureus* (MRSA) ([Holden *et al.* 2013](https://doi.org/10.1101/gr.147710.112)) and extensively drug-resistant (XDR) *Salmonella typhi* ([Klemm *et al.* 2018](https://doi.org/10.1128/mbio.00105-18)). In this practical we will use a command line-based tool (NCBI AMRFinder) and a web-based tool (ResFinder) to identify AMR genetic determinants from whole-genome sequences, and look at a specific tool used to detect resistance in *Mycobacterium tuberculosis*.
 
-Table 1 CPE strains to be analysed in this practical
+**Table 1 Strains to be analysed in this practical**
 
 | Species | Study and origin | Strain Id | Illumina accession | Assembly file name |
 | :---    | :---             | :---      | :---               | :---      |
@@ -33,7 +32,7 @@ Table 1 CPE strains to be analysed in this practical
 | *M. tuberculosis* | Hall *et al.* 2023 | R21363 | ERR5987445 | ERR5987445_1.fastq.gz and ERR5987445_2.fastq.gz |
 | *B. pseudomallei* | Evans *et al.* 2025 | LSP2320879 | - | 286137_LSP2320879.fasta |
 
-Table 2 Additional strains to be analysed (optional).
+**Table 2 Additional strains to be analysed (optional)**
 
 | Species	| Study and origin | Strain Id | Genome accession | Assembly file name |
 | :---    | :---             | :---      | :---               | :---      |
@@ -53,7 +52,7 @@ Then load the conda enviroment:
 
 `conda activate DetectingResistance`
 
-## WGS-based prediction of AMR using AMRFinderPlus <a name="amrfinder"></a>
+## AMR detection using AMRFinderPlus command line <a name="amrfinder"></a>
 
 ### Introduction to AMRFinderPlus
 
@@ -72,14 +71,14 @@ Use ‘amrfinder -u’ to download and prepare database for AMRFinderPlus:
 ```bash
 amrfinder -u
 ```
-
+<!---
 First, the latest AMR database must be downloaded to our local machine:
 
 ```bash
 mkdir amrfinder_db
 amrfinder_update -d ./amrfinder_db
 ```
-
+-->
 After making sure the latest AMR database is downloaded, you can run amrfinder on genome assemblies, as showed in the command line below:
 
 ```bash
@@ -139,7 +138,7 @@ The table below includes a few rows and some of the columns of the AMRFinderPlus
 
 The column ‘Gene symbol’ indicates the genetic determinant (either acquired gene or point mutation) associated with phenotypic resistance, the latter indicated in the column ‘Subclass’.
 
-## Detecting resistance in *Mycobacterium tuberculosis* using TBProfiler <a name="tbprofiler"></a>
+## AMR detection for tuberculosis using TBProfiler <a name="tbprofiler"></a>
 
 Some bacterial species have specific tools to look at resistance. *Mycobacterium tuberculosis* has an extensive curated database of SNPs which cause drug resistance, and isolates can be classified in different ways as drug resistant (MDR, XDR, pre-XDR) and can also be classified by the glocal lineage they belong to. [TBProfiler](https://tbdr.lshtm.ac.uk/) is a tool specifically designed to look at *Mycobacterium tuberculosis*, and it can be run using the command line or through a web interface. To look at many samples, it will be faster and easier to use the command line, but for this example we will upload one sample to the TBProfiler web interface.
 
@@ -156,10 +155,6 @@ Once the sample has been run you will be able to see the output report. What dru
 <details><summary>Answers</summary>
 
 The sample is resistant to rifampicin and it is from lineage 4.1.1.3.
-
-![rifampicin](images/rifampicin.png)
-
-![lineage](images/lineage.png)
 
 </details>
 
@@ -207,7 +202,7 @@ The Pathogenwatch genome report (**Figure 6**) contains information on multi-loc
 
 **Figure 6.** Pathogenwatch genome report for _Klebsiella pneumoniae_ strain cpe004.
 
-Now click on the AMR section of the report (arrow in **Figure 7**). Scroll down and pay particular attention to the ‘Resistance determinants’, that is, the AMR genes and mutations detected in the genome assembly of our strain of interest, and compare these results with those obtained with AMRFinder for strain cpe004.
+Now click on the AMR section of the report. Scroll down and pay particular attention to the ‘Resistance determinants’, that is, the AMR genes and mutations detected in the genome assembly of our strain of interest, and compare these results with those obtained with AMRFinder for strain cpe004.
 
 ![](images/Picture_7.png)
 
@@ -216,17 +211,14 @@ Now click on the AMR section of the report (arrow in **Figure 7**). Scroll down 
 ### Optional - if time allow
 Additionally, obtain the Pathogenwatch report for the two additional *S. aureus* (from genome assembly files ``HO50960412.fa`` & ``ERR017261.assembly.fa``) and the two *S. typhi* strains (from genome assembly files ``ERR2093245.assembly.fa`` & ``ERR2093329.assembly.fa``).
 
-## Prediction of AMR using ARdAP in Burkholderia pseudomallei <a name="ardap"></a>
+## AMR detection for melioidosis using ARdAP <a name="ardap"></a>
 *Burkholderia pseudomallei* is another species where a targeted tool will more accurately predict resistance than using a multi-species tool like AMRFinder or ResFinder.
 
 Try running `amrfinder` on a strain of *B. pseudomallei*, the fasta file is in the `data` directory and is called `286137_LSP2320879.fasta`. Make sure to use the `-O` option to specify the organism as `Burkholderia_pseudomallei`.
 
 <details>
-    <summary>ARdAP command</summary>
-
-```
-amrfinder --nucleotide data/286137_LSP2320879.fasta -O Burkholderia_pseudomallei
-```
+    <summary>Answer to the amrfinder command</summary>
+Run 'amrfinder --nucleotide data/286137_LSP2320879.fasta -O Burkholderia_pseudomallei'
 </details>
  What phenotypic resistance would you predict for this strain using AMRFinder?
 
@@ -236,7 +228,7 @@ amrfinder --nucleotide data/286137_LSP2320879.fasta -O Burkholderia_pseudomallei
 
  ARdAP can be installed on your own computer using the instructions [here](https://github.com/dsarov/ARDaP).
 
-## WGS-based prediction of AMR using ResFinder <a name="resfinder"></a>
+## AMR prediction using ResFinder (optional) <a name="resfinder"></a>
 
 ### Introduction to ResFinder
 
@@ -248,6 +240,7 @@ ResFinder, originally developed to detect acquired AMR genes, was later expanded
 
 ResFinder can analyse both paired-end Illumina reads in fastq.gz format and genome assemblies in FASTA format. ResFinder can be run on the command line but it is quite complicated to install and run - for small jobs a [web interface](https://genepi.food.dtu.dk/resfinder) is available and easier to use. The instructions for installation and use of ResFinder on the command line can be accessed [here](ResFinder.md).
 
+If time allows, try running ResFinder on some of the isolates we looked at using AMRfinder and compare the results.
 
 ### References:
 

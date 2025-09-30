@@ -1,26 +1,23 @@
 # Computational practical: Accessing Data and Quality Control
 
-**Original Module Developers:** Dr. Stanford Kwenda, Mr. Collins Kigen and Mr Mishalan Moodley
-
-Modified by Liz Batty, September 2025
+Originally developed by Dr. Stanford Kwenda, Mr. Collins Kigen and Mr Mishalan Moodley, modified by Liz Batty, September 2025
 
 ## Table Of Contents
 
-[Introduction](#intro)
-
-1. [Downloading raw data](#download)
-2. [Running the FastQC tool](#runfastqc)
-3. [Basic statistics](#basics)
-4. [Per base sequence quality](#perbase)
-5. [Per sequence quality scores](#persequence)
-6. [Per base sequence content](#persequencecontent)
-7. [Per sequence GC content](#persequencegc)
-8. [Per base N content](#perbasen)
-9. [Sequence duplication levels](#duplication)
-10. [Adapter content](#adapters)
-11. [QC Exercise and Quiz](#qcexercise)
-12. [Filtering and trimming of sequence reads](#filttrim)
-13. [Trimming Exercise and Quiz](#trimexercise)
+1. [Introduction](#intro)
+2. [Downloading raw data](#download)
+3. [Running the FastQC tool](#runfastqc)
+4. [Basic statistics](#basics)
+5. [Per base sequence quality](#perbase)
+6. [Per sequence quality scores](#persequence)
+7. [Per base sequence content](#persequencecontent)
+8. [Per sequence GC content](#persequencegc)
+9. [Per base N content](#perbasen)
+10. [Sequence duplication levels](#duplication)
+11. [Adapter content](#adapters)
+12. [QC Exercise and Quiz](#qcexercise)
+13. [Filtering and trimming of sequence reads](#filttrim)
+14. [Trimming Exercise and Quiz](#trimexercise)
 
 # Introduction <a name="intro"></a>
 A typical whole genome sequencing process involves genomic DNA isolation, library preparation and sequencing. Errors occurring at any of these steps can negatively impact the quality of the sequence information and hence affect downstream analysis. For example, the samples could be mixed up or contaminated during sample or library preparation, or errors can be encountered during the sequencing itself. If these errors are not removed from the raw reads, they might be incorporated into your analysis output and would be harder to resolve later on. Therefore, it is important to perform quality checks on the raw sequence reads before starting your analysis.
@@ -34,7 +31,7 @@ Let's assess the sequence data quality of an isolate of *Escherichia coli* (ERR5
 
 Open your browser and navigate to [https://www.ebi.ac.uk/ena/browser/view/ERR5386320](https://www.ebi.ac.uk/ena/browser/view/ERR5386320) to look at the data available for this sample. You can download the data through the web browser, but it can often be easier to download all the data using the command line. Try right-clicking on the FASTQ file to get the direct link to the file.
 
-Now open the terminal and change your working directory to the directory with the files for this practical, which is a folder called `AccessingDataAndQC`. If you put the data in your `home/` folder, you can navigate to this directory:
+Now open the terminal and change your working directory to the directory with the files for this practical, which is a folder called `AccessingDataAndQC`. For instance, if you put the data in your `home/` folder, you can navigate to this directory:
 
 `cd /home/data/course_data_2025/AccessingDataAndQC`
 
