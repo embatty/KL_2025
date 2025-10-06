@@ -7,6 +7,7 @@ Original version by Dr Arun Gonzales Decano, modified by Liz Batty September 202
 3. [Data preparation](#dataprep)
 4. [Short Read Alignment and SNP Calling with Snippy](#snippy)
 5. [Post-processing and Analysis](#postprocessing)
+6. [Long Read Alignment and Variant Calling](#longreads)
 
 ## Introduction  <a name="intro"></a>
 
@@ -108,9 +109,8 @@ Then you can load BAM files of sequence reads which are mapped to the genome. Sn
 Now use the zoom commands in the top right to zoom in until you can see the reads. You should have a screen which looks a little like this:
 ![igv_screenshot](images/igv_screenshot.png)
 
-### Long read variant calling
+### Long read variant calling <a name="longreads"></a>
 Variant calling from long reads can be performed in a similar way to short reads but using different tools designed for long read sequencing.
-<details><summary>Long read variant calling protocol</summary>
 
 Long Read Alignment with minimap2 and SNP Calling with Medaka or DeepVariant.
 
