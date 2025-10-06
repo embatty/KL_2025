@@ -73,7 +73,7 @@ This will take about ten minutes to run. All the output files from your Snippy r
 Now we run snippy-core and examine the output. Snippy-core compares the output of SNP calling on multiple samples run using Snippy to look at the 'core' genome, where we can call variants in all samples. Three samples previously run on Snippy can be found in the `AlignmentAndVariantCalling/snippy` directory. First, navigate to this directory, and then run Snippy-core across all samples:
 
 ```
-snippy-core --ref Kpne_HS11286.fna snippy/ERR4095905_snippy/ snippy/ERR4095977_snippy/ snippy/ERR9419473_snippy/
+snippy-core --ref snippy/Kpne_HS11286.fna snippy/ERR4095905_snippy/ snippy/ERR4095977_snippy/ snippy/ERR9419473_snippy/
 ```
 
 Note the formats and contents of each output file. By default all the files produced by snippy-core will starting with `core.`
