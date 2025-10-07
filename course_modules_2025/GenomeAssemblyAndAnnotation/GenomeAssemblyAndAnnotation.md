@@ -202,7 +202,7 @@ Bacterial genome annotation is an important process for interpreting raw genomic
 Tools such as [Prokka](https://github.com/tseemann/prokka) have revolutionised this workflow by offering an automated, high-throughput solution for generating annotated genome files. Utilising genome assembly fasta files, Prokka integrates curated databases and advanced algorithms to deliver precise predictions and functional assignments, facilitating robust and reproducible annotation.
 The annotated genome files, commonly formatted as GFF3 (.gff), serve as foundational resources for a wide range of downstream applications. These include comparative genomics, phylogenetic analyses, as well as aiding in the development of diagnostic tools.
 
-1. Use the following Prokka command to annotate the cpe004_hybrid.fasta assembly (this will take 20-30 minutes):
+1. Use the following Prokka command to annotate the cpe004_hybrid.fasta assembly (this will take 20-30 minutes).  Remember to re-activate the conda environment with `prokka` installed: `conda activate GenomeAssemblyAndAnnotation`
 
 ```
 prokka --cpus 1 --prefix cpe004_hybrid --outdir prokka/ cpe004_hybrid.fasta
