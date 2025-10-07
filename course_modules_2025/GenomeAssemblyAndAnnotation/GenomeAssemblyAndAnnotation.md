@@ -43,6 +43,10 @@ Long-read assemblers use string graphs, which directly represent overlaps betwee
 
 The two main files produced by genome assemblers are an assembly graph (.gfa) and the final genome assembly (.fasta). The assembly graph represents an intermediate output of the assembly process, detailing the connections between reads or contigs as nodes and edges in a graphical format. It includes unresolved regions, repetitive sequences, and possible alternative paths that are not yet fully resolved into a linear sequence. In contrast, the final assembly file provides a polished and linearised sequence of contigs, representing the best approximation of the bacterial genome after resolving ambiguities and filtering out alternative paths.
 
+### What tool should I use with my data?
+
+Ryan Wick has a good [blog post](https://rrwick.github.io/2020/10/30/guide-to-bacterial-genome-assembly.html) to help you decide what assembler is best for you with the data that you have (long reads, short reads, or a mix of the two).
+
 ### Software check <a name="software"></a>
 
 To check the tools required for this practical are correctly installed, open a new terminal
@@ -69,9 +73,6 @@ accession ERR8282741.
 
 The fastq read files have already been processed with QC and filtering steps using the tools and commands shown below.
 
-<details>
-
-<summary>Pre-processing QC and filtering steps </summary>
 Specifically, the Illumina paired-end files were processed using the same fastp command you used in Accessing Data and QC. The Nanopore long-reads have had adapters removed with Porechop, then filtered both on quality and read length with Filtlong, retaining only the best quality reads of minimum 1000 bp length.
 
 | Program | Command |
@@ -79,8 +80,6 @@ Specifically, the Illumina paired-end files were processed using the same fastp 
 |Fastp |fastp --in1 ERR4095909_1.fastq.gz --in2 ERR4095909_2.fastq.gz --out1 cpe004_R1.fastq.gz --out2 cpe004_R2.fastq.gz --length_required 40 --cut_front --cut_tail --cut_mean_quality 25 |
 |Porechop | porechop -i cpe004_long.fastq.gz -o cpe004_porchop.fastq.gz |
 |Filtlong | filtlong --min_length 1000 --keep_percent 95 cpe004_porechop.fastq.gz | gzip > cpe004_filtered.fastq.gz |
-
-</details>
 
 The files we will be using for this practical are listed below and are in the
 `GenomeAssemblyAndAnnotation/data/` folder:
@@ -228,3 +227,16 @@ Prokka produces a number of output files:
 2. Display the top 20 lines of the cpe004_hybrid.gff file
 
 3. Search if any beta-lactamase resistance genes “bla” are present in this genome
+
+### Long read only assembly
+
+If you have time, you can also run an assembly using just long reads from your own nanopore practical. [raven](https://github.com/lbcb-sci/raven) is a fast assembler for long read data - try installing and running `raven` using conda:
+
+```
+conda install -c bioconda raven-assembler
+raven --help
+```
+
+You can use your own reads, or re-use the `cpe004_filtered.fastq.gz` long reads from the practical above. If you have a very high number of reads, or many of them are under 1kb, consider filtering them to get just the best very long reads for assembly.
+
+Then use the `raven` page and help message to create a command line to run an assembly. NOTE that the raven assembler will output the final assembly to stdout, so it will be sent to the screen - you want to redirect the output to a file using the `>` operator.
